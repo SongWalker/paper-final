@@ -114,6 +114,8 @@
 
 %%%%ÉèÖÃ²åÈë´úÂëÑùÊ½%%%%%%%%%%%
 \lstset{language={[ANSI]C},
+frame=shadowbox,
+frame=single,
 aboveskip=1em,
 showstringspaces=false,
 %numbers=left,
@@ -191,7 +193,7 @@ escapeinside=''}
 %\date{2017Äê5ÔÂ}
 
 %\title{CPU-GPUÒì¹¹Æ½Ì¨ÉÏÆ½Ãæ¹âÔ´¼ì²â·½·¨µÄ²¢ĞĞ»¯Éè¼ÆÓëÊµÏÖ}                                % ÌâÄ¿
-\fancyhead[C]{\wuhao{Õª\quad Òª} }
+\fancyhead[CO]{\wuhao{Õª\quad Òª} }
 \noindent
 \textbf{ÂÛÎÄÌâÄ¿£ºCPU-GPUÒì¹¹Æ½Ì¨ÉÏÆ½Ãæ¹âÔ´¼ì²â·½·¨µÄ²¢ĞĞ»¯Éè¼ÆÓëÊµÏÖ}\\
 \textbf{Ñ§ÉúĞÕÃû£ºÕÅÖ¾Ô´}\\
@@ -207,7 +209,7 @@ escapeinside=''}
 
 ×îºó£¬±¾ÎÄ¶Ô²¢ĞĞ»¯ºóµÄ³ÌĞò½øĞĞÁË¶à·½ÃæµÄ²âÊÔºÍ·ÖÎö£¬×Ü½áÁË±ÏÉèµÄ¹¤×÷³É¹û£¬Ò²Ìá³öÁËÔÚGPUµÄÀûÓÃ·½Ãæ´æÔÚµÄ²»×ã£¬Ö¸Ã÷ÁËºóĞøÑĞ¾¿µÄ·½Ïò¡£
 \end{spacing}
-~\\\\
+~\\
 \wuhao\noindent{\bf ¹Ø¼ü´Ê}£º¶àÏß³Ì£»Í¼Ïñ´¦Àí£»GPU£»OpenCV£»CUDA
 
 
@@ -215,17 +217,25 @@ escapeinside=''}
 
 \clearpage % »»Ò³£¬\newpageÒ²¿ÉÒÔ£¬ÍÆ¼ö\clearpage
 
-\fancyhead[C]{\wuhao{ABSTRACT} }
+\fancyhead[CO]{\wuhao{ABSTRACT} }
 \renewcommand{\abstractname}{\normalfont\sanhao{ABSTRACT}}%
 \noindent
 \textbf{Title: XXXXXXXXXXXXXXXXX£¨ÂÛÎÄÌâÄ¿²»ÄÜ³¬¹ı35 ¸öºº×Ö£©}\\
 \textbf{name:ZhiYuan Zhang}\\
-\textbf{Supervisor: XXX}
+\textbf{Supervisor: XiYuan Wu}
 \section*{ABSTRACT}
 \sectionmark{ABSTRACT}
-\noindent
-£¨ÕâÀï·ÅÖÃabstractµÄÎÄ×Ö£©\\\\
-\wuhao\noindent{\bf KEY~WORDS}£º
+\begin{spacing}{1.5}
+In the continuous development of high-tech, to achieve full automation is the future direction of industrial manufacturing. Intelligent detection as a key link in the automation, the real-time requirements of the operation of the machine is a rigid demand. Based on the automatic detection of defects in mobile phone screen, this paper mainly studies the program optimization method in the image processing process, and improves the running speed to meet the real-time requirement.
+
+This paper introduces the workflow of the mobile phone screen defect detection system in the production line, according to the actual needs of the use of multi-threaded parallel programming method to optimize. In order to solve the bottleneck of CPU computing power, the use of GPU high concurrent computing to improve the performance of some image processing functions.
+
+Multi-threaded parallel program, according to the program's workflow design of the two types of threads, explains how to allocate threads, and the use of OpenMP some of the cycle of the process of parallel processing. The use of GPU computing is mainly in the CUDA architecture, with the help of OpenCV CUDA module to achieve, for the detection algorithm in the specific function of transplantation; and in the transplant process designed to facilitate the expansion and maintenance of the program framework.
+
+Finally, this article has carried on the multidimensional test and the analysis to the parallel procedure, has summarized the work result, also put forward the insufficiency in the utilization of the GPU, pointed out the follow-up research direction.
+\end{spacing}
+~\\
+\wuhao\noindent{\bf KEY~WORDS}:Multi-Thread;Image Processing;GPU;OpenCV;CUDA
 
 \clearpage % »»Ò³
 %%%%%Ò³Ã¼Ò³½ÅÉèÖÃ%%%%%%%%%%%%%%%%%%%
@@ -332,7 +342,7 @@ escapeinside=''}
 ³ÌĞòÊ¹ÓÃÅäÖÃÎÄ¼şÀ´±£´æ³ÌĞòÖĞ»áÓÃµ½µÄ¸÷ÖÖËã·¨²ÎÊı¡¢±äÁ¿£¬°üÀ¨ÊäÈëÍ¼ÏñµÄ·Ö±æÂÊ¡¢ÓĞĞ§ÇøÓò·¶Î§µÈµÈ¡£
 ÅäÖÃÎÄ¼şÒÔiniµÄÎÄ¼ş¸ñÊ½±£´æ£¬¶ÁÈ¡Ëã·¨²ÎÊıÊ±Ôò½«ÎÄ¼ş¶ÁÈë²¢ÖğĞĞÊ¶±ğ×Ö·û¡£ÎÄ¼şµÄÊéĞ´¸ñÊ½ÈçÏÂËùÊ¾£º
 %\clearpage
-\begin{lstlisting}[language=C]
+\begin{lstlisting}
 [system]
 captured_img_width        = 6600
 captured_img_height       = 4400
@@ -421,22 +431,21 @@ Canny±ßÔµ¼ì²âËã·¨ÊµÏÖ£©ºÍ»ùÓÚÂË²¨µÄ·½·¨£»ÆÁÄ»±íÃæÈ±ÏİµãµÄÍ¼ÏñÉî¶È£¨¼´ÑÕÉ«ÉîÇ³£©º
 
 
 \subsection{ÊÖ»úÆÁÄ»È±Ïİ¼ì²â³ÌĞòµÄ×ÜÌåÓÅ»¯·½°¸}
-¼ì²âËã·¨µÄÔ´³ÌĞòÊÇ»ùÓÚOpenCVµÄC++´úÂë£¬Ä¿Ç°È·¶¨µÄÓÅ»¯·½°¸¶¨ÓĞÈıÖÖ£ºCPU¶àÏß³Ì²¢ĞĞ¡¢CUDA¼Ü¹¹ÏÂµÄGPUÍ¨ÓÃ¼ÆËãÓÅ»¯Ëã·¨¡¢½áºÏGPU¼ÆËãµÄCPU¶àÏß³Ì²¢ĞĞ¡£
+Ä¿Ç°È·¶¨µÄÓÅ»¯·½·¨£¬´Ó³ÌĞòÕûÌå¿ò¼Ü³ö·¢Ê¹ÓÃCPU¶àÏß³Ì²¢ĞĞ£»Õë¶Ô¾Ö²¿´úÂëµÄÓÅ»¯£¬Ó¦ÓÃOpenMP¶ÔÑ­»·½øĞĞ²¢ĞĞ»¯´¦Àí£¬ÒÔ¼°Ê¹ÓÃGPUÍ¨ÓÃ¼ÆËãÓÅ»¯¼ì²âËã·¨¡£
 
 1£©CPU¶àÏß³Ì²¢ĞĞ\\
 ¸Ã·½°¸ÊÇÏÖÔÚÕıÊÊÓÃÖĞµÄÓÅ»¯·½°¸£¬Õë¶ÔÊµ¼ÊÖĞĞèÒªÍ¬Ê±¶Ô¶àÕÅÍ¼Ïñ½øĞĞ´¦ÀíµÄĞèÒª£¨¶ÔÒ»×é²úÆ·ĞèÒªÍ¬Ê±´¦Àí¸²Ä¤ºÍ²»¸²Ä¤Á½×éÍ¼Ïñ£¬Ã¿×é×éÆ¬ÒªÍ¬Ê±´¦Àí×ó¡¢ÓÒÁ½ÕÅ·ÖÀë³öÀ´µÄµ¥±ßÍ¼Ïñ£©£¬ÀûÓÃ¶àºËCPU µÄÏß³Ì²¢·¢À´Í¬Ê±´¦Àí¶àÕÅÍ¼Ïñ¡£¸Ã·½°¸²¢²»ÊÇ´Ó¼ÆËãĞÔÄÜµÄ½Ç¶ÈÀ´½øĞĞ¼ÓËÙ£¬Í¨¹ı¶àºËCPU À´Í¬Ê±´¦Àí¶à¸öÊÂÎñ£»Í¬Ê±ÊäÈëµÄ¶àÕÅÍ¼Æ¬Ö´ĞĞÏàÍ¬µÄ¼ì²âÁ÷³Ì£¬ÓÉÔ­À´µÄ´®ĞĞ´¦Àí±ä³É²¢ĞĞ´¦Àí¡£
 
-2£©CUDA¼Ü¹¹ÏÂµÄGPUÍ¨ÓÃ¼ÆËãÓÅ»¯Ëã·¨\\
-Õâ¸ö·½°¸´Ó¼ÆËãĞÔÄÜµÄ½Ç¶È³ö·¢£¬ÀûÓÃGPUµÄÍ¨ÓÃ¼ÆËãÀ´¶Ô¼ì²âËã·¨ÖĞÌØ¶¨µÄº¯Êı½øĞĞ¼ÓËÙÓÅ»¯¡£
+2£©Ó¦ÓÃOpenMP¶Ô´úÂë½øĞĞ²¢ĞĞ»¯´¦Àí\\
+Í¬ÑùÊÇÀûÓÃCPUµÄ¶àÏß³Ì²¢ĞĞÀ´ÓÅ»¯´úÂë£¬²»Í¬µÄÊÇOpenMPÔÚÕâÀïµÄÓ¦ÓÃÊÇÕë¶ÔÌØ¶¨º¯ÊıÖĞµÄÑ­»·Óï¾ä£¬Ê¹ÓÃOpenMPÀ´¶ÔÕâĞ©´®ĞĞÖ´ĞĞµÄÑ­»·½øĞĞ²¢·¢´¦Àí£¬Í¨¹ıÌá¸ßÕâĞ©¾Ö²¿´úÂëµÄĞ§ÂÊÀ´Ìá¸ß³ÌĞòÕûÌåµÄÔËĞĞĞ§ÂÊ¡£
+
+3£©CUDA¼Ü¹¹ÏÂµÄGPUÍ¨ÓÃ¼ÆËãÓÅ»¯¼ì²âËã·¨\\
+Õâ¸ö·½·¨´Ó¼ÆËãĞÔÄÜµÄ½Ç¶È³ö·¢£¬ÀûÓÃGPUµÄÍ¨ÓÃ¼ÆËãÀ´¶Ô¼ì²âËã·¨ÖĞÌØ¶¨µÄº¯Êı½øĞĞ¼ÓËÙÓÅ»¯¡£
 ¸ÃÏîÄ¿Éæ¼°µÄ¼ÆËãÖ÷ÒªÊÇÍ¼Ïñ´¦ÀíÁìÓòµÄËã·¨£¬Òò´Ë£¬³õ²½µÄ·½°¸ÊÇÊ¹ÓÃOpenCVµÄGPUÄ£¿é£¨OpenCV 3.0ÒÔÉÏ°æ±¾³ÆÎªCUDAÄ£¿é£©£¬
 ½èÖú¸ÃÄ£¿é·á¸»µÄÍ¼ĞÎ´¦ÀíËã·¨À´¶ÔÔ´´úÂë½øĞĞÒÆÖ²£¬²¢¶Ô¸÷Ä£¿éÖğ¸ö½øĞĞĞÔÄÜ²âÊÔ¡£
 ¸Ã·½°¸Êµ¼ÊÔÚÏîÄ¿ÖĞÊÇ±¸Ñ¡·½°¸£¬ÒòÎªGPUÄ£¿é²¢Ã»ÓĞÍêÈ«ÊµÏÖËùÓĞµÄOpenCV Ô­ÓĞµÄÍ¼Ïñ´¦ÀíËã·¨£¬ÔÚÒÆÖ²¹ı³ÌÖĞÒ»µ©³öÏÖÎÊÌâ£¬
 ²¢²»ÄÜ±£Ö¤ÄÜÔÚ¶ÌÊ±¼äÄÚ½â¾ö£»´ËÍâ£¬Ê¹ÓÃCUDA¼Ü¹¹Ò²ÓĞ×Å¶îÍâµÄÊ±¼ä¿ªÏú£¬±ÈÈçÄÚ´æºÍÏÔ´æÖ®¼äµÄÊı¾İ½»»»µÈ£¬ÒªÏêÏ¸½øĞĞĞÔÄÜµÄ±È½ÏºÍÆÀ¹À¡£
 ÔÚ¼ì²âÁ÷³ÌÖĞµÄ¹Ø¼üº¯ÊıÒÆÖ²Íê±Ïºó£¬¾Í¿ÉÒÔ°ÑÕâĞ©º¯ÊıÓ¦ÓÃµ½CPU¶àÏß³ÌÌõ¼şÏÂ£¬½øÒ»²½Ìá¸ßĞÔÄÜ¡£
-
-3£©Ó¦ÓÃOpenMP¶Ô´úÂë½øĞĞ²¢ĞĞ»¯´¦Àí\\
-Õë¶ÔÌØ¶¨º¯ÊıÖĞµÄÑ­»·Óï¾ä£¬Ê¹ÓÃOpenMPÀ´¶ÔÕâĞ©´®ĞĞÖ´ĞĞµÄÑ­»·½øĞĞ²¢·¢´¦Àí£¬Í¨¹ıÌá¸ßÕâĞ©¾Ö²¿´úÂëµÄĞ§ÂÊÀ´Ìá¸ß³ÌĞòÕûÌåµÄ
-ÔËĞĞĞ§ÂÊ¡£
 
 \begin{figure}[H]
 \centering
@@ -487,7 +496,7 @@ frameÏß³Ì°üº¬ÁËÒ»²¿·ÖµÄÍ¼ÏñÔ¤´¦Àí£¬°üÀ¨Í¼Ïñ·ÖÀëºÍÌáÈ¡ÓĞĞ§ÇøÓòÑÚÄ£°æ£»
 1£©GPUÍ¨ÓÃ¼ÆËãºÍCUDAÓ¦ÓÃ·½°¸µÄÑ¡Ôñ
 
 Ëæ×ÅÓÎÏ·ÊĞ³¡µÄ×³´ó£¬·ÂÕæ¼ÆËãµÄĞèÇóµÈÒòËØ£¬ÍÆ¶¯ÁËGPUµÄĞÔÄÜ²»¶ÏÌáÉı¡£¶øGPUÄÚ²¿¶ÀÌØµÄ¼Ü¹¹Ê¹ÆäÔÚ¶àÏß³Ì²¢·¢ÖĞÓµÓĞ
-Ç¿´óµÄ¼ÆËãÄÜÁ¦£¬²¢¿ÉÒÔ×÷ÎªÍ¨ÓÃ¼ÆËãÉè±¸Ó¦ÓÃÓÚÒ½Ñ§¡¢ÌìÎÄºÍ½ğÈÚµÈÁÚÓò¡£¼ÆËã»úÖĞµÄÍ¼ÏñÊÇÒÔ¾ØÕóµÄĞÎÊ½´æ´¢£¬¶øGPUµÄ¸ß²¢·¢¼ÆËãÄÜÁ¦Ê¹ÆäÔÚÍ¼Ïñ´¦Àí·½ÃæÓµÓĞ±ÈCPU¸ü¿ìµÄĞ§ÂÊ\cite{CUDA-gpu}¡£¶øNVIDIAÍÆ³öµÄ»ùÓÚCÓïÑÔ±à³ÌµÄCUDA¼Ü¹¹£¬½øÒ»²½½µµÍÁËGPUµÄ±à³ÌÃÅ¼÷¡£ÈçÏÂÊ¹ÓÃÁËCUDA´úÂëÊµÏÖÁË
+Ç¿´óµÄ¼ÆËãÄÜÁ¦£¬²¢¿ÉÒÔ×÷ÎªÍ¨ÓÃ¼ÆËãÉè±¸Ó¦ÓÃÓÚÒ½Ñ§¡¢ÌìÎÄºÍ½ğÈÚµÈÁÚÓò¡£¼ÆËã»úÖĞµÄÍ¼ÏñÊÇÒÔ¾ØÕóµÄĞÎÊ½´æ´¢£¬¶øGPUµÄ¸ß²¢·¢¼ÆËãÄÜÁ¦Ê¹ÆäÔÚÍ¼Ïñ´¦Àí·½ÃæÓµÓĞ±ÈCPU¸ü¿ìµÄĞ§ÂÊ\cite{CUDA-gpu}¡£¶øNVIDIAÍÆ³öµÄ»ùÓÚCÓïÑÔ±à³ÌµÄCUDA¼Ü¹¹£¬½øÒ»²½½µµÍÁËGPUµÄ±à³ÌÃÅ¼÷\cite{liu}¡£ÈçÏÂÊ¹ÓÃÁËCUDA´úÂëÊµÏÖÁË
 Ò»¸öCUDAº¯Êı\cite{CUDA-guide}:
 %\clearpage
 \begin{lstlisting}[ language=C,numbers=left]
@@ -524,7 +533,7 @@ MatÀàÊÇOpenCVÖĞÓÃÓÚ´æ´¢¾ØÕóºÍÍ¼ÏñµÄÈİÆ÷£¬¶øGpuMat ÀàÔòÊÇ¶ÔÓ¦Mat ¶ø
 ÕâÀïÊ¹ÓÃÒ»¸ö´úÂëÆ¬¶Î£¬ÒÔÍ¼ÏñµÄ¸ßË¹ÂË²¨´¦ÀíÎªÀıÀ´À´¼òÒªËµÃ÷±ÊÕßÈçºÎ¾ßÌåÓ¦ÓÃ
 OpenCVÖĞµÄCUDAÄ£¿é£º
 %\clearpage
-\begin{lstlisting}[ language=C,numbers=left]
+\begin{lstlisting}
 void gaussianBlur_GPU(Mat &src, Mat &dst, int size)
 {
 	if (getCudaEnabledDeviceCount() < 0)
@@ -565,9 +574,9 @@ void gaussianBlur_GPU(Mat &src, Mat &dst, int size)
 Ê¹ÓÃÁË¹¤³§·½·¨À´Éú²úÕâĞ©ĞèÒªµÄÀà£¬ÔÙÍ¨¹ıÕâĞ©ÀàµÄ·½·¨£¨Èç13ĞĞµÄapply()£©À´Íê³É²Ù×÷¡£
 ÓëÖ±½Ó±àĞ´CUDA´úÂëÏà±È£¬ÊìÏ¤ÕâĞ©APIÖ®ºóµÄÉÏÊÖºÍ±à³ÌĞ§ÂÊ»á¸ü¿ì¡£
 
-3£©OpenCVµÄCUADº¯ÊıĞÔÄÜ²âÊÔ
+3£©OpenCVµÄCUDAº¯ÊıĞÔÄÜ²âÊÔ
 
-Ê¹ÓÃOpenCVµÄCUADº¯Êı¶ÔËã·¨½øĞĞÒÆÖ²Ö÷ÒªÕë¶ÔÂË²¨¡¢ĞÎÌ¬Ñ§²Ù×÷µÈÊ±¼ä¿ªÏúÕ¼±È´óµÄ´¦ÀíÁ÷³Ì¡£
+Ê¹ÓÃOpenCVµÄCUDAº¯Êı¶ÔËã·¨½øĞĞÒÆÖ²Ö÷ÒªÕë¶ÔÂË²¨¡¢ĞÎÌ¬Ñ§²Ù×÷µÈÊ±¼ä¿ªÏúÕ¼±È´óµÄ´¦ÀíÁ÷³Ì¡£
 ËùÒÔÕâÀïÊ¹ÓÃOpenCVÔ­±¾µÄ¸ßË¹ÂË²¨º¯ÊıºÍGPUÄ£¿éµÄ¸ßË¹ÂË²¨º¯Êı£¬À´·Ö±ğ²âÊÔCPUºÍGPUµÄ¼ÆËãÄÜÁ¦¡£
 ¸ßË¹ÂË²¨ÓÖ³ÆÎª¸ßË¹Ä£ºı£¬Ö÷Òª²Ù×÷ÊÇ°ÑÍ¼ÏñµÄÃ¿¸öÏñËØµãÓëÁÚÓò½øĞĞ¼ÓÈ¨Æ½¾ù£¬´¦ÀíµÄĞ§¹ûÈç
 Í¼~\ref{lena-1}ºÍÍ¼~\ref{lena-2}ËùÊ¾¡£
@@ -659,7 +668,7 @@ void gaussianBlur_GPU(Mat &src, Mat &dst, int size)
 \subsubsection{Ö÷Ïß³ÌµÄÖ´ĞĞ¹ı³ÌºÍFrameÏß³Ì·ÖÅä}
 ½ÓÏÂÀ´ÎÒÃÇÒªÔÚÖ÷Ïß³ÌÖĞ¿ªÆôÁ½¸öFrameÏß¡£ÏÈÊµÀı»¯Ò»¸ö¿ò¼ÜÀàframe£¬ÓÃthreadÀà´´½¨Á½¸öÏß³Ì£¬Ò»¸öÓÃÓÚ´¦Àí¸²Ä¤×éµÄÍ¼Ïñ£¬ÁíÒ»¸öÓÃÓÚ´¦Àí²»¸²Ä¤×éµÄÍ¼Ïñ£»ÔÚÏß³ÌÖĞµ÷ÓÃframeÀàÖĞÏà¹ØµÄ´¦Àíº¯Êı¡£
 
-\begin{lstlisting}[ language=C,numbers=left]
+\begin{lstlisting}
 void test()
 {
 CBGBFrame frame;
@@ -702,7 +711,7 @@ mask\_filmed\_leftºÍmask\_filmed\_right¡£ÖÁÓÚ×îºóÁ½¸ö²ÎÊı£¬µÚÒ»¸ö±íÊ¾¸Ã×éÍ¼ÏñµÄ¸
 µÚ¶ş¸ö²ÎÊıÎª¡±1¡°±íÊ¾´¦ÀíµÄµ¥±ßÍ¼ÏñÔÚ×ó£¬Îª¡±0¡°±íÊ¾ÔÚÓÒ¡£
 
 %\clearpage
-\begin{lstlisting}[ language=C,numbers=left]
+\begin{lstlisting}
 int SetFilmedImages()
 {
 /*'·ÖÀëÍ¼Ïñ'*/
@@ -757,7 +766,7 @@ inspector->SetlogPrifix();
 \subsubsection{Ó¦ÓÃOpenMPµÄ¶àÏß³Ì²¢ĞĞ}
 OpenMPÔ¤±àÒëÖ¸Áî´¦ÀíÑ­»·Óï¾ä¼ò»¯ÁË²¢ĞĞ»¯µÄ±à³Ì£¬ÔÚVisual StudioÖĞC++µÄÓ¦ÓÃ·½·¨ÈçÏÂ´úÂëËùÊ¾\cite{OpenMP}£º
 %\clearpage
-\begin{lstlisting}[ language=C,numbers=left]
+\begin{lstlisting}
 #pragma omp parallel for
 for (int i = 0; i < contours.size(); i++)
 {
@@ -777,7 +786,7 @@ OpenMP´Ó¶àÖ¸Áî²¢·¢À´ÊµÏÖÑ­»·Óï¾äµÄ²¢ĞĞÖ´ĞĞ£¬Òò´ËÃ¿¸öÑ­»·²Ù×÷Ö®¼äÒª±£³ÖµÍñîºÏ²Å»á
 
 ²¢ÇÒOpenMPµÄÑ­»·¼ÆÊı²»Ö§³Öunsigned£¨ÎŞ·ûºÅÕûĞÍ£©ÀàĞÍµÄ±äÁ¿£»Òò´Ë²»ÄÜÊ¹ÓÃsize\_tÀàĞÍÀ´×÷ÎªÑ­»·¼ÆÊı¡£
 %\clearpage
-\begin{lstlisting}[ language=C,numbers=left]
+\begin{lstlisting}
 //#pragma omp parallel for
 for (size_t i = 0; i < hist_sz; i++)
 {
@@ -816,7 +825,7 @@ CBGBInspectorºÍInspectorBPUµÄÊµÀı»¯½øĞĞ¿ØÖÆ¡£
 ¹ØÏµ£¬ËùÒÔÒ»ÏÂ´úÂëµÚ¾ÅĞĞÊÇÓÃ¸¸ÀàÀ´ÊµÀı»¯×ÓÀà£¬ÔÚC++ÖĞÖ»ÄÜÒÔ¡°new¡±¹Ø¼ü×ÖÀ´ÊµÏÖ£¬¶ø¡°new¡±¹Ø¼ü×ÖÔÚ¶ÔÏóÊµÀı»¯ÖĞ×÷ÓÃµÄÖ»ÄÜÊÇÖ¸Õë¶ÔÏó£¬Òò´Ë
 ±ØĞëÊ¹ÓÃ¸¸ÀàµÄ¶ÔÏóÖ¸Õë×÷Îª·µ»ØÖµ¡£ÆäÖĞCPU\_MODE ºÍGPU\_MODEÊÇÔÚÍ·ÎÄ¼şÖĞ½øĞĞµÄºê¶¨Òå£¬ÔÚº¯Êıµ÷ÓÃÊ±×÷ÎªÌõ¼şÅĞ¶ÏÒÀ¾İ¡£
 \clearpage
-\begin{lstlisting}[ language=C,numbers=left]
+\begin{lstlisting}
 #define CPU_MODE 0
 #define GPU_MODE 1
 CBGBInspector* InspectorSet::CreateInspector(int mode)
@@ -835,7 +844,7 @@ CBGBInspector* InspectorSet::CreateInspector(int mode)
 ÒÔÏÂ´úÂëÊÇÔÚInspectÏß³ÌÖĞÀûÓÃÉÏÊö¶¨ÒåµÄ¹¤³§ÀàµÄCreateInspector()·½·¨À´Éú²úÒ»¸öÆôÓÃGPUµÄ¼ì²âÀà¡£
 ĞèÒªµ÷ÓÃ¼ì²âÀàµÄº¯ÊıÊ±£¬ÏÈ¶¨ÒåÒ»¸ö¼ì²âÀà¸¸ÀàµÄÖ¸Õë£¬ÊµÀı»¯Ò»¸ö¹¤³§ÀàInspectorSetµÄ¶ÔÏó£¬ÔÙµ÷ÓÃCreateInspector()·µ»ØÒ»¸öĞèÒªµÄ¼ì²âÀà¡£
 %\clearpage
-\begin{lstlisting}[ language=C,numbers=left]
+\begin{lstlisting}
 int CBGBFrame::InspectSingleBGB()
 {
 //InspectorGPU inspector;//'Ô­À´µÄ¶ÔÏóÊµÀı»¯·½Ê½'
@@ -852,7 +861,7 @@ delete inspector;
 
 ´ËÍâ£¬ÎªÁËÄÜÈÃ¼ì²âÆ÷¶ÔÏó³É¹¦µ÷ÓÃ×ÓÀàInspectorGPUµÄInspect()·½·¨£¬±ØĞë°Ñ¸¸ÀàCBGBInspectorµÄ
 Í¬Ãû·½·¨¶¨Òå³ÉĞéº¯Êı¡£
-\begin{lstlisting}[ language=C,numbers=left]
+\begin{lstlisting}
 public:
 virtual int Inspect(Mat& im_original, Mat& mask_original);
 }
@@ -896,7 +905,7 @@ void MeanFilter()                       //'¾ùÖµÂË²¨º¯Êı'
 ²»Ò×ÓÚÔÄ¶ÁµÄ´úÂë¡£
 
 Ê×ÏÈ°ÑĞèÒªµÄMatÀàĞÍµÄ±äÁ¿ÉÏ´«ÖÁÏÔ´æ£¨ÕâÀïÓÃ¹¹Ôìº¯ÊıÀ´½øĞĞÒşÊ½µÄÉÏ´«£©£¬±£´æÔÚGpuMatÀàĞÍµÄ±äÁ¿ÖĞ£º
-\begin{lstlisting}[ language=C,numbers=left]
+\begin{lstlisting}
 cuda::GpuMat g_dst;  //'ÓÃÓÚ±£´æ´¦Àí½á¹û'
 cuda::GpuMat g_imCrop(imCrop);//'´ı´¦ÀíÍ¼Ïñ'
 cuda::GpuMat g_maskCrop(maskCrop);//'ÑÚÄ£°æ'
@@ -911,7 +920,7 @@ cuda::GpuMat g_tempIm, g_tempMask;
 
 ·ÖÉÏ¡¢ÖĞ¡¢ÏÂÈı¶Î¶ÔÍ¼Æ¬ºÍÑÚÄ£°æ½øĞĞ¸ßË¹ÂË²¨£¬Ã¿Ò»´ÎÑ­»·½áÊøÍê³Éºó°Ñ¸Ã¶ÎµÄÂË²¨½á¹û¼Óµ½ÖĞ¼ä±äÁ¿g\_tempImºÍg\_tempMask¡£
 \clearpage
-\begin{lstlisting}[ language=C,numbers=left]
+\begin{lstlisting}
 for (size_t i = 0; i < 3; i++)
 {
 ...
@@ -937,7 +946,7 @@ cuda::add(g_fMask.rowRange(),g_tempMask.rowRange(),
 ±¾´ÎµÄÖØµş²¿·Ö¡£
 
 °ÑÂË²¨ºóµÄÍ¼Æ¬ÓëÂË²¨ºóµÄÑÚÄ£°æÏà³ıµÃµ½×îÖÕµÄÂË²¨½á¹û£¬²¢´ÓÏÔ´æÏÂÔØÖÁCPU¡£ÕâÀïÓÃdownload()·½·¨ÏÔÊ½½øĞĞÁËÏÂÔØ¡£
-\begin{lstlisting}[ language=C,numbers=left]
+\begin{lstlisting}
 cuda::add(g_fMask, 1e-6, g_fMask);
 cuda::divide(g_fIm, g_fMask, g_dst);
 cuda::GpuMat convertedIm;
@@ -955,7 +964,7 @@ dst.convertTo(convertedIm, CV_8U);
 
 ¶Ô´úÂëÔËĞĞËÙ¶ÈÓ°Ïì±È½Ï´óµÄ£¬³ıÁËÂË²¨º¯ÊıÒÔÍâ£¬Éæ¼°µÄÍ¼Ïñ´¦Àí·½·¨»¹ÓĞ¸÷ÖÖĞÎÌ¬Ñ§´¦Àí£¨¿ªÔËËã¡¢±ÕÔËËãºÍ¸¯Ê´µÈ£©
 ¡¢Canny±ßÔµÌáÈ¡Ëã·¨¡£
-\begin{lstlisting}[ language=C,numbers=left]
+\begin{lstlisting}
 Ptr<cuda::Filter> morph = cuda::createMorphologyFilter();
 morph->apply();
 Ptr<cuda::CannyEdgeDetector> canny = cuda::createCannyEdgeDetector();
@@ -973,7 +982,7 @@ canny->detect();
 ¸ÉÈÅ¡£
 
 ÕâÀïÊ¹ÓÃÒ»¸öÀà¡±CudaApi¡°À´¶ÔÆäËüÆ½Ì¨Ìá¹©CUDAµÄÏà¹Øº¯Êı²Ù×÷¡£
-\begin{lstlisting}[ language=C,numbers=left]
+\begin{lstlisting}
 class CudaApi
 {
 public:
@@ -984,7 +993,7 @@ bool initCuda();     //'³õÊ¼»¯cudaÉè±¸'
 
 initCuda()º¯ÊıÓÃÀ´ÊÖ¶¯³õÊ¼»¯CUDA£¬³õÊ¼»¯³É¹¦Ôò·µ»Øtrue¡£
 %\clearpage
-\begin{lstlisting}[ language=C,numbers=left]
+\begin{lstlisting}
 bool CudaApi::initCuda()
 {
 	if (getDeviceCount() > 0)
@@ -998,8 +1007,8 @@ bool CudaApi::initCuda()
 
 getDeviceCount()º¯ÊıÓÃÓÚ»ñÈ¡¿ÉÓÃµÄCUDAÉè±¸£¬³É¹¦Ê±´ó²¿·ÖÇé¿öÏÂµÄ·µ»ØÖµÊÇ1£¬¼´µ±Ç°»úÆ÷µÄGPUÊıÁ¿¡£
 ³õÊ¼»¯Ö®Ç°ÒªÖ´ĞĞÕâ¸öº¯ÊıÒÔÈ·¶¨µ±Ç°µÄ»·¾³¿ÉÒÔÕı³£ÆôÓÃCUDA¡£
-\clearpage
-\begin{lstlisting}[ language=C,numbers=left]
+%\clearpage
+\begin{lstlisting}
 int CudaApi::getDeviceCount()
 {
 	return cuda::getCudaEnabledDeviceCount();
@@ -1167,7 +1176,7 @@ kernel\_size & \tabincell{c}{MeanFilter()\\ Æ½¾ùÊ±¼ä/ms } & \tabincell{c}{MeanFi
 
 ¿ÉÒÔÓÃÈçÏÂµÄ´úÂë½â¾öÉÏÊöÎÊÌâ£º
 
-\begin{lstlisting}[ language=C,numbers=left]
+\begin{lstlisting}
 MeanFilter(im_filter, im_Big, wBig.height);
 MeanFilter_GPU(im_filter, im_Small, wSmall.height);
 \end{lstlisting}
@@ -1213,16 +1222,20 @@ GPUÉÏ½øĞĞ¼ÆËã£¬¼ÆËã½á¹ûÔÙ´ÓGPU·´À¡µ½CPU¡£ÒòÎªÔÚCPU-GPUÒì¹¹Æ½Ì¨ÉÏÔËĞĞ£¬³ÌĞòµÄÎÈ¶¨
 
 \subsection{ÂÛÎÄ¹¤×÷×Ü½á}
 ±¾ÎÄ´ÓÊµ¼ÊµÄĞèÇó³ö·¢£¬Ç¿µ÷ÁË¹¤Òµ×Ô¶¯»¯ÖÆÔì¹ı³ÌÖĞÊµÊ±ĞÔµÄÖØÒªĞÔ¡£±ÊÕß»ùÓÚÊÖ»úÆÁÄ»È±Ïİ×Ô¶¯»¯¼ì²âµÄÏîÄ¿£¬µ÷ÑĞºÍÑ§Ï°ÁË
-ÈçºÎ¼Ó¿ìÍ¼Ïñ¼ì²âËÙ¶ÈµÄ·½·¨¡£±¾ÎÄÍ¨¹ı¶ÔÊÖ»úÈ±Ïİ¼ì²â¹¤×÷Á÷³ÌµÄ½éÉÜ£¬¸ù¾İÊµ¼ÊÉú²úµÄĞèÒª·ÖÎöÁË³ÌĞòÓÅ»¯µÄ¿ÉĞĞ·½°¸£¬²¢Éè¼ÆÁË¾ßÌå
-µÄ¶àÏß³Ì´¦ÀíÁ÷³Ì¡£Ì½Ë÷ÁË½èÖúGPU¼ÆËãÓÅ»¯Í¼Ïñ´¦ÀíËã·¨µÄ·½°¸£¬È·¶¨ÁËÊ¹ÓÃOpenCVµÄCUDAÄ£¿éÀ´ÒÆÖ²º¯Êı¡£½ÓÏÂÀ´½éÉÜÁË±ÊÕß¶ÔÒÑÓĞ
-·½°¸µÄ¾ßÌåÊµÏÖ£¬°üÀ¨ÁËÔÚÍ¼Ïñ¼ì²â³ÌĞòÖĞ¾ßÌåÊµÊ©µÄÏß³Ì·ÖÅä£¬GPUÒÆÖ²Ëã·¨µÄ³ÌĞò¿ò¼ÜºÍÀàµÄÉè¼Æ£¬ÒÔ¼°¾ßÌåµÄ±à³ÌÊµÏÖ·½·¨¡£
+ÈçºÎ¼Ó¿ìÍ¼Ïñ¼ì²âËÙ¶ÈµÄ·½·¨¡£
+
+±¾ÎÄÍ¨¹ı¶ÔÊÖ»úÈ±Ïİ¼ì²â¹¤×÷Á÷³ÌµÄ½éÉÜ£¬¸ù¾İÊµ¼ÊÉú²úµÄĞèÒª·ÖÎöÁË³ÌĞòÓÅ»¯µÄ¿ÉĞĞ·½°¸£¬²¢Éè¼ÆÁË¾ßÌå
+µÄ¶àÏß³Ì´¦ÀíÁ÷³Ì¡£Ì½Ë÷ÁË½èÖúGPU¼ÆËãÓÅ»¯Í¼Ïñ´¦ÀíËã·¨µÄ·½°¸£¬È·¶¨ÁËÊ¹ÓÃOpenCVµÄCUDAÄ£¿éÀ´ÒÆÖ²º¯Êı¡£
+
+½ÓÏÂÀ´½éÉÜÁË±ÊÕß¶ÔÒÑÓĞ·½°¸µÄ¾ßÌåÊµÏÖ£¬°üÀ¨ÁËÔÚÍ¼Ïñ¼ì²â³ÌĞòÖĞ¾ßÌåÊµÊ©µÄÏß³Ì·ÖÅä£¬GPUÒÆÖ²Ëã·¨µÄ³ÌĞò¿ò¼ÜºÍÀàµÄÉè¼Æ£¬ÒÔ¼°¾ßÌåµÄ±à³ÌÊµÏÖ·½·¨¡£
+
 ÔÚ²âÊÔ¹ı³ÌÖĞÒÔÏß³ÌÀàĞÍºÍÊıÁ¿×÷Îª±äÁ¿½øĞĞÁËÏêÏ¸µÄĞÔÄÜ²âÊÔºÍ¶Ô±È·ÖÎö£¬Õ¹Ê¾ÁË¹¤×÷µÄ³É¹û£»Í¬Ê±Ö¸³öÁËOpenCVµÄCUDAÄ£¿éµÄ²»×ã£¬´Ó²âÊÔÖĞÒ²
 µÃ³öÁË±¾´Î¹¤×÷²¢Ã»ÓĞÀûÓÃGPU¼ÆËãÀ´´ïµ½ÏÔÖøµÄĞÔÄÜÌáÉı£¬µ«ÊÇ¶ÔÓÚGPU¼ÆËãµÄÓ¦ÓÃÔÚ½ñºó¹¤×÷ÖĞÈÔÈ»ÊÇÖØµã¡£
 
 \subsection{ÏÂÒ»²½ÑĞ¾¿ÄÚÈİ}
 OpenCVµÄCUDAÄ£¿éÈÔÈ»²»³ÉÊì£¬Ê¹ÓÃCUDA´úÂëÀ´¿ª·¢¸üÓÅµÄ´úÂëÊÇÒÔºóÓÅ»¯Í¼Ïñ´¦ÀíËÙ¶ÈµÄÇ÷ÊÆ£¬ÒòÎªÕâ²¿·ÖµÄĞÔÄÜÆ¿¾±Ö»ÄÜÍ¨¹ı¸üÓÅµÄGPU¼ÆËãÆ½Ì¨À´Í»ÆÆ£»¶øGPUÆ½Ì¨ÉÏÍ¨ÓÃËã·¨µÄ¿ª·¢ÈÔÈ»ĞèÒª³¤ÆÚµÄ·¢Õ¹À´ÍêÉÆ¡£
 
-±¾´Î¹¤×÷Ö»½â³ıÁËCUDA¼Ü¹¹£¬ºóĞø»¹¿ÉÒÔ½áºÏOpenCL£¬OpenACCµÈÆ½Ì¨À´ÊµÏÖÍ¼Ïñ´¦ÀíµÄGPU¼ÓËÙ£¬²¢±È½Ï¸÷Æ½Ì¨µÄÓÅÁÓ¡£
+±¾´Î¹¤×÷Ö»½Ó´¥ÁËCUDA¼Ü¹¹£¬ºóĞø»¹¿ÉÒÔ½áºÏOpenCL£¬OpenACCµÈÆ½Ì¨À´ÊµÏÖÍ¼Ïñ´¦ÀíµÄGPU¼ÓËÙ£¬²¢±È½Ï¸÷Æ½Ì¨µÄÓÅÁÓ¡£
 
 
 
@@ -1230,7 +1243,7 @@ OpenCVµÄCUDAÄ£¿éÈÔÈ»²»³ÉÊì£¬Ê¹ÓÃCUDA´úÂëÀ´¿ª·¢¸üÓÅµÄ´úÂëÊÇÒÔºóÓÅ»¯Í¼Ïñ´¦ÀíËÙ¶ÈµÄ
 \clearpage % »»Ò³
 
 \addcontentsline{toc}{section}{²Î¿¼ÎÄÏ×}
-\begin{thebibliography}{\centering}
+\begin{thebibliography}{99}{\centering}
 \bibitem{chinamake2025-url}¹úÎñÔºÓ¡·¢.ÖĞ¹úÖÆÔì2025[EB/OL].http://news.xinhuanet.com/politics/2015-05/19/c\_1115331338.html.
 \bibitem{yi}Ò×ËÉËÉ. »ùÓÚ»úÆ÷ÊÓ¾õµÄÊÖ»úÃæ°åÈ±Ïİ¼ì²â·½·¨ÑĞ¾¿[D].¹ş¶û±õ¹¤Òµ´óÑ§, 2016.
 \bibitem{lv}ÂÀÏòÑô. »ùÓÚCPU+GPUµÄÍ¼Ïñ´¦ÀíÒì¹¹²¢ĞĞ¼ÆËãÑĞ¾¿[D].ÄÏ²ı´óÑ§, 2014.
@@ -1246,60 +1259,26 @@ OpenCVµÄCUDAÄ£¿éÈÔÈ»²»³ÉÊì£¬Ê¹ÓÃCUDA´úÂëÀ´¿ª·¢¸üÓÅµÄ´úÂëÊÇÒÔºóÓÅ»¯Í¼Ïñ´¦ÀíËÙ¶ÈµÄ
 \end{thebibliography}
 
 \clearpage
-\addcontentsline{toc}{section}{¸½Â¼}
-\fancyhead[C]{\wuhao{¸½\quad Â¼} }
-\begin{center}
-\sanhao
-¸½\quad Â¼
-\end{center}
+\newcommand{\xjtuappendix}{
+    \begin{appendix}
+    \renewcommand{\thesection}{¸½Â¼~\arabic{section}}
+    \sectionmark{¸½Â¼}
+}
+\newcommand{\xjtuendappendix}{\end{appendix}}
 
-¸½Â¼±àºÅÒÀ´Î±àÎª¸½Â¼1£¬¸½Â¼2¡£¸½Â¼±êÌâ¸÷Õ¼Ò»ĞĞ£¬°´Ò»¼¶±êÌâ±àÅÅ¡£Ã¿Ò»¸ö¸½Â¼Ò»°ãÓ¦ÁíÆğÒ»Ò³±àÅÅ£¬
-Èç¹ûÓĞ¶à¸ö½Ï¶ÌµÄ¸½Â¼£¬Ò²¿É½ÓÅÅ¡£¸½Â¼ÖĞµÄÍ¼±í¹«Ê½ÁíĞĞ±àÅÅĞòºÅ£¬ÓëÕıÎÄ·Ö¿ª£¬±àºÅÇ°¼Ó¡°¸½Â¼1-¡±×ÖÑù¡£
+\newcommand{\xjtuappendixesection}[1]{
+    \echapter*{\thesection\quad#1}
+    \addcontentsline{toe}{section}{\thesection\quad #1}
+}
+\newcommand{\xjtuappendixsubsection}[1]{
+    \stepcounter{subsection}
+    \subsection*{\thesection\quad#1}
+    \addcontentsline{toc}{subsection}{\thesubsection\quad #1}
+}
 
-\addcontentsline{toc}{subsection}{¸½Â¼1}
-\noindent
-\xiaosanhao
-¸½Â¼1\quad ÅäÖÃOpenCVËùĞèµÄ¿âÎÄ¼şÃû
-\xiaosihao
+\xjtuappendix
 
-\noindent   opencv\_calib3d320d.lib\\
-\noindent   opencv\_core320d.lib\\
-\noindent   opencv\_cudaarithm320d.lib\\
-\noindent   opencv\_cudabgsegm320d.lib\\
-\noindent   opencv\_cudacodec320d.lib\\
-\noindent   opencv\_cudafeatures2d320d.lib\\
-\noindent   opencv\_cudafilters320d.lib\\
-\noindent   opencv\_cudaimgproc320d.lib\\
-\noindent   opencv\_cudalegacy320d.lib\\
-\noindent   opencv\_cudaobjdetect320d.lib\\
-\noindent   opencv\_cudaoptflow320d.lib\\
-\noindent   opencv\_cudastereo320d.lib\\
-\noindent   opencv\_cudawarping320d.lib\\
-\noindent   opencv\_cudev320d.lib\\
-
-\noindent   opencv\_features2d320d.lib\\
-\noindent   opencv\_flann320d.lib\\
-\noindent   opencv\_highgui320d.lib\\
-\noindent   opencv\_imgcodecs320d.lib\\
-\noindent   opencv\_imgproc320d.lib\\
-\noindent   opencv\_ml320d.lib\\
-\noindent   opencv\_objdetect320d.lib\\
-\noindent   opencv\_photo320d.lib\\
-\noindent   opencv\_shape320d.lib\\
-\noindent   opencv\_stitching320d.lib\\
-\noindent   opencv\_superres320d.lib\\
-\noindent   opencv\_video320d.lib\\
-\noindent   opencv\_videoio320d.lib\\
-\noindent   opencv\_videostab320d.lib
-
-\clearpage
-
-\addcontentsline{toc}{subsection}{¸½Â¼2}
-\noindent
-\xiaosanhao
-¸½Â¼2\quad Ëã·¨²ÎÊıËµÃ÷
-\xiaosihao
-
+\section{Ëã·¨²ÎÊıËµÃ÷}
 \begin{table}[htbp]
 \centering\wuhao
 \caption{Ëã·¨²ÎÊıËµÃ÷}
@@ -1324,6 +1303,201 @@ right\_BGB\_height} &  int  &  ÓÒ±ß±³¹â°åµÄÄ¬ÈÏÎ»ÖÃºÍ·¶Î§  \\
 
 \clearpage
 
+\section{ÅäÖÃOpenCVËùĞèµÄ¿âÎÄ¼şÃû}
+\noindent   opencv\_calib3d320d.lib\\
+\noindent   opencv\_core320d.lib\\
+\noindent   opencv\_cudaarithm320d.lib\\
+\noindent   opencv\_cudabgsegm320d.lib\\
+\noindent   opencv\_cudacodec320d.lib\\
+\noindent   opencv\_cudafeatures2d320d.lib\\
+\noindent   opencv\_cudafilters320d.lib\\
+\noindent   opencv\_cudaimgproc320d.lib\\
+\noindent   opencv\_cudalegacy320d.lib\\
+\noindent   opencv\_cudaobjdetect320d.lib\\
+\noindent   opencv\_cudaoptflow320d.lib\\
+\noindent   opencv\_cudastereo320d.lib\\
+\noindent   opencv\_cudawarping320d.lib\\
+\noindent   opencv\_cudev320d.lib\\
+\noindent   opencv\_features2d320d.lib\\
+\noindent   opencv\_flann320d.lib\\
+\noindent   opencv\_highgui320d.lib\\
+\noindent   opencv\_imgcodecs320d.lib\\
+\noindent   opencv\_imgproc320d.lib\\
+\noindent   opencv\_ml320d.lib\\
+\noindent   opencv\_objdetect320d.lib\\
+\noindent   opencv\_photo320d.lib\\
+\noindent   opencv\_shape320d.lib\\
+\noindent   opencv\_stitching320d.lib\\
+\noindent   opencv\_superres320d.lib\\
+\noindent   opencv\_video320d.lib\\
+\noindent   opencv\_videoio320d.lib\\
+\noindent   opencv\_videostab320d.lib
+
+\clearpage
+
+
+
+\section{ÎÄÏ×·­Òë}
+
+\subsection{ÒëÎÄ}
+CUDAÊÇCÓïÑÔµÄÀ©Õ¹£¬ÔÊĞíGPU´úÂëÒÔ³£¹æCÓïÑÔ±àĞ´¡£´úÂëÊÇÕë¶ÔÖĞÑë´¦ÀíÆ÷£¨CPU£©»òÕë¶ÔÍ¼ĞÎ´¦ÀíÆ÷£¨GPU£©µÄ¡£¸ÃÖ÷»ú´¦ÀíÆ÷ÔÚGPUÉè±¸ÉÏ²úÉú¶àÏß³ÌÈÎÎñ£¨»òCUDAÖĞÒÑÖªµÄÄÚºË£©¡£GPU¾ßÓĞ×Ô¼ºµÄÄÚ²¿µ÷¶ÈÆ÷£¬È»ºó½«ÄÚºË·ÖÅä¸øµ±ÏÂµÄÈÎºÎGPUÓ²¼ş¡£ ÉÔºó½«ÏêÏ¸½éÉÜµ÷¶È¡£ Èç¹ûÔÚÈÎÎñÖĞÓĞ×ã¹»µÄ²¢ĞĞĞÔ£¬³ÌĞòµÄËÙ¶ÈÒ²Ó¦¸ÃÈçGPUÖĞµÄSM£¨Á÷´¦ÀíÆ÷£©µÄÊıÁ¿Ôö³¤¡£
+
+µ«ÊÇ£¬ÕâÀïÒş²Ø×ÅÒ»¸ö´óÎÊÌâ¡£ Äã±ØĞëÁË½â³ÌĞòÖĞ¿ÉÒÔ²¢·¢ÔËĞĞµÄ´úÂëµÄ°Ù·Ö±È¡£ ×î´óµÄ¼ÓËÙ¿ÉÄÜÊÜµ½´®ĞĞ´úÂëÊıÁ¿µÄÏŞÖÆ¡£ Èç¹ûÄãÓĞÎŞÏŞ¼ÆËã´¦ÀíÄÜÁ¦£¬¿ÉÒÔÔÚË²¼äÍê³É²¢ĞĞÈÎÎñ£¬ÄúÈÔÈ»ÒªÁôÏÂÒ»Ğ©Ê±¼äÀ´ÔËĞĞ´®ĞĞ²¿·ÖµÄ´úÂë¡£ Òò´Ë£¬Èç¹ûÎÒÃÇÈ·Êµ¿ÉÒÔ²¢ĞĞ»¯£¬ÎÒÃÇ±ØĞëÊ×ÏÈ¿¼ÂÇ´óÁ¿µÄ¼ÆËãÁ¿¡£
+
+NVIDIAÖÂÁ¦ÓÚÎªCUDAÌá¹©Ö§³Ö¡£ÖµµÃ²Î¿¼µÄĞÅÏ¢£¬Àı×ÓºÍ°ïÖú¿ª·¢µÄ¹¤¾ß¿É´ÓÍøÕ¾http://www.nvidia.comµÄCudaZoneÄ£¿éÖĞÏÂÔØ¡£CUDAÓëÆäÇ°Éí²»Í¬£¬ÏÖÔÚÊµ¼ÊÉÏÒÑ¾­¿ªÊ¼»ñµÃÊÆÍ·£¬ÕâÊÇµÚÒ»´Î¿´ÆğÀ´»áÓĞÒ»ÖÖ±à³ÌÓïÑÔ½«³ÉÎªGPU±à³ÌµÄÊ×Ñ¡¡£ ¼øÓÚÖ§³ÖCUDAµÄGPUµÄÊıÁ¿ÏÖÔÚ´ïµ½Êı°ÙÍò£¬ËùÒÔÓĞÒ»¸ö¾Ş´óµÄÊĞ³¡ÔÚÄÇÀïµÈ´ıÖ§³ÖCUDAµÄÓ¦ÓÃ³ÌĞò¡£
+
+Ä¿Ç°ÓĞĞí¶àÖ§³ÖCUDA¹¦ÄÜµÄÓ¦ÓÃ³ÌĞò£¬²¢ÇÒÕâ¸öÊıÁ¿ÈÕÒæÔö³¤¡£NVIDIAÔÚÉçÇøÍøÕ¾http://www.nvidia.com/object/cuda\_apps\_flash\_new.htmlÉÏÕ¹Ê¾ÁËĞí¶àÕâĞ©Ó¦ÓÃ³ÌĞò¡£ÔÚ³ÌĞò±ØĞë×öºÜ¶à¼ÆËã¹¤×÷µÄÁìÓò£¬ÀıÈç´ÓÄãµÄ¼ÒÍ¥µçÓ°ÖÆ×÷DVD£¨ÊÓÆµ×ªÂë£©£¬ÎÒÃÇÏÖÔÚ¿´µ½µÄĞí¶àÖ÷Á÷ÊÓÆµ°ü¶¼Ö§³ÖCUDA¡£CUDAÔÚÕâĞ©ÁìÓòµÄÆ½¾ù¼ÓËÙÊ±¼äÊÇ5µ½10±¶¡£\\
+
+CUDAµÄÌæ´úÆ·£º\\
+1£©OpenCL
+ÄÇÃ´ÆäËûµÄGPUÖÆÔìÉÌÄØ£¬ATI£¨ÏÖÔÚµÄAMD£©¾ÍÊÇ×îºÃµÄÀı×Ó¡£ AMDµÄ²úÆ··¶Î§ÓëNVIDIAµÄÔ­Ê¼¼ÆËã»ú¹¦ÂÊÒ»ÑùÁîÈËÓ¡ÏóÉî¿Ì¡£²»¹ıAMDÍÆ³öÁËËüµÄÁ÷¼ÆËã¼¼Êõµ½ÊĞ³¡ÉÏ£¬ÊÇÔÚNVIDIAÍÆ³öCUDAºÜ³¤Ò»¶ÎÊ±¼äµÄÖ®ºó¡£½á¹û£¬Ïà½ÏÓÚAMD/ATIÁ÷¼ÆËã¼¼Êõ£¬NVIDAÓĞ¸ü¶àµÄ¿ÉÓÃÓÚCUDAµÄÓ¦ÓÃ³ÌĞò¡£
+OpenCLºÍDirect¼ÆËã²»ÊÇÎÒÃÇÔÚ±¾ÊéÖĞËùÌÖÂÛµÄ£¬µ«ÊÇÖµµÃÒ»ÌáÔÚCUDAµÄÌæ´úÆ··½Ãæ¡£ CUDAÄ¿Ç°½öÔÚNVIDIAÓ²¼şÉÏÕıÊ½¿ÉÖ´ĞĞ¡£ËäÈ»NVIDIAÔÚGPUÊĞ³¡ÖĞÕ¼ÓĞÏàµ±´óµÄÒ»²¿·Ö£¬µ«Æä¾ºÕù¶ÔÊÖÒ²ÓµÓĞÏàµ±´óµÄÒ»´ó²¿·Ö¡£ ×÷Îª¿ª·¢ÉÌ£¬ÎÒÃÇÏ£Íû¿ª·¢¾¡¿ÉÄÜ´óµÄÊĞ³¡µÄ²úÆ·£¬ÌØ±ğÊÇµ±ÎÒÃÇÔÚÌ¸ÂÛÏû·ÑÊĞ³¡µÄ»°Ìâ¡£ Òò´Ë£¬ÈËÃÇÓ¦¸ÃÒâÊ¶µ½ÓĞCUDAµÄÌæ´úÆ·Í¬Ê±Ö§³ÖNVIDIAºÍÆäËûÓ²¼ş¡£
+OpenCLÊÇNVIDIA£¬AMDºÍÆäËû¹«Ë¾Ö§³ÖºÍ¿ª·ÅµÄÃâ°æË°±ê×¼¡£¸ÃOpenCLÉÌ±êÓÉÆ»¹ûÓµÓĞ¡£ Ëü¹æ¶¨ÁËÔÊĞíÊ¹ÓÃ¼ÆËãµÄ¿ª·Å±ê×¼Éè±¸¡£ ¼ÆËãÉè±¸¿ÉÒÔÊÇOpenGLÇı¶¯³ÌĞòµÄGPU£¬CPU»òÆäËû×¨ÓÃÉè±¸¡£ ½ØÖÁ2012Äê£¬OpenCLÖ§³ÖÁËËùÓĞÖ÷ÒªÆ·ÅÆµÄGPUÉè±¸£¬°üÀ¨ÁËÁËÖÁÉÙÓĞCPUSSE3Ö§³ÖµÄGPU¡£
+ÊìÏ¤CUDAµÄÈË¿ÉÒÔ±È½ÏÈİÒ×µØÕÆÎÕOpenCL£¬ËüÃÇÔÚ»ù´¡¸ÅÄîÉÏ·Ç³£ÏàËÆ¡£È»¶ø£¬OpenCLÔÚÊ¹ÓÃÉÏ±ÈCUDAÒª¸´ÔÓµÃ¶à£¬³ÌĞòÔ±ĞèÒªÔÚOpenCLÖĞÏÔÊ½Ö´ĞĞCUDAruntime APIËù×öµÄ¹¤×÷¡£
+Äã¿ÉÒÔÔÚhttp://www.khronos.org/opencl/ÉÏÔÄ¶Á¸ü¶à¹ØÓÚOpenCLµÄĞÅÏ¢¡£ÏÖÔÚ»¹ÓĞ´óÁ¿ÓĞ¹ØOpenCLµÄÊé¼®¡£ÔÚCUDAÖ®Ç°£¬ÎÒ¸öÈËÍÆ¼öÔÚOpenCLÖ®Ç°Ñ§Ï°CUDA£¬ÒòÎªCUDA¶ÔÓÚOpenCLÀ´ËµÊÇ¸ü¸ß¼¶±ğµÄÓïÑÔÀ©Õ¹¡£
+
+
+2£©DirectCompute
+DirectComputeÊÇÎ¢ÈíÌæ´úCUDAºÍOpenCLµÄÆ½Ì¨¡£ ËüÊÇÒ»¸öÓëWindows²Ù×÷ÏµÍ³¹ØÁªµÄ×¨ÓĞµÄ²úÆ·£¬ÌØ±ğÊÇDirectX 11 API¡£¶ÔÓÚÈÎºÎÖ®Ç°±àĞ´¹ıÊÓÆµ¿¨µÄÈËÀ´Ëµ£¬DirectX APIÊÇÒ»¸ö¾Ş´óµÄ·ÉÔ¾¡£ ÕâÒâÎ¶×Å¿ª·¢ÈËÔ±±ØĞëÖ»Ñ§Ï°Ò»¸öAPI¿âÀ´±àĞ´ËùÓĞÏÔ¿¨£¬¶ø²»ÊÇ¸øÃ¿¸öÖ÷ÒªÊÓÆµ¿¨ÖÆÔìÉÌµÄÇı¶¯³ÌĞò±àĞ´³ÌĞò»ò·¢²¼Ğí¿É¡£
+DirectX 11ÊÇ×îĞÂµÄ±ê×¼£¬²¢Ö§³ÖWindows 7¡£ÔÚÕâ¸ö±ê×¼ÀïÓĞMicrosoftµÄÃûÍ·£¬Äã¿ÉÒÔÔÚ¿ª·¢ÈËÔ±ÉçÇøÖĞ¿´µ½Ò»Ğ©Ïàµ±Ñ¸ËÙµÄÒâ¼û²ÉÓÃ£¬ÌØ±ğÊÇÕâ¸ö¿ª·¢ÕßÒÑ¾­ÊìÏ¤DirectX APIµÄÇé¿ö¡£ Èç¹ûÄãÊìÏ¤CUDAºÍDirectCompute£¬ÄÇÃ´½«CUDAÓ¦ÓÃ³ÌĞòÒÆÖ²µ½DirectComputeÊÇºÜ¼òµ¥µÄ¡£ ¸ù¾İÎ¢ÈíµÄËµ·¨£¬Èç¹ûÄãÕâÑù×ö£¬ÄãÍ¨³£¿ÉÒÔÔÚÒ»¸öÏÂÎçÍ¨¹ıÒ»Ğ©¹¦¿ÎÀ´ÊìÏ¤Á½¸öÏµÍ³¡£ È»¶ø£¬ÒÔWindowsÎªÖĞĞÄ£¬ÎÒÃÇ½«´ÓUNIXÖ÷µ¼µÄĞí¶à¸ß¶ËÏµÍ³ÅÅ³ıDirectCompute¡£Î¢Èí»¹½«ÍÆ³öÒ»Ì×¶îÍâµÄ±ê×¼Ä£°å¿â£¨STL£©Ctt AMP£¬Õâ¿ÉÄÜÎüÒı¸ü¶àÊìÏ¤Ctt·ç¸ñSTLµÄ³ÌĞòÔ±¡£\\
+
+CPUµÄÑ¡Ôñ£º\\
+Ö÷ÒªµÄ²¢ĞĞ´¦ÀíÓïÑÔÀ©Õ¹ÊÇMPIºÍOpenMP£¬Èç¹ûÄãÊÇLinux¿ª·¢ÕßÔò»áÓÃµ½pthreads ¶ÔÓÚWindows£¬ÓĞWindowsÏß³ÌÄ£ĞÍºÍOpenMP¡£ MPIºÍpthreadsÔÚUnix¿ÉÎª¸÷ÖÖ¶Ë¿ÚÌá¹©Ö§³Ö¡£
+
+1£©MPI£¨ÏûÏ¢´«µİ½Ó¿Ú£©¿ÉÄÜÊÇ×î¹ãÎªÈËÖªµÄÏûÏ¢½Ó¿Ú¡£ ËüÊÇ»ùÓÚ¹ı³ÌµÄ£¬²¢ÇÒÔÚ´óĞÍ¼ÆËãÊµÑéÊÒÖĞÆÕ±éÓ¦ÓÃ¡£ ËüĞèÒªÒ»¸ö¹ÜÀíÔ±ÕıÈ·ÅäÖÃ°²×°£¬×îÊÊºÏÊÜ¿Ø»·¾³¡£ ²¢ĞĞ¶ÈÊÇÍ¨¹ıÔÚÒ»×é½ÚµãÉÏ²úÉúÊı°Ù¸ö½ø³Ì²¢Ã÷È·µÄ½øĞĞÏûÏ¢½»»»£¬Í¨³£Í¨¹ı¸ßËÙµÄ»ùÓÚÍøÂçµÄÍ¨ĞÅÁ´Â·£¨ÒÔÌ«Íø»ò
+ÎŞÏŞ´ø¿í¼¼Êõ£©¡£ MPI±»¹ã·ºÊ¹ÓÃºÍ´«ÊÚ¡£ ÕâÊÇÒ»¸ö¼¯ÈºÊÜ¿Ø»·¾³ÖĞµÄºÜºÃµÄ½â¾ö·½°¸¡£
+
+2£©OpenMP£¨¿ª·Å¶àÏß³Ì£©ÊÇÒ»ÖÖÉè¼ÆÓÃÓÚÔÚÒ»¸ö½ÚµãÄÚ²¢ĞĞµÄÏµÍ³µçÄÔÏµÍ³¡£ ËüµÄ¹¤×÷·½Ê½ÍêÈ«²»Í¬£¬³ÌĞòÔ±Ö¸¶¨ÁË¸÷ÖÖ¸÷ÑùµÄ²¢ĞĞÖ¸ÁîÍ¨¹ı±àÒëÆ÷±àÒëÖ¸Ê¾¡£È»ºó£¬±àÒëÆ÷»á×Ô¶¯³¢ÊÔ¸ù¾İ¿ÉÓÃµÄ´¦ÀíÆ÷ºËĞÄÊıÁ¿½«ÎÊÌâ·Ö½â³ÉN¸ö²¿·Ö¡£Ğí¶à±àÒëÆ÷¶¼Ö§³ÖOpenMP£¬°üÀ¨ÓÃÓÚCUDAµÄNVCC±àÒëÆ÷¡£OpenMPµÄÓÉÓÚµ×²ãCPUÌåÏµ½á¹¹£¬ÈİÒ×Ôì³ÉËõ·ÅÎÊÌâ¡£ÒòÎªCPUÖĞµÄ´ø¿í²»×ãÒÔÈÃËùÓĞµÄÄÚºË²»¶ÏµØ½«Êı¾İÁ÷´«Êä¡£
+
+3£©PthreadsÊÇÒ»¸öÔÚLinuxÉÏÓÃÓÚ¶àÏß³ÌÓ¦ÓÃ³ÌĞòµÄ¿â¡£ºÍOpenMPÒ»Ñù£¬pthreadsÊ¹ÓÃÏß³Ì¶ø²»ÊÇ½ø³Ì£¬ÒòÎªËü±»Éè¼ÆÓÃÓÚ²¢ĞĞ»¯µ¥¸ö½Úµã¡£È»¶øÓëOpenMP²»Í¬£¬³ÌĞòÔ±¸ºÔğÏß³Ì¹ÜÀíºÍÍ¬²½¡£ÕâÌá¹©ÁË¸ü¶àµÄÁé»îĞÔ£¬Òò´ËÄÜÒÔ¸üºÃµÄĞÔÄÜÔËĞĞ¾«ĞÄ±àĞ´µÄ³ÌĞò¡£
+
+4£©ZeroMQ£¨0MQ£©Ò²ÖµµÃÒ»Ìá¡£ÕâÊÇÒ»¸öÄã¿ÉÒÔÁ´½Óµ½µÄ¼òµ¥¿â£¬ÎÒÃÇ½«ÔÚ±¾ÊéµÄºóÃæÊ¹ÓÃËüÀ´¿ª·¢Ò»¸ö¶à½Úµã£¬¶àGPUµÄÀı×Ó¡£ZeroMQÖ§³ÖÊ¹ÓÃ»ùÓÚÏß³ÌµÄµ¥¸ö½»²æÆ½Ì¨£¬¹ı³Ì»ùÓÚÍøÂçµÄÍ¨ĞÅÄ£ĞÍAPI¡£ËüÒ²¿ÉÔÚLinuxºÍWindowsÆ½Ì¨ÉÏÊ¹ÓÃ¡£ËüÊÇÎª·Ö²¼Ê½¼ÆËãÉè¼ÆµÄ£¬Òò´ËÁ¬½ÓÊÇ¶¯Ì¬µÄ£¬»á³öÏÖ½ÚµãÊ§°Ü¡£
+
+5£©HadoopÒ²ÊÇÄã¿ÉÒÔ¿¼ÂÇµÄ¡£HadoopÊÇGoogleµÄ¿ªÔ´°æ±¾MapReduce¿ò¼Ü¡£ËüÖ÷ÒªÕë¶ÔLinuxÆ½Ì¨¡£Õâ¸ö¿ò¼ÜµÄ¸ÅÄîÊÇ°Ñ²É¼¯µ½µÄÒ»¸ö¾Ş´óµÄÊı¾İ¼¯£¬½«Æä·Ö³É£¨»òÓ³Éä£©³É¶à¸ö¿é¡£Êı¾İ¼¯Ê¹ÓÃ²¢ĞĞ»®·Ö³ÉÊı°Ù¸ö»òÊıÇ§¸ö½ÚµãÎÄ¼şÏµÍ³£¬¶ø²»ÊÇµ¥´¿µÄ·¢ËÍÊı¾İµ½½Úµã¡£È¡¶ø´úÖ®µÄÊÇ½«°üº¬Êı¾İµÄ³ÌĞò·¢ËÍµ½½Úµã¡£Êä³ö½«Ğ´Èë±¾µØ½Úµã²¢±£ÁôÔÚ¸Ã½Úµã¡£ËæºóµÄMapReduce³ÌĞòÒÔÇ°µÄÊä³ö£¬²¢ÒÔÄ³ÖÖ·½Ê½ÔÙ´Î×ª»»¡£ÓÉÓÚÊı¾İÊµ¼ÊÉÏÊÇ¶à¸ö½ÚµãµÄ¾µÏñ£¬ÕâÔÊĞí¸ß¶ÈÈİ´íÒÔ¼°¸ßÍÌÍÂÁ¿ÏµÍ³¡£
+\subsection{Ô­ÎÄ}
+CUDA is an extension to the C language that allows GPU code to be written in regular C. The code
+is either targeted for the host processor (the CPU) or targeted at the device processor (the GPU). The
+host processor spawns multithread tasks (or kernels as they are known in CUDA) onto the GPU device.
+The GPU has its own internal scheduler that will then allocate the kernels to whatever GPU hardware is
+present. We¡¯ll cover scheduling in detail later. Provided there is enough parallelism in the task, as the
+number of SMs in the GPU grows, so should the speed of the program.
+
+However, herein hides a big problem. You have to ask what percentage of the code can be run in
+parallel. The maximum speedup possible is limited by the amount of serial code. If you have an infinite
+amount of processing power and could do the parallel tasks in zero time, you would still be left with the
+time from the serial code part. Therefore, we have to consider at the outset if we can indeed parallelize
+a significant amount of the workload.
+
+NVIDIA is committed to providing support to CUDA. Considerable information, examples, and
+tools to help with development are available fromits website at http://www.nvidia.com under CudaZone.
+CUDA, unlike its predecessors, has now actually started to gain momentum and for the first time it
+looks like there will be a programming language that will emerge as the one of choice for GPU
+programming. Given that the number of CUDA-enabled GPUs now number in the millions, there is
+a huge market out there waiting for CUDA-enabled applications.
+
+There are currently manyCUDA-enabled applications and the list growsmonthly.NVIDIA showcases
+many of these on its community website at http://www.nvidia.com/object/cuda\_apps\_flash\_new.html.
+In areas where programs have to do a lot of computational work,for example, making a DVD
+from your home movies (video transcoding),we see most mainstream video packages now supporting
+CUDA. The average speedup is 5 to 10 times in this domain.\\
+
+ALTERNATIVES TO CUDA:\\
+1)OpenCL
+So what of the other GPU manufacturers, ATI (now AMD) being the prime example.AMD¡¯s product
+range is as impressive as the NVIDIA range in terms of raw computer power. However, AMD brought
+its stream computing technology to the marketplace a long time after NVIDIA brought out CUDA. As
+a consequence, NVIDA has far more applications available for CUDA than AMD/ATI does for its
+competing stream technology.
+
+OpenCL and Direct compute is not something we¡¯ll cover in this book, but they deserve a mention
+in terms of alternatives to CUDA. CUDA is currently only officially executable on NVIDIA hardware.
+While NVIDIA has a sizeable chunk of the GPU market, its competitors also hold a sizeable chunk. As
+developers, we want to develop products for as large a market as possible, especially if we¡¯re talking
+about the consumer market. As such, people should be aware there are alternatives to CUDA, which
+support both NVIDIA¡¯s and others¡¯ hardware.
+
+OpenCL is an open and royalty-free standard supported by NVIDIA, AMD, and others. The
+OpenCL trademark is owned by Apple. It sets out an open standard that allows the use of compute
+devices. A compute device can be a GPU, CPU, or other specialist device for which an OpenCL driver
+exists. As of 2012, OpenCL supports all major brands of GPU devices, including CPUs with at least
+SSE3 support.
+
+Anyone who is familiar with CUDA can pick up OpenCL relatively easily, as the fundamental
+concepts are quite similar. However, OpenCL is somewhatmore complex to use thanCUDA, in thatmuch
+of thework theCUDAruntime API does for the programmer needs to be explicitly performed in OpenCL.
+You can read more about OpenCL at http://www.khronos.org/opencl/. There are also now a number
+of books written on OpenCL. I¡¯d personally recommend learning CUDA prior to OpenCL as CUDA is
+somewhat of a higher-level language extension than OpenCL.
+
+2)DirectCompute
+DirectCompute is Microsoft¡¯s alternative to CUDA and OpenCL. It is a proprietary product linked to
+the Windows operating system, and in particular, the DirectX 11 API. The DirectX API was a huge
+leap forward for any of those who remember programming video cards before it. It meant the
+developers had to learn only one library API to program all graphics cards, rather than write or license
+drivers for each major video card manufacturer.
+
+DirectX 11 is the latest standard and supported under Windows 7. With Microsoft¡¯s name behind
+the standard, you might expect to see some quite rapid adoption among the developer community. This
+is especially the case with developers already familiar with DirectX APIs. If you are familiar with
+CUDA and DirectCompute, then it is quite an easy task to port a CUDA application over to Direct-
+Compute. According to Microsoft, this is something you can typically do in an afternoon¡¯s work if you
+are familiar with both systems. However, being Windows centric, we¡¯ll exclude DirectCompute from
+many high-end systems where the various flavors of UNIX dominate.
+
+Microsoft are also set to launch Ctt AMP, an additional set of standard template libraries (STLs),
+which may appeal more to programmers already familiar with Ctt-style STLs.\\
+
+
+CPU ALTERNATIVES:\\
+The main parallel processing languages extensions are MPI, OpenMP, and pthreads if you are
+developing for Linux. For Windows there is the Windows threading model and OpenMP. MPI and
+pthreads are supported as various ports from the Unix world.
+
+1)MPI (Message Passing Interface) is perhaps the most widely known messaging interface. It is
+process-based and generally found in large computing labs. It requires an administrator to
+configure the installation correctly and is best suited to controlled environments. Parallelism is
+expressed by spawning hundreds of processes over a cluster of nodes and explicitly exchanging
+messages, typically over high-speed network-based communication links (Ethernet or
+InfiniBand). MPI is widely used and taught. It¡¯s a good solution within a controlled cluster
+environment.
+
+2)OpenMP (Open Multi-Processing) is a system designed for parallelism within a node or
+computer system. It works entirely differently, in that the programmer specifies various
+parallel directives through compiler pragmas. The compiler then attempts to automatically
+split the problem into N parts, according to the number of available processor cores. OpenMP
+support is built into many compilers, including the NVCC compiler used for CUDA. OpenMP
+tends to hit problems with scaling due to the underlying CPU architecture. Often the memory
+bandwidth in the CPU is just not large enough for all the cores continuously streaming data to
+or from memory.
+
+3)Pthreads is a library that is used significantly for multithread applications on Linux. As with
+OpenMP, pthreads uses threads and not processes as it is designed for parallelism within
+a single node. However, unlike OpenMP, the programmer is responsible for thread management
+and synchronization. This provides more flexibility and consequently better performance for
+well-written programs.
+
+4)ZeroMQ (0MQ) is also something that deserves a mention. This is a simple library that you link to,
+and we will use it later in the book for developing a multinode, multi-GPU example. ZeroMQ
+supports thread-, process-, and network-based communications models with a single crossplatform
+API. It is also available on both Linux and Windows platforms. It¡¯s designed for
+distributed computing, so the connections are dynamic and nodes fail gracefully.
+
+5)Hadoop is also something that you may consider. Hadoop is an open-source version of Google¡¯s
+MapReduce framework. It¡¯s aimed primarily at the Linux platform. The concept is that you take
+a huge dataset and break (or map) it into a number of chunks. However, instead of sending the
+data to the node, the dataset is already split over hundreds or thousands of nodes using a parallel
+file system. Thus, the program, the reduce step, is instead sent to the node that contains the data.
+The output is written to the local node and remains there. Subsequent MapReduce programs take
+the previous output and again transform it in some way. As data is in fact mirrored to multiple
+nodes, this allows for a highly fault-tolerant as well as high-throughput system.
+
+%\clearpage
+\xjtuendappendix
+
+
+\clearpage
+\fancyhead[CO]{\wuhao \ ÖÂ\quad Ğ»}
+\sectionmark{ÖÂ\quad Ğ»}
 \addcontentsline{toc}{section}{ÖÂĞ»}
 \begin{center}
 \sanhao
@@ -1331,7 +1505,7 @@ right\_BGB\_height} &  int  &  ÓÒ±ß±³¹â°åµÄÄ¬ÈÏÎ»ÖÃºÍ·¶Î§  \\
 \end{center}
 
 ¸ĞĞ»µ¼Ê¦ÎâÜçæÂÀÏÊ¦ÔÚ±ÏÉè¹¤×÷ÖĞµÄ¶½´Ù¡¢¹ØĞÄºÍ¶à·½ÃæµÄ½¨ÒéºÍÖ¸µ¼£¬ºÜÈÙĞÒÄÜÓë±³¹â°åÏîÄ¿×éµÄ
-¸÷Î»ÀÏÊ¦¡¢Ç°±²Ò»Æğ¹¤×÷£¬Í¬Ê±Ò²¸ĞĞ»µÄÕÅÑ©ÌÎÀÏÊ¦ºÍ¸ºÔğÈËÂíÁÕÀÏÊ¦ÔÚÕâ´Î¹¤×÷ÖĞÌá¹©µÄ°ïÖúºÍ½Ì»å¡£
+¸÷Î»ÀÏÊ¦¡¢Ç°±²Ò»Æğ¹¤×÷£¬Í¬Ê±Ò²¸ĞĞ»ËùÓĞÈËÔÚÕâ´Î¹¤×÷ÖĞÌá¹©µÄ°ïÖúºÍ½Ì»å¡£
 
 
 %\end{CJK*}     % ½áÊøÖĞÎÄ»·¾³
