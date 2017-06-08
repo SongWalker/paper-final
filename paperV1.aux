@@ -1,0 +1,132 @@
+\relax 
+\citation{chinamake2025-url}
+\citation{yi}
+\citation{lv}
+\citation{wang}
+\citation{lv}
+\@writefile{toc}{\contentsline {section}{\numberline {1}绪论}{1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}背景与意义}{1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}研究现状}{1}}
+\citation{opencv-url}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}论文主要内容}{2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4}论文组织框架}{3}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}手机屏幕缺陷检测流程概况和程序性能优化方案}{4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}手机屏幕缺陷检测流程概况}{4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2-1}{\ignorespaces 手机屏幕缺陷检测整体流程\relax }}{4}}
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{frame}{{2-1}{4}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.1}读取算法参数}{4}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.2}图像采集和输入}{5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2-2}{\ignorespaces 自发光条件下拍摄的图片\relax }}{5}}
+\newlabel{self}{{2-2}{5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2-3}{\ignorespaces 外光源条件下拍摄的图片\relax }}{6}}
+\newlabel{ext}{{2-3}{6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2-4}{\ignorespaces 分离后的图像（左）\relax }}{6}}
+\newlabel{seperated}{{2-4}{6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2-5}{\ignorespaces 有效区域掩模版（左）\relax }}{6}}
+\newlabel{mask}{{2-5}{6}}
+\citation{yi}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.3}图像检测}{7}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2-6}{\ignorespaces 图像检测结果（左）\relax }}{7}}
+\newlabel{result-left}{{2-6}{7}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2-7}{\ignorespaces 图像检测结果（右）\relax }}{7}}
+\newlabel{result-right}{{2-7}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}手机屏幕缺陷检测程序的总体优化方案}{8}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2-8}{\ignorespaces 整体优化方案\relax }}{9}}
+\newlabel{design}{{2-8}{9}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1}CPU多线程并行优化方案}{9}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2-9}{\ignorespaces 线程的类型和分配\relax }}{9}}
+\newlabel{thread}{{2-9}{9}}
+\citation{CUDA-gpu}
+\citation{liu}
+\citation{CUDA-guide}
+\@writefile{lof}{\contentsline {figure}{\numberline {2-10}{\ignorespaces 线程Frame和Inspect的关系\relax }}{10}}
+\newlabel{framework}{{2-10}{10}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}使用GPU通用计算优化检测算法}{10}}
+\citation{wang}
+\@writefile{lof}{\contentsline {figure}{\numberline {2-11}{\ignorespaces 原始图像\relax }}{13}}
+\newlabel{lena-1}{{2-11}{13}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2-12}{\ignorespaces 高斯滤波的结果\relax }}{13}}
+\newlabel{lena-2}{{2-12}{13}}
+\@writefile{lot}{\contentsline {table}{\numberline {2-1}{\ignorespaces CPU和GPU高斯滤波的处理速度对比\relax }}{14}}
+\newlabel{gaussian}{{2-1}{14}}
+\@writefile{lot}{\contentsline {table}{\numberline {2-2}{\ignorespaces 不同kernel大小时CPU和GPU的高斯滤波处理速度\relax }}{14}}
+\newlabel{kernel}{{2-2}{14}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}本章小结}{15}}
+\citation{cppref-url}
+\@writefile{toc}{\contentsline {section}{\numberline {3}CPU多线程并行和GPU加速的优化实现}{16}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}CPU多线程并行优化算法的实现}{16}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.1}主线程的执行过程和Frame线程分配}{16}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3-1}{\ignorespaces 主线程函数执行过程\relax }}{17}}
+\newlabel{MainCode}{{3-1}{17}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.2}Frame线程的执行过程和Inspector线程分配}{17}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3-2}{\ignorespaces Frame线程函数执行过程\relax }}{19}}
+\newlabel{FrameCode}{{3-2}{19}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3-3}{\ignorespaces Inspect线程函数执行过程\relax }}{19}}
+\newlabel{InspectCode}{{3-3}{19}}
+\citation{OpenMP}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.3}应用OpenMP的多线程并行}{20}}
+\citation{cppref-url}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}GPU加速的优化实现}{21}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1}代码移植的程序框架设计}{21}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3-4}{\ignorespaces 框架类、检测类及其子类\relax }}{22}}
+\newlabel{class}{{3-4}{22}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3-5}{\ignorespaces 使用工厂类InspectorSet来生产检测类\relax }}{22}}
+\newlabel{InspectorSet}{{3-5}{22}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.2}检测算法中的重要工具函数}{24}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3-6}{\ignorespaces Inspect()函数的耗时占比\relax }}{24}}
+\newlabel{analyze}{{3-6}{24}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.3}关键函数代码移植示例}{25}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3-7}{\ignorespaces 分段滤波循环的流程\relax }}{27}}
+\newlabel{smooth}{{3-7}{27}}
+\citation{Opencv3}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.4}CUDA设备初始化的处理}{29}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}本章小结}{30}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}并行化设计的设备环境和整体测试}{31}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}OpenCV和CUDA环境搭建}{31}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.1}软硬件环境}{31}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.2}Cmake重新编译OpenCV}{31}}
+\citation{CUDA-gpu}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.3}Visual Studio 2013下对项目的配置方法}{32}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}CPU多线程优化的性能测试}{33}}
+\newlabel{Mthread}{{4.2}{33}}
+\newlabel{Mthread}{{4.2}{33}}
+\@writefile{lot}{\contentsline {table}{\numberline {4-1}{\ignorespaces CPU多线程下检测算法的性能\relax }}{33}}
+\newlabel{Mthread}{{4-1}{33}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}在GPU下的图像检测算法的性能}{34}}
+\@writefile{lot}{\contentsline {table}{\numberline {4-2}{\ignorespaces 在GPU下的图像检测算法的性能\relax }}{34}}
+\newlabel{gpu-inspect}{{4-2}{34}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}OpenCV中的CUDA模块存在的问题}{34}}
+\@writefile{lot}{\contentsline {table}{\numberline {4-3}{\ignorespaces 工具函数MeanFilter()的性能\relax }}{35}}
+\newlabel{meanfilter}{{4-3}{35}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}应用GPU计算的CPU多线程并行的性能}{35}}
+\@writefile{lot}{\contentsline {table}{\numberline {4-4}{\ignorespaces 多线程下应用GPU的检测算法性能测试\relax }}{36}}
+\newlabel{Mthread-gpu}{{4-4}{36}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}本章小结}{36}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}总结与展望}{37}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}论文工作总结}{37}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}下一步研究内容}{37}}
+\bibcite{chinamake2025-url}{1}
+\bibcite{yi}{2}
+\bibcite{lv}{3}
+\bibcite{wang}{4}
+\bibcite{liu}{5}
+\bibcite{opencv-url}{6}
+\bibcite{cppref-url}{7}
+\bibcite{CUDA-gpu}{8}
+\bibcite{CUDA-guide}{9}
+\bibcite{OpenMP}{10}
+\bibcite{Opencv3}{11}
+\@writefile{toc}{\contentsline {section}{参考文献}{38}}
+\@writefile{toc}{\contentsline {section}{\numberline {附录\hspace  {0.25em plus 0.125em minus 0.08em}\ignorespaces 1}算法参数说明}{39}}
+\@writefile{lot}{\contentsline {table}{\numberline {附录\hspace  {0.25em plus 0.125em minus 0.08em}\ignorespaces 1-1}{\ignorespaces 算法参数说明\relax }}{39}}
+\newlabel{parameters}{{附录\hspace  {0.25em plus 0.125em minus 0.08em}\ignorespaces 1-1}{39}}
+\@writefile{toc}{\contentsline {section}{\numberline {附录\hspace  {0.25em plus 0.125em minus 0.08em}\ignorespaces 2}配置OpenCV所需的库文件名}{40}}
+\@writefile{toc}{\contentsline {section}{\numberline {附录\hspace  {0.25em plus 0.125em minus 0.08em}\ignorespaces 3}文献翻译}{42}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {附录\hspace  {0.25em plus 0.125em minus 0.08em}\ignorespaces 3.1}译文}{42}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {附录\hspace  {0.25em plus 0.125em minus 0.08em}\ignorespaces 3.2}原文}{45}}
+\@writefile{toc}{\contentsline {section}{致谢}{49}}
+\ttl@finishall
+\newlabel{LastPage}{{}{49}}
+\xdef\lastpage@lastpage{49}
+\gdef\lastpage@lastpageHy{}
