@@ -8,9 +8,9 @@
 \contentsline {subsubsection}{\numberline {2.1.1}读取算法参数}{4}
 \contentsline {subsubsection}{\numberline {2.1.2}图像采集和输入}{5}
 \contentsline {subsubsection}{\numberline {2.1.3}图像检测}{7}
-\contentsline {subsection}{\numberline {2.2}手机屏幕缺陷检测方法的总体优化方案}{8}
-\contentsline {subsubsection}{\numberline {2.2.1}CPU多线程并行优化方案}{9}
-\contentsline {subsubsection}{\numberline {2.2.2}基于GPU通用计算的检测算法优化}{10}
+\contentsline {subsection}{\numberline {2.2}手机屏幕缺陷检测方法的整体优化方案}{8}
+\contentsline {subsubsection}{\numberline {2.2.1}基于CPU平台的并行优化}{9}
+\contentsline {subsubsection}{\numberline {2.2.2}基于GPU平台的检测算法优化}{10}
 \contentsline {subsection}{\numberline {2.3}本章小结}{15}
 \contentsline {section}{\numberline {3}CPU多线程并行和GPU加速的优化实现}{16}
 \contentsline {subsection}{\numberline {3.1}CPU多线程并行优化算法的实现}{16}
@@ -19,22 +19,28 @@
 \contentsline {subsubsection}{\numberline {3.1.3}应用OpenMP的多线程并行}{20}
 \contentsline {subsection}{\numberline {3.2}基于OpenCV和CUDA的检测算法优化}{21}
 \contentsline {subsubsection}{\numberline {3.2.1}代码移植的程序框架设计}{21}
-\contentsline {subsubsection}{\numberline {3.2.2}检测算法中的重要工具函数}{24}
-\contentsline {subsubsection}{\numberline {3.2.3}关键函数代码移植示例}{25}
-\contentsline {subsubsection}{\numberline {3.2.4}CUDA设备初始化的处理}{28}
-\contentsline {subsection}{\numberline {3.3}本章小结}{29}
-\contentsline {section}{\numberline {4}并行化设计的设备环境和整体测试}{30}
-\contentsline {subsection}{\numberline {4.1}OpenCV和CUDA环境搭建}{30}
-\contentsline {subsubsection}{\numberline {4.1.1}软硬件环境}{30}
-\contentsline {subsubsection}{\numberline {4.1.2}Cmake重新编译OpenCV}{30}
-\contentsline {subsubsection}{\numberline {4.1.3}Visual Studio 2013下对项目的配置方法}{31}
-\contentsline {subsection}{\numberline {4.2}CPU多线程优化的性能测试}{32}
-\contentsline {subsection}{\numberline {4.3}在GPU下的图像检测算法的性能}{33}
+\contentsline {subsubsection}{\numberline {3.2.2}检测算法中的重要工具函数}{23}
+\contentsline {subsubsection}{\numberline {3.2.3}关键函数代码移植示例}{24}
+\contentsline {subsubsection}{\numberline {3.2.4}CUDA设备初始化的处理}{26}
+\contentsline {subsection}{\numberline {3.3}本章小结}{28}
+\contentsline {section}{\numberline {4}并行化设计的设备环境和整体测试}{29}
+\contentsline {subsection}{\numberline {4.1}OpenCV和CUDA环境搭建}{29}
+\contentsline {subsubsection}{\numberline {4.1.1}软硬件环境}{29}
+\contentsline {subsubsection}{\numberline {4.1.2}Cmake重新编译OpenCV}{29}
+\contentsline {subsubsection}{\numberline {4.1.3}Visual Studio 2013下对项目的配置方法}{30}
+\contentsline {subsection}{\numberline {4.2}CPU多线程优化的性能测试}{31}
+\contentsline {subsection}{\numberline {4.3}在GPU下的图像检测算法的性能}{32}
 \contentsline {subsection}{\numberline {4.4}OpenCV中的CUDA模块存在的问题}{33}
 \contentsline {subsection}{\numberline {4.5}应用GPU计算的CPU多线程并行的性能}{34}
-\contentsline {subsection}{\numberline {4.6}本章小结}{35}
-\contentsline {section}{\numberline {5}总结与展望}{36}
-\contentsline {subsection}{\numberline {5.1}论文工作总结}{36}
-\contentsline {subsection}{\numberline {5.2}下一步研究内容}{36}
-\contentsline {section}{参考文献}{37}
+\contentsline {subsection}{\numberline {4.6}本章小结}{34}
+\contentsline {section}{\numberline {5}总结与展望}{35}
+\contentsline {subsection}{\numberline {5.1}论文工作总结}{35}
+\contentsline {subsection}{\numberline {5.2}下一步研究内容}{35}
+\contentsline {section}{参考文献}{36}
+\contentsline {section}{\numberline {附录\hspace {0.25em plus 0.125em minus 0.08em}\ignorespaces 1}重要算法参数说明}{37}
+\contentsline {section}{\numberline {附录\hspace {0.25em plus 0.125em minus 0.08em}\ignorespaces 2}配置OpenCV 3.2.0所需的库文件名}{38}
+\contentsline {section}{\numberline {附录\hspace {0.25em plus 0.125em minus 0.08em}\ignorespaces 3}文献翻译}{39}
+\contentsline {subsection}{\numberline {附录\hspace {0.25em plus 0.125em minus 0.08em}\ignorespaces 3.1}原文}{39}
+\contentsline {subsection}{\numberline {附录\hspace {0.25em plus 0.125em minus 0.08em}\ignorespaces 3.2}译文}{43}
+\contentsline {section}{致谢}{46}
 \contentsfinish 

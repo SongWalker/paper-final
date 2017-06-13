@@ -1,5 +1,7 @@
 \documentclass[a4paper,12pt]{article}
-
+%\documentclass[a4paper,12pt][UTF8]{ctexart} % instead of `article'
+%\documentclass[openany]{book}
+\usepackage{ctex}
 \usepackage{times}                       % Ê¹ÓÃ Times New Roman ×ÖÌå
 \usepackage{CJK,CJKnumb,CJKulem}         % ÖĞÎÄÖ§³Öºê°ü
 \usepackage{color}                       % Ö§³Ö²ÊÉ«
@@ -13,6 +15,7 @@
 \usepackage{makeidx}                            % ½¨Á¢Ë÷Òıºê°ü
 \usepackage{listings}                           % Ô´´úÂëºê°ü
 \usepackage{booktabs}                           % »æÖÆ±í¸ñ
+\usepackage{ccmap}                              % ½â¾öpdf¸´ÖÆÂÒÂëÎÊÌâ
 
 \usepackage{lipsum}% http://ctan.org/pkg/lipsum
 \usepackage{titletoc,titlesec}
@@ -66,12 +69,12 @@
 %%%% ÉèÖÃ section ÊôĞÔ %%%%
 % ¿çÕÂ½ÚµÄÍ¼¡¢±í¡¢¹«Ê½¼ÆÊıÇåÁã
 \titleformat{\section}[block]{}{\thesection}{1em}{\setcounter{figure}{0}\setcounter{table}{0}\setcounter{equation}{0}}
-\titleformat*{\section}{\centering\sanhao\CJKfamily{song}}
+\titleformat*{\section}{\centering\sanhao\songti}
 \titlespacing*{\section}{0em}{0\baselineskip}{1\baselineskip}
 
 %%%% ÉèÖÃ subsection ÊôĞÔ %%%%
 \titleformat{\subsection}[hang]{}{\thesubsection}{1em}{}
-\titleformat*{\subsection}{\normalfont\xiaosanhao\CJKfamily{song}}
+\titleformat*{\subsection}{\normalfont\xiaosanhao\songti}
 \titlespacing*{\subsection}{0em}{1\baselineskip}{0.5\baselineskip}
 
 %%%% ÉèÖÃ subsubsection ÊôĞÔ %%%%
@@ -94,28 +97,47 @@
 \def\@cite#1#2{\textsuperscript{[{#1\if@tempswa , #2\fi}]}}
 \makeatother
 
-%%%%%ÉèÖÃÍ¼±íĞòºÅ¸ñÊ½%%%%%%%%%
-\captionsetup[table]{labelsep=space}      %Í¼±íĞòºÅµÄÃ°ºÅ¸ÄÎª¿Õ¸ñ
-\captionsetup[figure]{labelsep=space}      %Í¼±íĞòºÅµÄÃ°ºÅ¸ÄÎª¿Õ¸ñ
-
-%Í¼¡¢±í¡¢¹«Ê½µÄĞòºÅÓëÕÂ½ÚÏà¹Ø£¨1-1£¬1-2£¬2-1...£©
+%Í¼¡¢±í¡¢¹«Ê½¸ñÊ½ÉèÖÃ
 \makeatletter
 \renewcommand{\thefigure}{\ifnum \c@section>\z@ \thesection-\fi \@arabic\c@figure}
 \renewcommand{\thetable}{\ifnum \c@section>\z@ \thesection-\fi \@arabic\c@table}
-\renewcommand\theequation{\ifnum \c@chapter >\z@ \thesection-\fi
-\@arabic \c@equation}
+\renewcommand\theequation{\ifnum \c@chapter >\z@ \thesection-\fi\@arabic \c@equation}
+
+
 \makeatother
+%\captionsetup{belowskip=-10pt}
+\captionsetup{labelsep=quad}
+\captionsetup[longtable]{labelsep=quad}
+\captionsetup[subfloat]{labelformat=simple,captionskip=6bp,nearskip=6bp,farskip=0bp,topadjust=0bp}
+
+\DeclareCaptionFont{wuhao}{\wuhao}\captionsetup{font=wuhao,labelsep=quad} % thanks to @wanderxjtu
+\DeclareCaptionFont{xiaowuhao}{\xiaowuhao}\captionsetup[subfloat]{font=xiaowuhao} % issue 4
 
 %%%%ÉèÖÃ²åÈë´úÂëÑùÊ½%%%%%%%%%%%
-\lstset{numberstyle=\tiny,escapeinside=''}
+\lstset{language={[ANSI]C},
+frame=shadowbox,
+frame=single,
+aboveskip=1em,
+showstringspaces=false,
+%numbers=left,
+escapeinside=''}
 
 
 %¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ªÕıÎÄ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¨C
 \begin{document} % ¿ªÊ¼ÕıÎÄ
-\begin{CJK*}{GBK}{song}                           % ¿ªÊ¼ÖĞÎÄ»·¾³
+%\begin{CJK*}{GBK}{song}                           % ¿ªÊ¼ÖĞÎÄ»·¾³
 
 %%%%%Ò³Ã¼Ò³½ÅÉèÖÃ%%%%%%%%%%%%%%%%%%%
 % booktabs parameters
+
+\newcommand{\makeheadrule}{%
+\makebox[0pt][l]{\rule[0.55\baselineskip]{\headwidth}{0.35pt}}%
+\rule[0.6\baselineskip]{\headwidth}{0.35pt}}
+\renewcommand{\headrule}{%
+{\if@fancyplain\let\headrulewidth\plainheadrulewidth\fi
+\makeheadrule}}
+\makeatother
+
 \setlength\cmidrulewidth {1.0pt}
 \setlength\lightrulewidth{1.0pt}
 \setlength\heavyrulewidth{1.5pt}
@@ -127,9 +149,10 @@
 \fancyhead[CE]{\wuhao{Î÷°²½»Í¨´óÑ§±¾¿Æ±ÏÒµÉè¼Æ£¨ÂÛÎÄ£©} }
 \fancyfoot[RO,LE]{\xiaowuhao ~\thepage~}
 \renewcommand{\headrulewidth}{\if@mainmatter 0.5pt\else 0pt \fi}
-\renewcommand{\headrule}{\hrule \@height \headrulewidth \@width \headwidth \vskip .5pt
+\renewcommand{\headrule}{\hrule \@height \headrulewidth \@width \headwidth \vskip .7pt
 \hrule \@height \headrulewidth \@width \headwidth \vskip -\headrulewidth}
 }
+
 %\fi
 
 %%%% ¶¨ÀíÀà»·¾³µÄ¶¨Òå %%%%
@@ -160,7 +183,7 @@
 \renewcommand{\algorithm}{Ëã·¨}
 
 \pagenumbering{Roman}                          %Ğ÷ÂÛÖ®Ç°µÄ²¿·ÖÓÃÂŞÂíÊı×Ö±íÊ¾Ò³Âë
-
+\setcounter{page}{5}                           %ÉèÖÃµ±Ç°Ò³ÊıÎª6£¬²»ĞèÒªÔò×¢ÊÍµô
 %~
 %\clearpage
 %~
@@ -171,37 +194,49 @@
 %\date{2017Äê5ÔÂ}
 
 %\title{CPU-GPUÒì¹¹Æ½Ì¨ÉÏÆ½Ãæ¹âÔ´¼ì²â·½·¨µÄ²¢ĞĞ»¯Éè¼ÆÓëÊµÏÖ}                                % ÌâÄ¿
-\fancyhead[C]{\wuhao{Õª\quad Òª} }
+\fancyhead[CO]{\wuhao{Õª\quad Òª} }
 \noindent
 \textbf{ÂÛÎÄÌâÄ¿£ºCPU-GPUÒì¹¹Æ½Ì¨ÉÏÆ½Ãæ¹âÔ´¼ì²â·½·¨µÄ²¢ĞĞ»¯Éè¼ÆÓëÊµÏÖ}\\
 \textbf{Ñ§ÉúĞÕÃû£ºÕÅÖ¾Ô´}\\
 \textbf{Ö¸µ¼½ÌÊ¦£ºÎâÜçæÂ}
 \section*{Õª\quad Òª}
 \sectionmark{Õª\quad Òª}
-%\begin{center}
-%\sanhao
-%Õª\quad Òª
-%\end{center}
-\noindent
-£¨ÕâÀï·ÅÖÃabstractµÄÎÄ×Ö£©\\\\
-\wuhao\noindent{\bf ¹Ø¼ü´Ê}£º
+\begin{spacing}{1.5}
+ÔÚ¸ßĞÂ¼¼Êõ²»¶Ï·¢Õ¹µÄµ±ÏÂ£¬ÊµÏÖÍêÈ«µÄ×Ô¶¯»¯ÊÇÎ´À´¹¤ÒµÖÆÔìµÄ·¢Õ¹·½Ïò¡£ÖÇÄÜ¼ì²â×÷Îª×Ô¶¯»¯µÄ¹Ø¼ü»·½Ú£¬¶Ô»úÆ÷ÔË×÷µÄÊµÊ±ĞÔÒªÇóÊÇÒ»¸öÓ²ĞÔĞèÇó¡£±¾ÎÄÒÔÆ½Ãæ¹âÔ´¼ì²â·½·¨ÖĞµäĞÍµÄÊÖ»úÆÁÄ»È±ÏİµÄ×Ô¶¯»¯¼ì²âÎªÀı£¬Ö÷ÒªÑĞ¾¿ÁËÍ¼Ïñ´¦Àí¹ı³ÌÖĞµÄ³ÌĞòÓÅ»¯·½·¨£¬²ÉÓÃÔÚCUPºÍGPUÒì¹¹Æ½Ì¨ÉÏ½øĞĞ²¢ĞĞ»¯ÓÅ»¯£¬´Ó¶øÌá¸ßÔËĞĞËÙ¶ÈÒÔÂú×ãÊµÊ±ĞÔµÄÒªÇó¡£
+
+±¾ÎÄÏÈ½éÉÜÁËÊÖ»úÆÁÄ»È±Ïİ¼ì²âÏµÍ³ÔÚÉú²úÏßÉÏµÄ¹¤×÷Á÷³Ì£¬¸ù¾İÊµ¼ÊµÄĞèÇó²ÉÓÃÁË¶àÏß³Ì²¢ĞĞµÄ³ÌĞòÉè¼Æ·½·¨À´½øĞĞÓÅ»¯¡£ÎªÁË½â¾öCPU¼ÆËãÄÜÁ¦µÄÆ¿¾±£¬ÀûÓÃÁËGPUµÄ¸ß²¢·¢¼ÆËãÌá¸ß²¿·ÖÍ¼Ïñ´¦Àíº¯ÊıµÄĞÔÄÜ¡£
+
+¶àÏß³Ì²¢ĞĞµÄ·½°¸ÖĞ£¬¸ù¾İ³ÌĞòµÄ¹¤×÷Á÷³ÌÉè¼ÆÁËÁ½ÖÖÏß³ÌÀàĞÍ£¬ËµÃ÷ÁËÈçºÎ·ÖÅäÏß³Ì£¬²¢ÀûÓÃÁËOpenMP¶ÔÒ»Ğ©Ñ­»·³ÌĞò½øĞĞÁË²¢ĞĞ»¯´¦Àí¡£¶ÔGPU¼ÆËãµÄÀûÓÃÖ÷ÒªÊÇÔÚCUDA¼Ü¹¹ÏÂ£¬½èÖúÁËOpenCV µÄCUDAÄ£¿éÀ´ÊµÏÖ£¬Õë¶Ô¼ì²âËã·¨ÖĞµÄÌØ¶¨º¯Êı½øĞĞÒÆÖ²£»²¢ÔÚÒÆÖ²¹ı³ÌÖĞÉè¼ÆÁËÒ×À©Õ¹ºÍÎ¬»¤µÄ³ÌĞò¿ò¼Ü¡£
+
+×îºó£¬±¾ÎÄ¶Ô²¢ĞĞ»¯ºóµÄ³ÌĞò½øĞĞÁË¶à·½ÃæµÄ²âÊÔºÍ·ÖÎö£¬×Ü½áÁË±ÏÉèµÄ¹¤×÷³É¹û£¬Ò²Ìá³öÁËÔÚGPU µÄÀûÓÃ·½Ãæ´æÔÚµÄ²»×ã£¬Ö¸Ã÷ÁËºóĞøÑĞ¾¿µÄ·½Ïò¡£
+\end{spacing}
+~\\
+\wuhao\noindent{\bf ¹Ø¼ü´Ê}£º¶àÏß³Ì£»Í¼Ïñ´¦Àí£»GPU£»OpenCV£»CUDA
 
 
 %\maketitle                                       % Éú³É±êÌâ
 
 \clearpage % »»Ò³£¬\newpageÒ²¿ÉÒÔ£¬ÍÆ¼ö\clearpage
 
-\fancyhead[C]{\wuhao{ABSTRACT} }
+\fancyhead[CO]{\wuhao{ABSTRACT} }
 \renewcommand{\abstractname}{\normalfont\sanhao{ABSTRACT}}%
 \noindent
-\textbf{Title: XXXXXXXXXXXXXXXXX£¨ÂÛÎÄÌâÄ¿²»ÄÜ³¬¹ı35 ¸öºº×Ö£©}\\
-\textbf{name:XXX}\\
-\textbf{Supervisor: XXX}
+\textbf{Title: Parallel Design and Implementation of Planar Light Source Detect Method on \indent ~~CPU-GPU Heterogeneous Platform}\\
+\textbf{name:Zhiyuan Zhang}\\
+\textbf{Supervisor: Xiyuan Wu}
 \section*{ABSTRACT}
 \sectionmark{ABSTRACT}
-\noindent
-£¨ÕâÀï·ÅÖÃabstractµÄÎÄ×Ö£©\\\\
-\wuhao\noindent{\bf KEY~WORDS}£º
+\begin{spacing}{1.5}
+\noindent In the continuous development of high-tech, to achieve full automation is the future direction of industrial manufacturing. Intelligent detection as a key link in the automation, the real-time capability of the operation of the machine is a rigid demand. Based on the automatic detection of defects in mobile phone screen, this paper mainly studies the program optimization method in the image processing process, and improves the running speed to meet the real-time capability.\\
+
+\noindent This paper introduces the workflow of the mobile phone screen defect detection system in the production line, by using multi-threaded parallel programming method to optimize the original program according to the actual needs. In order to solve the bottleneck of CPU computing power, GPU high concurrent computing is chosen to improve the performance of some image processing functions.\\
+
+\noindent In the multi-threaded parallel program, designed two types of threads according to the program's workflow, explains how to allocate threads, and implement parallel processing for loop?code in the support of OpenMP. The use of GPU computing is based on the CUDA architecture, with the help of OpenCV CUDA module to run the specific functions of detection algorithm.And also designed a program framework that is easy to expand and maintain during the work.\\
+
+\noindent Finally, this paper has carried on the multidimensional test and the analysis to the parallel procedure, has summarized the work result, also put forward the insufficiency in the utilization of the GPU, pointed out the follow-up research direction.
+\end{spacing}
+~\\
+\wuhao\noindent{\bf KEY~WORDS}:Multi-Thread;Image Processing;GPU;OpenCV;CUDA
 
 \clearpage % »»Ò³
 %%%%%Ò³Ã¼Ò³½ÅÉèÖÃ%%%%%%%%%%%%%%%%%%%
@@ -238,7 +273,7 @@
 
 ÖÇÄÜÖÆÔìÊÇµ±Ç°ÖĞ¹ú²úÒµ±ä¸ïµÄÖ÷¹¥·½Ïò£¬2015ÄêÊ×´ÎÌá³öµÄ¡°ÖĞ¹úÖÆÔì2025¡±£¬ÊÇÖĞ¹úÕş¸®ÊµÊ©ÖÆÔìÇ¿¹úÕ½ÂÔµÚÒ»¸öÊ®ÄêµÄĞĞ¶¯¸ÙÁì£¬Ö¼ÔÚ·¢Õ¹¸ß¼¼Êõº¬Á¿µÄÖÆÔìĞĞÒµ£¬¸Ä±äÖĞ¹úÖÆÔìÒµ¡°´ó¶ø²»Ç¿¡±µÄ¾ÖÃæ\cite{chinamake2025-url}¡£¶øÖÇÄÜ¼ì²âÊÇÖÇÄÜÖÆÔìÖĞµÄ¹Ø¼ü»·½ÚÖ®Ò»£»ÄÜ·ñÂú×ãÖÇÄÜ¼ì²âÖĞµÄÊµÊ±ĞÔÒªÇó£¬Ö±½ÓÓ°ÏìÁËÖÇÄÜÖÆÔìÁ÷Ë®ÏßÖĞµÄÉú²úĞ§ÂÊ¡£
 
-ÔÚÖÇÄÜÊÖ»úµÄÉú²úÏßÉÏ£¬ÔÚÊÖ»úÒº¾§ÆÁÄ»µÄÖÊÁ¿¼ì²âÕâÒ»»·½Ú£¬È±ÉÙÖ±½ÓÓĞĞ§µÄ·½·¨À´ÊµÏÖ×Ô¶¯»¯£¬Òò´ËÖ»ÄÜ°²ÅÅ×¨ÈËÀ´°Ñ¹Ø£¬ÈË¹¤À´¼ì²â²úÆ·È±Ïİ\cite{yi}¡£±ÊÕßËù²ÎÓëµÄÏîÄ¿£¬Ö÷ÒªµÄ¹¤×÷ÊÇÊ¹ÓÃ»ùÓÚÍ¼ÏñÊ¶±ğµÄ·½·¨£¬ÔÚÉú²úÏßÉÏÊµÏÖ×Ô¶¯»¯Éè±¸À´¼ì²âÊÖ»úÆÁÄ»È±Ïİ£¬ÒÔ´Ë´úÌæ´«Í³ÈË¹¤¼ì²â£¬¼õÉÙ²»±ØÒªµÄÈËÁ¦×ÊÔ´¿ªÏú£¬²¢Ìá¸ßÉú²úĞ§ÂÊ¡£
+ÔÚÖÇÄÜÊÖ»úµÄÉú²úÏßÉÏ£¬ÔÚÊÖ»úÒº¾§ÆÁÄ»µÄÖÊÁ¿¼ì²âÕâÒ»»·½Ú£¬È±ÉÙÖ±½ÓÓĞĞ§µÄ·½·¨À´ÊµÏÖ×Ô¶¯»¯£¬Òò´ËÖ»ÄÜ°²ÅÅ×¨ÈËÀ´°Ñ¹Ø£¬ÈË¹¤À´¼ì²â²úÆ·È±Ïİ\cite{yi}¡£ ±ÊÕßËù²ÎÓëµÄÏîÄ¿£¬Ö÷ÒªµÄ¹¤×÷ÊÇÊ¹ÓÃ»ùÓÚÍ¼ÏñÊ¶±ğµÄ·½·¨£¬ÔÚÉú²úÏßÉÏÊµÏÖ×Ô¶¯»¯Éè±¸À´¼ì²âÊÖ»úÆÁÄ»È±Ïİ£¬ÒÔ´Ë´úÌæ´«Í³ÈË¹¤¼ì²â£¬¼õÉÙ²»±ØÒªµÄÈËÁ¦×ÊÔ´¿ªÏú£¬²¢Ìá¸ßÉú²úĞ§ÂÊ¡£
 
 ÎªÁËÂú×ãÊµÊ±ĞÔµÄÒªÇó£¬×î¸ù±¾µÄÍ¾¾¶ÊÇÌá¸ß¼ì²âËã·¨µÄÖ´ĞĞËÙ¶È£¬ÕâÒ²ÊÇ±ÊÕßµÄÖ÷Òª¹¤×÷ºÍÑĞ¾¿ÖØµã£»Èç¹ûËã·¨µÄÊ±¼ä¿ªÏú¹ı´ó£¬¼ì²âÏµÍ³½«ÄÑÒÔºÍÏÖ³¡µÄÉú²úÉè±¸¶Ô½Ó¡£ÈçºÎÌá¸ß¼ì²â»·½ÚÖĞ¸´ÔÓËã·¨µÄÖ´ĞĞĞ§ÂÊ£¬¾ÍÊÇÒ»¸öµÄØ½´ı½â¾ö¡¢ÇÒÓĞ¹ã·ºÓ¦ÓÃ¼ÛÖµµÄÎÊÌâ¡£
 
@@ -246,10 +281,10 @@
 
 ÔÚÓĞÏŞµÄ¼ÆËã×ÊÔ´ÏÂ£¬ÀûÓÃ²¢ĞĞ¼ÆËãÊÇÌá¸ßËã·¨Ö´ĞĞĞ§ÂÊµÄ×îÖ±½ÓµÄ·½·¨¡£ÔÚ¸ÃÏîÄ¿ÏÂ£¬¶ÔÍ¬Ò»×éÊÖ»úÆÁÄ»µÄÒ»´Î¼ì²âÖĞĞèÒªÅÄÉã¶àÕÅÍ¼Æ¬£¬Ò²¾ÍÒâÎ¶×ÅÒªÔÚ¶ÌÊ±¼äÄÚ¶Ô¶àÕÅÍ¼Æ¬Ö´ĞĞÏàÍ¬µÄ¼ì²âËã·¨£¬ÔÚÕâ¸öµØ·½¿ÉÒÔÀûÓÃ¶àºËCPU µÄ¶àÏß³Ì²¢·¢£¬¶ÔÃ¿ÕÅÍ¼Æ¬·ÖÅäÒ»¸öÏß³ÌÖ´ĞĞËã·¨¡£
 
-Èç¹ûÉîÈëµ½´¦ÀíÆ÷µÄ¼ÆËãĞÔÄÜ£¬ÔÚ´ó¹æÄ£²¢ĞĞ¼ÆËãÁìÓò£¬GPU ºÍCPU Ïà±È£¬Õ¹ÏÖÁË¸üÇ¿´óµÄ¸¡µãÔËËãÄÜÁ¦¡£GPU µÄ¿É±à³ÌĞÔÔÚÎ´¿ªÊ¼·¢Õ¹Ê±£¬¿ª·¢ÈËÔ±Òª½èÖú¸´ÔÓµÄ¼ÆËã»úÍ¼ĞÎÑ§APIÀ´¶ÔGPU½øĞĞ±à³Ì£¬Õâ¶Ô·Ç×¨ÒµÈËÔ±Ôì³É¼«´óµÄÀ§ÄÑ\cite{lv}¡£ ¶ø½üÄêÀ´£¬GPUÔÚ¼ÆËãĞÔÄÜ²»¶ÏÌá¸ßµÄÍ¬Ê±£¬ËüµÄ¿É±à³ÌĞÔÒ²ÔÚ²»¶ÏÌá¸ß£¬ÒâÎ¶×ÅGPU¿ÉÒÔÔÚÍ¨ÓÃ¼ÆËãÁìÓòµÃµ½¸ü¹ã·ºµÄÓ¦ÓÃ£»ÏñÕâÒ»ÀàµÄGPU±»³ÆÎªÍ¨ÓÃGPU£¬¼´GPGPU£¨General Purpose GPU£©\cite{wang}¡£Ä¿Ç°Ó¦ÓÃ½Ï¹ã·ºµÄGPGPU Æ½Ì¨Ö÷ÒªÓĞCUDA £¨Compute Unified Device Architecture£¬Í³Ò»¼ÆËãÉè±¸¼Ü¹¹£©¡¢OpenCL £¨Open Graphics Library£¬¿ª·Å¼ÆËãÓïÑÔ£©¡£CUDAÊÇÏÔ¿¨³§ÉÌNVIDIAÍÆ³öµÄ¡¢»ùÓÚ×Ô¼Ò¹«Ë¾Éú²úµÄGPU ¿ª·¢³öÀ´µÄ£¬Ê¹ÓÃC ÓïÑÔÀ´Éè¼ÆĞèÒªµÄ³ÌĞò£¬¶ÔËù½øĞĞµÄ¼ÆËã½øĞĞ·ÖÅäºÍ¹ÜÀí\cite{lv}¡£
+Èç¹ûÉîÈëµ½´¦ÀíÆ÷µÄ¼ÆËãĞÔÄÜ£¬ÔÚ´ó¹æÄ£²¢ĞĞ¼ÆËãÁìÓò£¬GPU ºÍCPU Ïà±È£¬Õ¹ÏÖÁË¸üÇ¿´óµÄ¸¡µãÔËËãÄÜÁ¦¡£GPU µÄ¿É±à³ÌĞÔÔÚÎ´¿ªÊ¼·¢Õ¹Ê±£¬¿ª·¢ÈËÔ±Òª½èÖú¸´ÔÓµÄ¼ÆËã»úÍ¼ĞÎÑ§APIÀ´¶ÔGPU½øĞĞ±à³Ì£¬Õâ¶Ô·Ç×¨ÒµÈËÔ±Ôì³É¼«´óµÄÀ§ÄÑ\cite{lv}¡£ ¶ø½üÄêÀ´£¬GPUÔÚ¼ÆËãĞÔÄÜ²»¶ÏÌá¸ßµÄÍ¬Ê±£¬ËüµÄ¿É±à³ÌĞÔÒ²ÔÚ²»¶ÏÌá¸ß£¬ÒâÎ¶×ÅGPU¿ÉÒÔÔÚÍ¨ÓÃ¼ÆËãÁìÓòµÃµ½¸ü¹ã·ºµÄÓ¦ÓÃ£»ÏñÕâÒ»ÀàµÄGPU±»³ÆÎªÍ¨ÓÃGPU£¬¼´GPGPU£¨General Purpose GPU£©\cite{wang}¡£Ä¿Ç°Ó¦ÓÃ½Ï¹ã·ºµÄGPGPU Æ½Ì¨Ö÷ÒªÓĞCUDA £¨Compute Unified Device Architecture£¬Í³Ò»¼ÆËãÉè±¸¼Ü¹¹£©¡¢OpenCL £¨Open Graphics Library£¬¿ª·Å¼ÆËãÓïÑÔ£©¡£CUDA ÊÇÏÔ¿¨³§ÉÌNVIDIAÍÆ³öµÄ¡¢»ùÓÚ×Ô¼Ò¹«Ë¾Éú²úµÄGPU ¿ª·¢³öÀ´µÄ£¬Ê¹ÓÃC ÓïÑÔÀ´Éè¼ÆĞèÒªµÄ³ÌĞò£¬¶ÔËù½øĞĞµÄ¼ÆËã½øĞĞ·ÖÅäºÍ¹ÜÀí\cite{lv}¡£
 
 ½èÖúCUDAµÄ¼Ü¹¹À´¶ÔËã·¨½øĞĞÒÆÖ²ÊÇÄ¿Ç°³£ÓÃµÄ½â¾öĞÔÄÜÎÊÌâµÄ·½·¨¡£ÎÊÌâÔÚÓÚ£¬¶ÔÏÖÓĞÍ¼Ïñ´¦ÀíËã·¨½øĞĞÒÆÖ²ºÍÓÅ»¯ÈÔÈ»ĞèÒª±È½ÏÇ¿µÄ×¨ÒµºÍÀíÂÛ»ù´¡£¬Èç¹ûÖ»ÊÇÕë¶ÔÌØ¶¨Ëã·¨µ¹ÊÇ¿ÉĞĞ£¬µ«ÊÇÒªÓÃÉÏÊö·½·¨¶Ô¸ÃÏîÄ¿µÄ¼ì²âËã·¨½øĞĞÒÆÖ²£¬Éæ¼°µ½¸´ÔÓµÄ´¦ÀíÁ÷³Ì£¬ÒÆÖ²Ëã·¨ĞèÒªºÜ³¤µÄÑ§Ï°ºÍÑĞ·¢ÖÜÆÚ¡£
-¿¼ÂÇµ½Ò×ÓÃĞÔºÍÓÑºÃ³Ì¶È£¬ÕâÀï×ÅÖØ¹Ø×¢OpenCV£¨Open Source Computer Vision Library£©µÄGPUÄ£¿é£»Õâ¸öÄ£¿é×îÔçÔÚNVIDIA ¹«Ë¾Ö§³ÖÏÂ½øĞĞ¿ª·¢£¬²¢ÓÚ2011 Äê´ºÕıÊ½·¢ĞĞ\cite{opencv-url}¡£Ä¿Ç°ÎªÖ¹Ò²¸üĞÂÁË´óÁ¿ÓÉCUDA ´úÂë±àĞ´µÄÍ¼ĞÎ´¦ÀíËã·¨£¬ÕâÒ²¾ÍÒâÎ¶×Å¿ª·¢ÈËÔ±¿ÉÒÔÊ¹ÓÃÕâĞ©Í¨ÓÃµÄËã·¨APIÀ´ÀûÓÃGPU ½øĞĞ¼ÆËã£¬ÃâÈ¥ÁË·±ÔÓµÄËã·¨Éè¼ÆºÍÓÅ»¯¡£ÓÉÓÚOpenCV µÄ¿ªÔ´ÌØĞÔ£¬×¨¼ÒºÍ°®ºÃÕß¿ÉÒÔ¹²Í¬Î¬»¤ºÍ¿ª·¢OpenCVµÄGPUÄ£¿é£¬²¢²»¶ÏÍêÉÆ£¬ÔÚÍ¼ĞÎ´¦Àí·½ÃæÓĞ×ÅÁ¼ºÃµÄ·¢Õ¹Ç°¾°¡£
+¿¼ÂÇµ½Ò×ÓÃĞÔºÍÓÑºÃ³Ì¶È£¬ÕâÀï×ÅÖØ¹Ø×¢OpenCV£¨Open Source Computer Vision Library£©µÄGPU Ä£¿é£»Õâ¸öÄ£¿é×îÔçÔÚNVIDIA ¹«Ë¾Ö§³ÖÏÂ½øĞĞ¿ª·¢£¬²¢ÓÚ2011 Äê´ºÕıÊ½·¢ĞĞ\cite{opencv-url}¡£ Ä¿Ç°ÎªÖ¹Ò²¸üĞÂÁË´óÁ¿ÓÉCUDA ´úÂë±àĞ´µÄÍ¼ĞÎ´¦ÀíËã·¨£¬ÕâÒ²¾ÍÒâÎ¶×Å¿ª·¢ÈËÔ±¿ÉÒÔÊ¹ÓÃÕâĞ©Í¨ÓÃµÄËã·¨APIÀ´ÀûÓÃGPU ½øĞĞ¼ÆËã£¬ÃâÈ¥ÁË·±ÔÓµÄËã·¨Éè¼ÆºÍÓÅ»¯¡£ÓÉÓÚOpenCV µÄ¿ªÔ´ÌØĞÔ£¬×¨¼ÒºÍ°®ºÃÕß¿ÉÒÔ¹²Í¬Î¬»¤ºÍ¿ª·¢OpenCVµÄGPUÄ£¿é£¬²¢²»¶ÏÍêÉÆ£¬ÔÚÍ¼ĞÎ´¦Àí·½ÃæÓĞ×ÅÁ¼ºÃµÄ·¢Õ¹Ç°¾°¡£
 
 ±¾´Î±ÏÉèµÄÖ÷Òª¹¤×÷¾ÍÊÇÔÚCPU-GPUÒì¹¹Æ½Ì¨ÉÏ£¬Ê¹ÓÃCPU¶àÏß³Ì²¢ĞĞÓÅ»¯³ÌĞòÒÔÂú×ã»ù±¾µÄĞÔÄÜĞèÇó£¬ÀûÓÃCUDA ¼Ü¹¹¶ÔÏà¹ØµÄËã·¨º¯Êı½øĞĞÒÆÖ²£¬´Ó¼ÆËãĞÔÄÜµÄ½Ç¶È¶Ô³ÌĞò½øĞĞÓÅ»¯£¬Ì½Ë÷ÆäĞÔÄÜÌá¸ßµÄ·½·¨¡£
 
@@ -266,7 +301,7 @@
 3£©CPU¶àÏß³Ì²¢ĞĞµÄÓÅ»¯·½°¸ºÍOpenMPµÄÓ¦ÓÃ£º½éÉÜÔÚ¸ÃÏîÄ¿ÖĞÈçºÎÀûÓÃ¶àÏß³ÌÀ´¶Ô¼ì²âËã·¨½øĞĞÕûÌåµÄÓÅ»¯£¬ÒÔ¼°Ê¹ÓÃOpenMP
 ¶Ô¾Ö²¿´úÂë½øĞĞ²¢ĞĞÓÅ»¯£¬Ì½ÌÖÆäÖĞ·¢ÏÖµÄÎÊÌâ¡£
 
-4£©ÀûÓÃOpenCVµÄCUDAÄ£¿é½øĞĞËã·¨ÒÆÖ²ºÍ²âÊÔ£º½éÉÜ±ÊÕßÕë¶Ô¸ÃÏîÄ¿µÄËã·¨¡¢½èÖúOpenCVÖĞCUDAÄ£¿éµÄAPI¶ÔÔ­ÓĞ´úÂë½øĞĞ
+4£©ÀûÓÃOpenCVµÄCUDAÄ£¿é½øĞĞËã·¨ÒÆÖ²ºÍ²âÊÔ£º½éÉÜ±ÊÕßÕë¶Ô¸ÃÏîÄ¿µÄËã·¨¡¢½èÖúOpenCVÖĞCUDA Ä£¿éµÄAPI¶ÔÔ­ÓĞ´úÂë½øĞĞ
 ¸ÄĞ´£¬µ÷ÓÃGPUÀ´½øĞĞÒ»Ğ©Í¼Ïñ´¦ÀíµÄ¼ÆËã£¬²¢¶ÔÒÆÖ²ºóµÄËã·¨½øĞĞĞÔÄÜµÄ²âÊÔºÍ·ÖÎö¡£
 
 5£©CUDAº¯ÊıÔÚCPU¶àÏß³Ì´úÂëÖĞµÄÔËĞĞ×´Ì¬£ºÔÚÖ®Ç°Ëã·¨ÒÆÖ²µÄ¹¤×÷»ù´¡ÉÏ£¬ÑĞ¾¿ÒÆÖ²ºóµÄ´úÂëÔÚCPU¶àÏß³ÌÌõ¼şÏÂµÄ
@@ -289,9 +324,9 @@
 
 \clearpage
 
-\section{ÊÖ»úÆÁÄ»È±Ïİ¼ì²âÁ÷³Ì¸Å¿öºÍ³ÌĞòĞÔÄÜÓÅ»¯·½°¸}
-
-\subsection{ÊÖ»úÆÁÄ»È±Ïİ¼ì²âÁ÷³Ì¸Å¿ö}
+\section{ÊÖ»úÆÁÄ»È±Ïİ¼ì²âÁ÷³Ì¸Å¿öºÍ²¢ĞĞÓÅ»¯·½°¸}
+±¾ÕÂÏÈ½éÉÜÁËÈ±Ïİ¼ì²âµÄ´óÖÂÁ÷³Ì²½Öè£¬»ùÓÚÊµ¼ÊµÄĞèÒª£¬²Å»áÓĞ²¢ĞĞ»¯´¦ÀíµÄĞÔÄÜÓÅ»¯·½°¸¡£
+\subsection{ÊÖ»úÆÁÄ»È±Ïİ¼ì²âµÄ¹¤×÷Á÷³Ì¸Å¿ö}
 ÊÖ»úÆÁÄ»È±Ïİ¼ì²âÏµÍ³µÄ³éÏó¹¤×÷Á÷³ÌÈçÍ¼~\ref{frame} ËùÊ¾¡£³ÌĞòÆô¶¯µ½¶ÁÈ¡Ëã·¨²ÎÊıÊôÓÚ³õÊ¼»¯µÄ¹ı³Ì£¬
 ÏµÍ³´ÓÍ¼Ïñ²É¼¯¿ªÊ¼½øÈëÕı³£µÄÁ÷Ë®¹¤×÷¡£Í¼Ïñ²É¼¯Ê¹ÓÃ¸ß¾«¶ÈµÄÏà»ú½øĞĞÅÄÉã£¬Ê¹ÆäÄÜ¹»²¶×½µ½ÊÖ»úÒº¾§ÆÁ
 ±íÃæÕ´È¾µÄÎ¢Ğ¡ÎÛµã£»ÅÄÉãÍê±Ïºó½øĞĞÍ¼ÏñµÄ¼ì²â£¬Í¼ÏñµÄÊäÈë¸ñÊ½ÎªBMP £¨Bitmap£¬Windows±ê×¼Í¼ÏñÎÄ¼ş¸ñÊ½£©£¬
@@ -299,45 +334,46 @@
 £¬Ö»Òª´æÔÚÈÎºÎÈ±Ïİ¾Í¿ÉÒÔÅĞ¶¨²úÆ·²»ºÏ¸ñ¡£
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.35\linewidth]{img/frame.jpg}
+\includegraphics[width=0.3\linewidth]{img/frame.jpg}
 \caption{ÊÖ»úÆÁÄ»È±Ïİ¼ì²âÕûÌåÁ÷³Ì}
 \label{frame}
 \end{figure}
 
 \subsubsection{¶ÁÈ¡Ëã·¨²ÎÊı}
 ³ÌĞòÊ¹ÓÃÅäÖÃÎÄ¼şÀ´±£´æ³ÌĞòÖĞ»áÓÃµ½µÄ¸÷ÖÖËã·¨²ÎÊı¡¢±äÁ¿£¬°üÀ¨ÊäÈëÍ¼ÏñµÄ·Ö±æÂÊ¡¢ÓĞĞ§ÇøÓò·¶Î§µÈµÈ¡£
-ÅäÖÃÎÄ¼şÒÔiniµÄÎÄ¼ş¸ñÊ½±£´æ£¬¶ÁÈ¡Ëã·¨²ÎÊıÊ±Ôò½«ÎÄ¼ş¶ÁÈë²¢ÖğĞĞÊ¶±ğ×Ö·û¡£ÎÄ¼şµÄÊéĞ´¸ñÊ½ÈçÏÂËùÊ¾¡£
+ÅäÖÃÎÄ¼şÒÔiniµÄÎÄ¼ş¸ñÊ½±£´æ£¬³ÌĞòÖĞµÄËã·¨²ÎÊıÊ¹ÓÃ½á¹¹Ìå±£´æ¡£¶ÁÈ¡Ëã·¨²ÎÊıÊ±Ôò½«ÎÄ¼ş¶ÁÈë²¢ÖğĞĞÊ¶±ğ×Ö·û¡£ÅäÖÃÎÄ¼şµÄÊéĞ´¸ñÊ½ÈçÏÂËùÊ¾£º
 %\clearpage
-\begin{lstlisting}[language=C]
+\begin{lstlisting}[basicstyle=\footnotesize]
 [system]
 captured_img_width        = 6600
 captured_img_height       = 4400
 left_BGB_x0		  =1398
 left_BGB_y0	   	  =1291
 \end{lstlisting}
-Ëã·¨²ÎÊıËµÃ÷¿É²Î¿¼¸½Â¼2¡£Ê¹ÓÃÅäÖÃÎÄ¼şÀ´µ÷Õû³ÌĞòÖĞÓÃµ½µÄ²ÎÊıÖµ£¬Ö÷ÒªÄ¿µÄÊÇÎªÁË·½±ãËã·¨³ÌĞò
-Óë¸÷ÖÖÆ½Ì¨½øĞĞ¶Ô½Ó¡£ÀıÈç£¬Ç°Ì¨½çÃæ³ÌĞòÊ¹ÓÃC\#ÓïÑÔ±àĞ´£¬Í¨¹ıµ÷ÓÃËã·¨µÄDLL£¨¶¯Ì¬Á´½Ó¿â£©À´ÊµÏÖ
-Í¼ÏñµÄ¼ì²â£»Ç°Ì¨½çÃæĞèÒª¶ÔÏà¹Ø²ÎÊı½øĞĞµ÷ÕûÊ±£¬¿ÉÖ±½ÓĞŞ¸ÄÅäÖÃÎÄ¼şÏàÓ¦Î»ÖÃµÄÊıÖµ¶ø²»ÓÃÈ¥¹ØĞÄºóÌ¨µÄ´úÂë¡£
+
+¶ÁÈ¡µ½¡°system¡±×Ö·ûºó£¬¿ÉÅĞ¶Ï³öÒÔÏÂ×Ö·û´ú±íµÄÊÇÏµÍ³²ÎÊı£¬¸ù¾İÉèÖÃµÄÖµ¸øÏµÍ³²ÎÊı½á¹¹ÌåµÄÏàÓ¦ÔªËØ¸³Öµ¡£¾ßÌåËã·¨²ÎÊıËµÃ÷¿É²Î¿¼¸½Â¼1¡£Ê¹ÓÃÅäÖÃÎÄ¼şÀ´µ÷Õû³ÌĞòÖĞÓÃµ½µÄ²ÎÊıÖµ£¬Ö÷ÒªÄ¿µÄÊÇÎªÁË·½±ãËã·¨³ÌĞòÓë¸÷ÖÖÆ½Ì¨½øĞĞ¶Ô½Ó¡£ÀıÈç£¬Ç°Ì¨½çÃæ³ÌĞòÊ¹ÓÃC\#ÓïÑÔ±àĞ´£¬Í¨¹ıµ÷ÓÃËã·¨µÄDLL£¨¶¯Ì¬Á´½Ó¿â£©À´ÊµÏÖÍ¼ÏñµÄ¼ì²â£»Ç°Ì¨½çÃæĞèÒª¶ÔÏà¹Ø²ÎÊı½øĞĞµ÷ÕûÊ±£¬¿ÉÖ±½ÓĞŞ¸ÄÅäÖÃÎÄ¼şÏàÓ¦Î»ÖÃµÄÊıÖµ¶ø²»ÓÃÈ¥¹ØĞÄºóÌ¨µÄ´úÂë¡£
 
 \subsubsection{Í¼Ïñ²É¼¯ºÍÊäÈë}
-
 ÔÚÖÇÄÜÊÖ»úµÄ×Ô¶¯»¯Éú²úÏßÉÏ£¬ÊÖ»úÒº¾§ÆÁËùÔÚµÄ¹¤Î»Ò»´Î×°ÔØÁ½¸öÊÖ»úÆÁÄ»£¨²»°üº¬ÆäËüÊÖ»úÁã²¿¼ş£©¡£
-Ïà»úÕÕÃ÷·Ö×Ô·¢¹â£¨Òº¾§ÆÁ½ÓÍ¨µçÔ´·¢¹â£©ºÍÍâ¹âÔ´£¨¿ªÆô¹¤Î»ÉÏµÄÌõĞÎ¹âÔ´£©Á½ÖÖ,ÈçÍ¼~\ref{self}ºÍÍ¼~\ref{ext}¡£ÎÒÃÇËù¿´µ½µÄÊäÈëÍ¼ÏñµÄ
-ÓĞĞ§ÇøÓòÆäÊµ¾ÍÊÇÆÁÄ»ËùÔÚµÄ¾ØĞÎÇøÓò¡£¶ø×Ô·¢¹âÍ¼Æ¬±ÈÆğÍâ¹âÔ´Í¼Æ¬¾ßÓĞ¸üºÃµÄ±æÊ¶¶È£¬Òò´ËÔÚÍ¼Ïñ·ÖÀë²½Öè
-ÖĞÊ¹ÓÃ×Ô·¢¹âÍ¼Æ¬À´ÌáÈ¡ÓĞĞ§ÇøÓòÑÚÄ£°æ¡£
-
+Ïà»úÕÕÃ÷·Ö×Ô·¢¹â£¨Òº¾§ÆÁ½ÓÍ¨µçÔ´·¢¹â£©ºÍÍâ¹âÔ´£¨¿ªÆô¹¤Î»ÉÏµÄÌõĞÎ¹âÔ´£©Á½ÖÖ,ÈçÍ¼~\ref{self}ºÍÍ¼~\ref{ext}¡£
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\linewidth]{img/self.jpg}
+\includegraphics[width=0.75\linewidth]{img/self.jpg}
 \caption{×Ô·¢¹âÌõ¼şÏÂÅÄÉãµÄÍ¼Æ¬}
 \label{self}
 \end{figure}
+\clearpage
+
+
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\linewidth]{img/ext.jpg}
+\includegraphics[width=0.75\linewidth]{img/ext.jpg}
 \caption{Íâ¹âÔ´Ìõ¼şÏÂÅÄÉãµÄÍ¼Æ¬}
 \label{ext}
 \end{figure}
+ÎÒÃÇËù¿´µ½µÄÊäÈëÍ¼ÏñµÄ
+ÓĞĞ§ÇøÓòÆäÊµ¾ÍÊÇÆÁÄ»ËùÔÚµÄ¾ØĞÎÇøÓò¡£¶ø×Ô·¢¹âÍ¼Æ¬±ÈÆğÍâ¹âÔ´Í¼Æ¬¾ßÓĞ¸üºÃµÄ±æÊ¶¶È£¬Òò´ËÔÚÍ¼Ïñ·ÖÀë²½Öè
+ÖĞÊ¹ÓÃ×Ô·¢¹âÍ¼Æ¬À´ÌáÈ¡ÓĞĞ§ÇøÓòÑÚÄ£°æ¡£
 
 ¹¤Î»Ïà»úÔÚÁ½ÖÖ²»Í¬µÄÕÕÃ÷Ìõ¼şÏÂ¸÷ÅÄÉãÒ»´Î£¬È»ºóÊ¹ÓÃÕæ¿Õ±Ã¸²Ò»²ãÄ¤ÔÙÅÄÉãÒ»´Î¡£
 Á½´ÎÅÄÉãµÄÍ¼Ïñ×÷ÎªÒ»×éÊäÈë£¬ÊäÈëµÄÍ¼Ïñ¾­¹ı·ÖÀë£¨½á¹ûÈçÍ¼~\ref{seperated}£©ºÍ
@@ -366,8 +402,6 @@ left_BGB_y0	   	  =1291
 ºóĞø¿ÉÄÜÒª´¦ÀíµÄ²»Ö¹ÊÇ¸²Ä¤ºÍ²»¸²Ä¤ÕâÁ½×éÍ¼Æ¬£¬µ÷ÓÃµÄ¼ì²âËã·¨Ò²²»Ö¹ËÄ´Î£»ÕâÀï
 ÎªÁËÌá¸ß´¦ÀíËÙ¶È£¬Ê¹ÓÃ¶àÏß³ÌÀ´´¦ÀíÊÇ±ØĞëµÄ¡£
 
-
-
 \subsubsection{Í¼Ïñ¼ì²â}
 
 ¼ì²âµÄÈ±Ïİ¶ÔÏóÓĞÎ»ÓÚÆÁÄ»±íÃæµÄÎÛµãºÍ»®ºÛ£¨Éú²ú³µ¼äÊÇÎŞ³¾»·¾³£¬ËùÒÔÕâĞ©ÀàĞÍµÄÈ±Ïİ»á±È½ÏÉÙÅ¶£©,
@@ -376,7 +410,7 @@ Canny±ßÔµ¼ì²âËã·¨ÊµÏÖ£©ºÍ»ùÓÚÂË²¨µÄ·½·¨£»ÆÁÄ»±íÃæÈ±ÏİµãµÄÍ¼ÏñÉî¶È£¨¼´ÑÕÉ«ÉîÇ³£©º
 ËØ²îÒì½Ï´óµÄ²¿·Ö£¬¼´¿ÉÈÏÎªÊÇÈ±Ïİ£¬ÔÚÍ¼Ïñ·Å´óµ½Ò»¶¨³Ì¶ÈµÄÇé¿öÏÂ£¬Í¨¹ıÈËÑÛÒ²ÄÜ±æÊ¶³ö¡£Ëã·¨Ö÷
 ÒªÊÇÍ¨¹ıÊ¶±ğ³öÕâÖÖÉî¶ÈµÄ²îÒìÀ´×÷ÅĞ¶Ï\cite{yi}¡£
 
-¼ì²â½á¹ûÊ¹ÓÃ¾ØĞÎ¿ò±£´æ¡£¶Ô¾ØĞÎ¿ò½øĞĞÃè±ßÖ®ºóÉú³É¿ÉÊÓ»¯µÄ½á¹ûÍ¼ÏñÈçÍ¼~\ref{result-left}ºÍ
+¼ì²â½á¹ûÊ¹ÓÃ¾ØĞÎ¿ò±£´æ¡£¶Ô¾ØĞÎ¿ò½øĞĞÃè±ßÖ®ºóÉú³É¿ÉÊÓ»¯µÄ½á¹ûÍ¼ÏñÈçÍ¼~\ref{result-left} ºÍ
 Í¼~\ref{result-right}ËùÊ¾¡£ÔÚÊµ¼ÊÇé¿öÖĞ£¬ĞèÒª¼ì²âÏµÍ³·µ»ØµÄÒ²¾ÍÊÇ¡°²úÆ·ºÏ¸ñ¡±ºÍ¡°²úÆ·²»ºÏ¸ñ¡±Á½ÖÖ½á¹û¡£
 ËùÒÔ³ıÁË²úÉú½á¹ûÍ¼ÏñÖ®Íâ£¬»¹Òª·µ»ØÒ»¸ö¼ì²â³öµÄÈ±ÏİÊıÁ¿£¬ÒÔ·½±ã¹¤Î»ÉÏµÄ»úÆ÷×÷³ö·´À¡¡£
 ÕâÀïËùÑ¡È¡µÄÑù±¾±íÃæ½ÏÔà£¬ÒòÎª²»ÊÇÔÚÎŞ³¾»·¾³ÏÂ£¬ËùÒÔ¼ì²â³öµÄÈ±ÏİÊıÁ¿±È½Ï¶à¡£
@@ -398,24 +432,22 @@ Canny±ßÔµ¼ì²âËã·¨ÊµÏÖ£©ºÍ»ùÓÚÂË²¨µÄ·½·¨£»ÆÁÄ»±íÃæÈ±ÏİµãµÄÍ¼ÏñÉî¶È£¨¼´ÑÕÉ«ÉîÇ³£©º
 \end{figure}
 
 
-\subsection{ÊÖ»úÆÁÄ»È±Ïİ¼ì²â³ÌĞòµÄÓÅ»¯·½°¸}
-¼ì²âËã·¨µÄÔ´³ÌĞòÊÇ»ùÓÚOpenCVµÄC++´úÂë£¬Ä¿Ç°È·¶¨µÄÓÅ»¯·½°¸¶¨ÓĞÈıÖÖ£ºCPU¶àÏß³Ì²¢ĞĞ¡¢CUDA¼Ü¹¹ÏÂµÄGPUÍ¨ÓÃ¼ÆËãÓÅ»¯Ëã·¨¡¢½áºÏGPU¼ÆËãµÄCPU¶àÏß³Ì²¢ĞĞ¡£
+\subsection{ÊÖ»úÆÁÄ»È±Ïİ¼ì²â·½·¨µÄÕûÌåÓÅ»¯·½°¸}
+±¾½ÚµÄÄÚÈİ»ùÓÚÈ±Ïİ¼ì²âµÄ¹¤×÷Á÷³Ì£¬¸ù¾İ²»Í¬µÄĞèÒªÈ·¶¨ÁËÓÅ»¯·½°¸£¬ÈçÍ¼~\ref{design}¡£´Ó³ÌĞòÕûÌå¿ò¼Ü³ö·¢Ê¹ÓÃCPU¶àÏß³Ì²¢ĞĞ£»Õë¶Ô¾Ö²¿´úÂëµÄÓÅ»¯£¬Ó¦ÓÃOpenMP ¶ÔÑ­»·½øĞĞ²¢ĞĞ»¯´¦Àí£¬ÒÔ¼°Ê¹ÓÃGPU Í¨ÓÃ¼ÆËãÓÅ»¯¼ì²âËã·¨¡£
 
 1£©CPU¶àÏß³Ì²¢ĞĞ\\
-¸Ã·½°¸ÊÇÏÖÔÚÕıÊÊÓÃÖĞµÄÓÅ»¯·½°¸£¬Õë¶ÔÊµ¼ÊÖĞĞèÒªÍ¬Ê±¶Ô¶àÕÅÍ¼Ïñ½øĞĞ´¦ÀíµÄĞèÒª£¨¶ÔÒ»×é²úÆ·ĞèÒªÍ¬Ê±´¦Àí¸²Ä¤ºÍ²»¸²Ä¤Á½×éÍ¼Ïñ£¬Ã¿×é×éÆ¬ÒªÍ¬Ê±´¦Àí×ó¡¢ÓÒÁ½ÕÅ·ÖÀë³öÀ´µÄµ¥±ßÍ¼Ïñ£©£¬ÀûÓÃ¶àºËCPU µÄÏß³Ì²¢·¢À´Í¬Ê±´¦Àí¶àÕÅÍ¼Ïñ¡£¸Ã·½°¸²¢²»ÊÇ´Ó¼ÆËãĞÔÄÜµÄ½Ç¶ÈÀ´½øĞĞ¼ÓËÙ£¬Í¨¹ı¶àºËCPU À´Í¬Ê±´¦Àí¶à¸öÊÂÎñ£»Í¬Ê±ÊäÈëµÄ¶àÕÅÍ¼Æ¬Ö´ĞĞÏàÍ¬µÄ¼ì²âÁ÷³Ì£¬ÓÉÔ­À´µÄ´®ĞĞ´¦Àí±ä³É²¢ĞĞ´¦Àí¡£
+¸Ã·½°¸Ò²ÊÇÄ¿Ç°ÕıÔÚÊÊÓÃÖĞµÄÓÅ»¯·½°¸£¬Õë¶ÔÊµ¼ÊÖĞĞèÒªÍ¬Ê±¶Ô¶àÕÅÍ¼Ïñ½øĞĞ´¦ÀíµÄĞèÒª£¨¶ÔÒ»×é²úÆ·ĞèÒªÍ¬Ê±´¦Àí¸²Ä¤ºÍ²»¸²Ä¤Á½×éÍ¼Ïñ£¬Ã¿×é×éÆ¬ÒªÍ¬Ê±´¦Àí×ó¡¢ÓÒÁ½ÕÅ·ÖÀë³öÀ´µÄµ¥±ßÍ¼Ïñ£©£¬ÀûÓÃ¶àºËCPU µÄÏß³Ì²¢·¢À´Í¬Ê±´¦Àí¶àÕÅÍ¼Ïñ¡£¸Ã·½°¸²¢²»ÊÇ´Ó¼ÆËãĞÔÄÜµÄ½Ç¶ÈÀ´½øĞĞ¼ÓËÙ£¬Í¨¹ı¶àºËCPU À´Í¬Ê±´¦Àí¶à¸öÊÂÎñ£»Í¬Ê±ÊäÈëµÄ¶àÕÅÍ¼Æ¬Ö´ĞĞÏàÍ¬µÄ¼ì²âÁ÷³Ì£¬ÓÉÔ­À´µÄ´®ĞĞ´¦Àí±ä³É²¢ĞĞ´¦Àí¡£
 
-2£©CUDA¼Ü¹¹ÏÂµÄGPUÍ¨ÓÃ¼ÆËãÓÅ»¯Ëã·¨\\
-Õâ¸ö·½°¸´Ó¼ÆËãĞÔÄÜµÄ½Ç¶È³ö·¢£¬ÀûÓÃGPUµÄÍ¨ÓÃ¼ÆËãÀ´¶Ô¼ì²âËã·¨ÖĞÌØ¶¨µÄº¯Êı½øĞĞ¼ÓËÙÓÅ»¯¡£
+2£©Ó¦ÓÃOpenMP¶Ô´úÂë½øĞĞ²¢ĞĞ»¯´¦Àí\\
+Í¬ÑùÊÇÀûÓÃCPUµÄ¶àÏß³Ì²¢ĞĞÀ´ÓÅ»¯´úÂë£¬²»Í¬µÄÊÇOpenMPÔÚÕâÀïµÄÓ¦ÓÃÊÇÕë¶ÔÌØ¶¨º¯ÊıÖĞµÄÑ­»·Óï¾ä£¬Ê¹ÓÃOpenMPÀ´¶ÔÕâĞ©´®ĞĞÖ´ĞĞµÄÑ­»·½øĞĞ²¢·¢´¦Àí£¬Í¨¹ıÌá¸ßÕâĞ©¾Ö²¿´úÂëµÄĞ§ÂÊÀ´Ìá¸ß³ÌĞòÕûÌåµÄÔËĞĞĞ§ÂÊ¡£
+
+3£©CUDA¼Ü¹¹ÏÂµÄGPUÍ¨ÓÃ¼ÆËãÓÅ»¯¼ì²âËã·¨\\
+Õâ¸ö·½·¨´Ó¼ÆËãĞÔÄÜµÄ½Ç¶È³ö·¢£¬ÀûÓÃGPUµÄÍ¨ÓÃ¼ÆËãÀ´¶Ô¼ì²âËã·¨ÖĞÌØ¶¨µÄº¯Êı½øĞĞ¼ÓËÙÓÅ»¯¡£
 ¸ÃÏîÄ¿Éæ¼°µÄ¼ÆËãÖ÷ÒªÊÇÍ¼Ïñ´¦ÀíÁìÓòµÄËã·¨£¬Òò´Ë£¬³õ²½µÄ·½°¸ÊÇÊ¹ÓÃOpenCVµÄGPUÄ£¿é£¨OpenCV 3.0ÒÔÉÏ°æ±¾³ÆÎªCUDAÄ£¿é£©£¬
 ½èÖú¸ÃÄ£¿é·á¸»µÄÍ¼ĞÎ´¦ÀíËã·¨À´¶ÔÔ´´úÂë½øĞĞÒÆÖ²£¬²¢¶Ô¸÷Ä£¿éÖğ¸ö½øĞĞĞÔÄÜ²âÊÔ¡£
 ¸Ã·½°¸Êµ¼ÊÔÚÏîÄ¿ÖĞÊÇ±¸Ñ¡·½°¸£¬ÒòÎªGPUÄ£¿é²¢Ã»ÓĞÍêÈ«ÊµÏÖËùÓĞµÄOpenCV Ô­ÓĞµÄÍ¼Ïñ´¦ÀíËã·¨£¬ÔÚÒÆÖ²¹ı³ÌÖĞÒ»µ©³öÏÖÎÊÌâ£¬
 ²¢²»ÄÜ±£Ö¤ÄÜÔÚ¶ÌÊ±¼äÄÚ½â¾ö£»´ËÍâ£¬Ê¹ÓÃCUDA¼Ü¹¹Ò²ÓĞ×Å¶îÍâµÄÊ±¼ä¿ªÏú£¬±ÈÈçÄÚ´æºÍÏÔ´æÖ®¼äµÄÊı¾İ½»»»µÈ£¬ÒªÏêÏ¸½øĞĞĞÔÄÜµÄ±È½ÏºÍÆÀ¹À¡£
 ÔÚ¼ì²âÁ÷³ÌÖĞµÄ¹Ø¼üº¯ÊıÒÆÖ²Íê±Ïºó£¬¾Í¿ÉÒÔ°ÑÕâĞ©º¯ÊıÓ¦ÓÃµ½CPU¶àÏß³ÌÌõ¼şÏÂ£¬½øÒ»²½Ìá¸ßĞÔÄÜ¡£
-
-3£©Ó¦ÓÃOpenMP¶Ô´úÂë½øĞĞ²¢ĞĞ»¯´¦Àí\\
-Õë¶ÔÌØ¶¨º¯ÊıÖĞµÄÑ­»·Óï¾ä£¬Ê¹ÓÃOpenMPÀ´¶ÔÕâĞ©´®ĞĞÖ´ĞĞµÄÑ­»·½øĞĞ²¢·¢´¦Àí£¬Í¨¹ıÌá¸ßÕâĞ©¾Ö²¿´úÂëµÄĞ§ÂÊÀ´Ìá¸ß³ÌĞòÕûÌåµÄ
-ÔËĞĞĞ§ÂÊ¡£
-
 
 \begin{figure}[H]
 \centering
@@ -424,11 +456,11 @@ Canny±ßÔµ¼ì²âËã·¨ÊµÏÖ£©ºÍ»ùÓÚÂË²¨µÄ·½·¨£»ÆÁÄ»±íÃæÈ±ÏİµãµÄÍ¼ÏñÉî¶È£¨¼´ÑÕÉ«ÉîÇ³£©º
 \label{design}
 \end{figure}
 
+\subsubsection{»ùÓÚCPUÆ½Ì¨µÄ²¢ĞĞÓÅ»¯}
 
-\subsection{CPU¶àÏß³Ì²¢ĞĞÓÅ»¯·½°¸}
+1£©»ùÓÚCPU¶àÏß³Ì¶ÔÍ¼Ïñ´¦ÀíµÄÕûÌåÓÅ»¯
 
-\subsubsection{Ó¦ÓÃCPU¶àÏß³Ì¶ÔÍ¼Ïñ´¦ÀíµÄÕûÌåÓÅ»¯}
-´´½¨µÄÏß³ÌÀàĞÍ¸ù¾İµ÷ÓÃµÄº¯Êı²»Í¬£¬ÎªÁË·½±ãËµÃ÷ÔİÃüÃûÎªframeÏß³ÌºÍInspectÏß³Ì¡£
+´´½¨µÄÏß³ÌÀàĞÍ¸ù¾İµ÷ÓÃµÄº¯Êı²»Í¬£¬ÎªÁË·½±ãËµÃ÷ÔİÃüÃûÎªframeÏß³ÌºÍInspectÏß³Ì£¬Ïß³ÌÀàĞÍºÍ·ÖÅäÈçÍ¼~\ref{thread}¡£
 Ö÷Ïß³ÌµÄ²Ù×÷°üÀ¨ÊµÀı»¯¿ò¼ÜÀà¡¢¶ÁÈ¡Í¼ÏñºÍÅäÖÃÎÄ¼ş£¬¿ªÆôframeÏß³Ìµ÷ÓÃ¿ò¼ÜÀàµÄ³ÉÔ±º¯Êı¡£
 \begin{figure}[H]
 \centering
@@ -444,7 +476,7 @@ Canny±ßÔµ¼ì²âËã·¨ÊµÏÖ£©ºÍ»ùÓÚÂË²¨µÄ·½·¨£»ÆÁÄ»±íÃæÈ±ÏİµãµÄÍ¼ÏñÉî¶È£¨¼´ÑÕÉ«ÉîÇ³£©º
 InspectÏß³Ì£¬Ö´ĞĞËÄ´Î¼ì²âËã·¨¡£
 
 frameÏß³ÌºÍInspectÏß³ÌµÄ¹ØÏµºÍÏß³ÌËù´¦ÀíµÄÊÂÎñÈçÍ¼~\ref{framework} ËùÊ¾¡£
-frameÏß³Ì°üº¬ÁËÒ»²¿·ÖµÄÍ¼ÏñÔ¤´¦Àí£¬°üÀ¨Í¼ÏñÈ¥Ôë£¬×óÓÒÑùÆ¬·ÖÀë£¬ÌáÈ¡ÓĞĞ§ÇøÓòÑÚÄ£°æ£»
+frameÏß³Ì°üº¬ÁËÒ»²¿·ÖµÄÍ¼ÏñÔ¤´¦Àí£¬°üÀ¨Í¼Ïñ·ÖÀëºÍÌáÈ¡ÓĞĞ§ÇøÓòÑÚÄ£°æ£»
 ¶øInspectÏß³Ì¿ªÆôºó£¬ÔÚÖ´ĞĞµÄÏß³Ìº¯ÊıÄÚ²¿ÊµÀı»¯Ò»¸ö¼ì²âÀà£¬ÔÙµ÷ÓÃ¼ì²âÀàµÄÏà¹Øº¯Êı
 ½øĞĞ½øÒ»²½µÄÔ¤´¦Àí¡¢È±Ïİ¼ì²âºÍ½á¹û±£´æ¡£
 \begin{figure}[H]
@@ -455,29 +487,41 @@ frameÏß³Ì°üº¬ÁËÒ»²¿·ÖµÄÍ¼ÏñÔ¤´¦Àí£¬°üÀ¨Í¼ÏñÈ¥Ôë£¬×óÓÒÑùÆ¬·ÖÀë£¬ÌáÈ¡ÓĞĞ§ÇøÓòÑÚÄ£°
 \end{figure}
 
 
-\subsubsection{Ó¦ÓÃOpenMP¶Ô¾Ö²¿´úÂëµÄ²¢ĞĞÓÅ»¯}
+2£©»ùÓÚOpenMPµÄ¾Ö²¿´úÂë²¢ĞĞÓÅ»¯
+
 ÔÚVisual StudioÖĞÖ§³ÖÊ¹ÓÃOpenMPµÄÔ¤±àÒëÖ¸ÁîÀ´¶ÔÒ»Ğ©Ñ­»·´úÂëÀ´½øĞĞ²¢ĞĞ¼ÆËã¡£
 ³ÌĞòÖĞµÄ¾Ö²¿´úÂëÊ¹ÓÃforÑ­»·À´¶ÔÍ¼ÏñÖĞµÄÏñËØ½øĞĞ´¦Àí¡£°üÀ¨ÆäËü¼ÆËãÁ¿½Ï´óµÄÑ­»·
 Óï¾ä£¬¶¼ÓĞ±ØÒª½øĞĞÓÅ»¯¡£
-note:OpenMP´Ó¶àÖ¸Áî²¢·¢À´ÊµÏÖÑ­»·Óï¾äµÄ²¢ĞĞÖ´ĞĞ£¬Òò´ËÃ¿¸öÑ­»·²Ù×÷Ö®¼äÒª±£³ÖµÍñîºÏ²Å»áÊÊÓÃ¡£\\
-note:OpenMPµÄÑ­»·¼ÆÊı²»Ö§³Öunsigned£¨ÎŞ·ûºÅÕûĞÍ£©ÀàĞÍµÄ±äÁ¿£»Òò´Ë²»ÄÜÊ¹ÓÃsize\_tÀàĞÍÀ´×÷ÎªÑ­»·¼ÆÊı¡£
-²¿·Ö³ÌĞò´úÂëÖĞÊ¹ÓÃsize\_tÀàĞÍµÄ±äÁ¿À´´úÌæintÀàĞÍ£¬ÊÇ³öÓÚ¿çÆ½Ì¨µÄ¿¼ÂÇ¡£\\
-ÏêÏ¸ËµÃ÷´ıÍêÉÆ
 
-\subsection{Ê¹ÓÃGPUÍ¨ÓÃ¼ÆËãÓÅ»¯¼ì²âËã·¨}
+\subsubsection{»ùÓÚGPUÆ½Ì¨µÄ¼ì²âËã·¨ÓÅ»¯}
 
-\subsubsection{GPUÍ¨ÓÃ¼ÆËãºÍCUDA}
-ÕâÒ»²¿·ÖÖ»×÷¼ò¶Ì½éÉÜ£¬²»Õ¹¿ª\cite{cuda-PARALLEL}
+1£©GPUÍ¨ÓÃ¼ÆËãºÍCUDAÓ¦ÓÃ·½°¸µÄÑ¡Ôñ
 
-\subsubsection{CUDAÓ¦ÓÃ·½°¸µÄÑ¡Ôñ}
-ËµÃ÷CUDA´úÂë±à³ÌÔÚ±¾´Î¹¤×÷ÖĞÓ¦ÓÃµÄÀû±×\cite{CUDA-guide}£¬ºÍÎªÊ²Ã´Ñ¡ÔñÊ¹ÓÃOpenCVµÄCUDAÄ£¿éÀ´½øĞĞGPU¼ÆËã\cite{CUDA-gpu}
+Ëæ×ÅÓÎÏ·ÊĞ³¡µÄ×³´ó£¬·ÂÕæ¼ÆËãµÄĞèÇóµÈÒòËØ£¬ÍÆ¶¯ÁËGPUµÄĞÔÄÜ²»¶ÏÌáÉı¡£¶øGPUÄÚ²¿¶ÀÌØµÄ¼Ü¹¹Ê¹ÆäÔÚ¶àÏß³Ì²¢·¢ÖĞÓµÓĞ
+Ç¿´óµÄ¼ÆËãÄÜÁ¦£¬²¢¿ÉÒÔ×÷ÎªÍ¨ÓÃ¼ÆËãÉè±¸Ó¦ÓÃÓÚÒ½Ñ§¡¢ÌìÎÄºÍ½ğÈÚµÈÁÚÓò¡£¼ÆËã»úÖĞµÄÍ¼ÏñÊÇÒÔ¾ØÕóµÄĞÎÊ½´æ´¢£¬¶øGPUµÄ¸ß²¢·¢¼ÆËãÄÜÁ¦Ê¹ÆäÔÚÍ¼Ïñ´¦Àí·½ÃæÓµÓĞ±ÈCPU¸ü¿ìµÄĞ§ÂÊ\cite{CUDA-gpu}¡£¶øNVIDIAÍÆ³öµÄ»ùÓÚCÓïÑÔ±à³ÌµÄCUDA¼Ü¹¹£¬½øÒ»²½½µµÍÁËGPUµÄ±à³ÌÃÅ¼÷\cite{liu}¡£ÈçÏÂÊ¹ÓÃÁËCUDA´úÂëÊµÏÖÁËÒ»¸öCUDAº¯Êı\cite{CUDA-guide}:
+%\clearpage
+\begin{lstlisting}[basicstyle=\footnotesize]
+__global__ void VectorAdd(float* A, float* B, float* C)
+{
+int i = threadIdx.x;
+C[i] = A[i] + B[i];
+}
+int main()
+{
+VectorAdd<<<1, N>>>(A, B, C);
+}
+\end{lstlisting}
 
-\subsubsection{ÔÚOpenCVÖĞµ÷ÓÃGPUµÄ·½·¨}
+VectorAdd()º¯ÊıÊµÏÖÁËÁ½¸öÒ»Î¬ÏòÁ¿µÄÏà¼Ó£¬²¢ÇÒÒÔN¸öÏß³ÌÀ´²¢·¢Ö´ĞĞ¡£¶øÔÚ±¾´ÎÊÖ»úÆÁÄ»È±Ïİ¼ì²âµÄÏîÄ¿ÖĞ£¬Éæ¼°µ½µÄ¼ì²âËã·¨´¦ÀíÁ÷³Ì¸´ÔÓ
+£¬Èç¹ûÈ«²¿Ê¹ÓÃÉÏÊöCUDA´úÂë½øĞĞÒÆÖ²£¬ĞèÒªÊìÏ¤ºÜ¶àÍ¼Ïñ´¦ÀíËã·¨µÄ×¨ÒµÖªÊ¶£¬¶øÇÒÎŞ·¨ÔÚ¶ÌÊ±¼äÍê³ÉËùÓĞµÄÒÆÖ²¹¤×÷£»CUDA±à³ÌÉæ¼°µ½¾ßÌåµÄÏß³Ì·ÖÅäºÍ×¨ÒµµÄËã·¨ÓÅ»¯£¬Í¬Ê±Ò²ĞèÒª³¤ÆÚµÄ²âÊÔºÍ¸ÄÁ¼¡£¿¼ÂÇµ½Ëã·¨ÖĞÉæ¼°µ½µÄ¶ÔĞÔÄÜÓ°Ïì½Ï´óµÄÖ÷ÒªÊÇÒ»Ğ©³£¹æµÄÍ¼Ïñ´¦Àí£¬¿ÉÒÔ½èÖúOpenCV ÖĞµÄCUDAÄ£¿éÀ´Íê³ÉËã·¨µÄÒÆÖ²¡£
+
+2£©ÔÚOpenCVÖĞµ÷ÓÃCUDAµÄ·½·¨
+
 OpenCVÖĞµÄCUDAÄ£¿é£¨»òÕßËµGPUÄ£¿é£©µÄÊ¹ÓÃÒ»°ã·ÖÎªÕâÑù¼¸¸ö²½Öè£º\\
-\indent a£©Ö§³ÖCUDAµÄÉè±¸³õÊ¼»¯£»                                \\
-\indent b£©ÉÏ´«´ı´¦ÀíÊı¾İµ½GPU£¨´ÓMatÈİÆ÷µ½GpuMatÈİÆ÷£©£»         \\
-\indent c£©µ÷ÓÃOpenCVÖ§³ÖµÄGPUµÄ´¦Àíº¯Êı£»                        \\
-\indent d£©ÏÂÔØ´¦Àí½á¹ûµ½CPU£¨´ÓGpuMatÈİÆ÷µ½MatÈİÆ÷£©\cite{wang}¡£
+\noindent a£©Ö§³ÖCUDAµÄÉè±¸³õÊ¼»¯£»                                \\
+\noindent b£©ÉÏ´«´ı´¦ÀíÊı¾İµ½GPU£¨´ÓMatÈİÆ÷µ½GpuMatÈİÆ÷£©£»         \\
+\noindent c£©µ÷ÓÃOpenCVÖ§³ÖµÄGPUµÄ´¦Àíº¯Êı£»                        \\
+\noindent d£©ÏÂÔØ´¦Àí½á¹ûµ½CPU£¨´ÓGpuMatÈİÆ÷µ½MatÈİÆ÷£©\cite{wang}¡£
 
 MatÀàÊÇOpenCVÖĞÓÃÓÚ´æ´¢¾ØÕóºÍÍ¼ÏñµÄÈİÆ÷£¬¶øGpuMat ÀàÔòÊÇ¶ÔÓ¦Mat ¶ø
 Éè¼Æ³öÀ´£¬ÔÚÏÔ´æÉÏ´úÌæMatµÄÖ°ÄÜ¡£ÉÏ´«ÊÇÓÃÁËGpuMat ×Ô´øµÄupload() ·½·¨£¬
@@ -489,8 +533,8 @@ MatÀàÊÇOpenCVÖĞÓÃÓÚ´æ´¢¾ØÕóºÍÍ¼ÏñµÄÈİÆ÷£¬¶øGpuMat ÀàÔòÊÇ¶ÔÓ¦Mat ¶ø
 
 ÕâÀïÊ¹ÓÃÒ»¸ö´úÂëÆ¬¶Î£¬ÒÔÍ¼ÏñµÄ¸ßË¹ÂË²¨´¦ÀíÎªÀıÀ´À´¼òÒªËµÃ÷±ÊÕßÈçºÎ¾ßÌåÓ¦ÓÃ
 OpenCVÖĞµÄCUDAÄ£¿é£º
-\clearpage
-\begin{lstlisting}[ language=C,numbers=left]
+%\clearpage
+\begin{lstlisting}[basicstyle=\footnotesize]
 void gaussianBlur_GPU(Mat &src, Mat &dst, int size)
 {
 	if (getCudaEnabledDeviceCount() < 0)
@@ -531,8 +575,9 @@ void gaussianBlur_GPU(Mat &src, Mat &dst, int size)
 Ê¹ÓÃÁË¹¤³§·½·¨À´Éú²úÕâĞ©ĞèÒªµÄÀà£¬ÔÙÍ¨¹ıÕâĞ©ÀàµÄ·½·¨£¨Èç13ĞĞµÄapply()£©À´Íê³É²Ù×÷¡£
 ÓëÖ±½Ó±àĞ´CUDA´úÂëÏà±È£¬ÊìÏ¤ÕâĞ©APIÖ®ºóµÄÉÏÊÖºÍ±à³ÌĞ§ÂÊ»á¸ü¿ì¡£
 
-\subsubsection{OpenCVµÄCUADº¯ÊıĞÔÄÜ²âÊÔ}
-Ê¹ÓÃOpenCVµÄCUADº¯Êı¶ÔËã·¨½øĞĞÒÆÖ²Ö÷ÒªÕë¶ÔÂË²¨¡¢ĞÎÌ¬Ñ§²Ù×÷µÈÊ±¼ä¿ªÏúÕ¼±È´óµÄ´¦ÀíÁ÷³Ì¡£
+3£©OpenCVµÄCUDAº¯ÊıĞÔÄÜ²âÊÔ
+ÔÚÕıÊ½ÊµÊ©OpenCVCUDAÄ£¿éµÄÓ¦ÓÃÖ®Ç°£¬ÏÈ¶Ô½â¾ö·½°¸µÄ¿ÉĞĞĞÔ½øĞĞÆÀ¹À¡£
+Ê¹ÓÃOpenCVµÄCUDAº¯Êı¶ÔËã·¨½øĞĞÒÆÖ²Ö÷ÒªÕë¶ÔÂË²¨¡¢ĞÎÌ¬Ñ§²Ù×÷µÈÊ±¼ä¿ªÏúÕ¼±È´óµÄ´¦ÀíÁ÷³Ì¡£
 ËùÒÔÕâÀïÊ¹ÓÃOpenCVÔ­±¾µÄ¸ßË¹ÂË²¨º¯ÊıºÍGPUÄ£¿éµÄ¸ßË¹ÂË²¨º¯Êı£¬À´·Ö±ğ²âÊÔCPUºÍGPUµÄ¼ÆËãÄÜÁ¦¡£
 ¸ßË¹ÂË²¨ÓÖ³ÆÎª¸ßË¹Ä£ºı£¬Ö÷Òª²Ù×÷ÊÇ°ÑÍ¼ÏñµÄÃ¿¸öÏñËØµãÓëÁÚÓò½øĞĞ¼ÓÈ¨Æ½¾ù£¬´¦ÀíµÄĞ§¹ûÈç
 Í¼~\ref{lena-1}ºÍÍ¼~\ref{lena-2}ËùÊ¾¡£
@@ -575,15 +620,11 @@ void gaussianBlur_GPU(Mat &src, Mat &dst, int size)
 \label{gaussian}
 \end{tabular}
 \end{table}
-
 ¿ÉÒÔ¿´³ö£¬¼´Ê¹¼ÓÉÏÉÏ´«ºÍÏÂÔØµÄÊ±¼ä£¬GPUµÄÊ±¼ä¿ªÏúÒ²ÊÇ±ÈCPUÒªĞ¡µÄ¡£¶øÊ¹ÓÃGPUÊ±£¬»á¹Ì¶¨´æÔÚÒ»¸öÏÔ´æºÍÄÚ´æÖ®¼äÊı¾İ½»»»µÄÊ±¼ä¿ªÏú£¬
 Ò²¾ÍÊÇËµ£¬ÎŞÂÛGPUµÄÔËËãËÙ¶ÈÓĞ¶à¿é£¬Ò²²»»áÓ°Ïìµ½Êı¾İ½»»»µÄËÙ¶È¡£Õâµ¼ÖÂÊı¾İ½»»»³ÉÁËÒ»¸öĞÔÄÜÆ¿¾±£¬Õâ¾ÍÊÇGPUµÄ¾ÖÏŞ£»´Ó¸ÄÉÆÓ²¼şÌõ¼şµÄ·½Ïò
 ¿¼ÂÇ£¬ĞÔÄÜÌáÉıµÄ¿Õ¼äÒ²ÊÇºÜÓĞÏŞµÄ£»Î¨Ò»ÄÜ¸ÄÉÆµÄ·½·¨¾ÍÊÇ¾¡Á¿±ÜÃâ²»±ØÒªµÄÏÔ´æºÍÄÚ´æµÄÊı¾İ½»»»¡£
 
-½ÓÏÂÀ´Ê¹ÓÃ²»Í¬´óĞ¡µÄkernelÀ´²âÊÔ¡£¸ßË¹ÂË²¨¶ÔÃ¿¸öÏñËØµãÔÚÆäÁÚÓòÄÚ½øĞĞ¼ÓÈ¨
-Æ½¾ù£¬¶økernelµÄ´óĞ¡¼´ÊÇÕâ¸öÁìÓò·¶Î§¡£Éèkernel´óĞ¡Îª3£¬±íÊ¾ÁìÓòÎª3x3´óĞ¡µÄ
-¾ØÕó£¬ÔòÃ¿¸öÏñËØÓëÆäÖÜÎ§µÄ½ôÁÚµÄ°Ë¸öÏñËØµã½øĞĞ¼ÓÈ¨Æ½¾ù¡£kernelÔ½´ó£¬ÒâÎ¶×Å¼Æ
-ËãÁ¿Ô½´ó¡£
+½ÓÏÂÀ´Ê¹ÓÃ²»Í¬´óĞ¡µÄkernelÀ´²âÊÔ¡£
 
 \begin{table}[htbp]
 \centering
@@ -602,63 +643,86 @@ void gaussianBlur_GPU(Mat &src, Mat &dst, int size)
 \end{tabular}
 \end{table}
 
-ÓĞ±í~\ref{kernel}¿ÉÖª£¬µ±kernelÔö´óÊ±£¬GPUµÄÔËËãÊ±¼ä±ä»¯²»Ã÷ÏÔ£¬¶øCPUµÄÔËËãÊ±¼äÔòÊÇËæ×ÅÔËËãÁ¿µÄÔö´ó¶øÃ÷ÏÔÔö´ó¡£
+¸ßË¹ÂË²¨¶ÔÃ¿¸öÏñËØµãÔÚÆäÁÚÓòÄÚ½øĞĞ¼ÓÈ¨Æ½¾ù£¬¶økernelµÄ´óĞ¡¼´ÊÇÕâ¸öÁìÓò·¶Î§¡£Éèkernel´óĞ¡Îª3£¬±íÊ¾ÁìÓòÎª3x3´óĞ¡µÄ
+¾ØÕó£¬ÔòÃ¿¸öÏñËØÓëÆäÖÜÎ§µÄ½ôÁÚµÄ°Ë¸öÏñËØµã½øĞĞ¼ÓÈ¨Æ½¾ù¡£kernelÔ½´ó£¬ÒâÎ¶×Å¼ÆËãÁ¿Ô½´ó¡£
+ÓÉ±í~\ref{kernel}¿ÉÖª£¬µ±kernelÔö´óÊ±£¬GPUµÄÔËËãÊ±¼ä±ä»¯²»Ã÷ÏÔ£¬¶øCPUµÄÔËËãÊ±¼äÔòÊÇËæ×ÅÔËËãÁ¿µÄÔö´ó¶øÃ÷ÏÔÔö´ó¡£
+ËµÃ÷²¢ĞĞ¼ÆËãµÄ¹æÄ£Ô½´ó£¬GPUµÄ¼ÆËãĞ§ÂÊ¾ÍÔ½¸ß¡£
 
-\subsubsection{GPU¼ÓËÙÓÅ»¯µÄ³ÌĞòÉè¼Æ·½°¸}
-º¯ÊıÒÆÖ²µÄ·½°¸ÊÇÊ¹ÓÃÒ»¸ö×ÓÀàInpectorGPUÀ´ÊµÏÖÔÚGPUÉÏÔËĞĞµÄÏà¹Øº¯Êı¡£
-×ÓÀà¼Ì³ĞÔ­ÓĞµÄ¼ì²âÀàBGBInpector£¬ÔÚÕâ¸ö»ù´¡ÉÏÀ´ÖØĞ´¸¸ÀàµÄ·½·¨£»ÖØĞ´µÄ·½·¨»á
-¸²¸Ç¸¸ÀàµÄ·½·¨£¬Í¬Ê±ÆäÓà¼Ì³Ğ×Ô¸¸ÀàµÄ·½·¨Ã»ÓĞ±ä»¯¡£ÕâÑùÔÚÒÆÖ²¹ı³ÌÖĞ¿ÉÒÔÑ­Ğò½¥
-½ø£¬Ò²·½±ã²âÊÔĞÔÄÜ±ä»¯¡£
+%4£©GPU¼ÓËÙÓÅ»¯µÄ³ÌĞòÉè¼Æ·½°¸
+Í¨¹ı²âÊÔ£¬¿ÉÖªOpenCVµÄCUDAº¯ÊıÈ·ÊµÄÜÀûÓÃGPUÀ´¶ÔÍ¼Ïñ´¦ÀíËã·¨½øĞĞ²¢ĞĞÓÅ»¯£¬ÓĞĞ§ÌáÉı
+ĞÔÄÜ¡£
+
+
 \subsection{±¾ÕÂĞ¡½á}
-blank
+±¾ÕÂ´ÓÊµ¼ÊµÄÏîÄ¿³ö·¢£¬ÏÈ½éÉÜÁËÊÖ»úÆÁÄ»È±Ïİ¼ì²âµÄÕûÌå¹¤×÷Á÷³Ì£¬¸ù¾İÊµ¼ÊĞèÒªÉè¼ÆÁËCPU¶àÏß³ÌµÄÓÅ»¯·½°¸£¬
+²¢Ñ¡ÔñÁË½èÖúOpenCVµÄCUDAÄ£¿éÀ´½øĞĞ¼ì²âËã·¨µÄÒÆÖ²£¬ÆÚÍûÊ¹ÓÃGPU¼ÆËãÀ´ÓÅ»¯Í¼Ïñ´¦ÀíµÄĞÔÄÜ¡£×îºóÒÔ¸ßË¹ÂË²¨ÎªÀı£¬
+²âÊÔÁËGPUµÄ¼ÆËãĞÔÄÜ²¢ÓëCPU½øĞĞ¶Ô±È£¬Ö¤ÊµÁË·½°¸µÄ¿ÉĞĞĞÔ¡£
+
 
 \clearpage
-\section{CPU¶àÏß³Ì²¢ĞĞºÍGPU¼ÓËÙµÄÓÅ»¯ÊµÏÖ}   %¶ÔµÚ¶şÕÂÏêÏ¸ËµÃ÷
+\section{CPU¶àÏß³Ì²¢ĞĞºÍGPU¼ÓËÙµÄÓÅ»¯ÊµÏÖ}
+±¾ÕÂ¸ù¾İµÚ¶şÕÂÌá³öµÄ·½°¸À´¾ßÌåÊµÊ©ÊÖ»úÆÁÄ»È±Ïİ¼ì²â·½·¨µÄ²¢ĞĞ»¯£¬´ÓC++¶àÏß³Ì²¢·¢¡¢Ïß³ÌÀàĞÍºÍ·ÖÀà¡¢OpenMPµÄ²¢ĞĞ»¯Ó¦ÓÃºÍOpenCVµÄCUDAÄ£¿éÓ¦ÓÃ¼¸¸ö·½ÃæÕ¹¿ª¡£
+
 \subsection{CPU¶àÏß³Ì²¢ĞĞÓÅ»¯Ëã·¨µÄÊµÏÖ}
-ÔÚC++ÖĞÊ¹ÓÃ¶àÏß³Ì²¢ĞĞ£¬¿ÉÊ¹ÓÃthreadÀàÀ´ÊµÏÖ£»Ê×ÏÈÒª°üº¬threadÍ·ÎÄ¼ş\cite{cppref-url}¡£
+ÔÚC++ÖĞÊ¹ÓÃ¶àÏß³Ì²¢ĞĞ£¬¿ÉÓÃthreadÀàÀ´ÊµÏÖ£»Ê×ÏÈÒª°üº¬threadÍ·ÎÄ¼ş\cite{cppref-url}¡£
+ÔÚC++ÖĞÖ§³Ö¶àÏß³ÌµÄ»¹ÓĞ¿ÉÄÜĞèÒªmutexÀ´½øĞĞÏß³ÌÍ¬²½¡£µ«ÊÇÔÚÕâÀï£¬Í¬ÀàĞÍµÄÏß³ÌÖ®¼äµÄ¹ØÏµÏà¶Ô¶ÀÁ¢£¬²»ĞèÒª
+Í¨ĞÅ¡£
 
 \subsubsection{Ö÷Ïß³ÌµÄÖ´ĞĞ¹ı³ÌºÍFrameÏß³Ì·ÖÅä}
-½ÓÏÂÀ´ÎÒÃÇÒªÔÚÖ÷Ïß³ÌÖĞ¿ªÆôÁ½¸öFrameÏß¡£ÏÈÊµÀı»¯Ò»¸ö¿ò¼ÜÀàframe£¬ÔÚÏß³ÌÖĞµ÷ÓÃframeµÄ
-´¦Àíº¯Êı¡£
+¸ù¾İÊµ¼ÊĞèÇó£¬ÒªÔÚÖ÷Ïß³ÌÖĞ¿ªÆôÁ½¸öFrameÏß³Ì¡£ÏÈÊµÀı»¯Ò»¸ö¿ò¼ÜÀàframe£¬ÓÃthreadÀà´´½¨Á½¸öÏß³Ì£¬Ò»¸öÓÃÓÚ´¦Àí¸²Ä¤×éµÄÍ¼Ïñ£¬ÁíÒ»¸öÓÃÓÚ´¦Àí²»¸²Ä¤×éµÄÍ¼Ïñ£»ÔÚÏß³ÌÖĞµ÷ÓÃframeÀàÖĞÏà¹ØµÄ´¦Àíº¯Êı¡£
 
-\begin{lstlisting}[ language=C,numbers=left]
+\begin{lstlisting}[basicstyle=\footnotesize]
 void test()
 {
 CBGBFrame frame;
-/*'¶ÁÈ¡Ëã·¨²ÎÊı'*/
-/*'¶ÁÈ¡Í¼Ïñ'*/
-thread frame_filmed(bind(&CBGBFrame::SetFilmedImages, &frame,
-	ref(img_filmed_self), ref(img_filmed_ext)));
-thread frame_unfilmed(bind(&CBGBFrame::SetUnfilmedImages, &frame,
-	ref(img_unfilmed_self), ref(img_unfilmed_ext)));
+/*'¶ÁÈ¡Ëã·¨²ÎÊıºÍÍ¼Ïñ'*/
+thread frame_filmed(bind(&CBGBFrame::SetFilmedImages,
+    &frame, ref(filmed_self), ref(filmed_ext)));
+thread frame_unfilmed(bind(&CBGBFrame::SetUnfilmedImages,
+    &frame, ref(unfilmed_self), ref(unfilmed_ext)));
 frame_filmed.join();
 frame_unfilmed.join();
 }
 \end{lstlisting}
 
-ÕâÀïÊÇÔÚmainº¯ÊıÖĞ½øĞĞ²âÊÔµÄĞ´·¨£¬ÔÚDLL¹¤³ÌÀï±àĞ´¶ÔÍâ½Ó¿ÚÒ²ÊÇÍ¬ÑùµÄĞ´·¨£¬´´½¨Ïß³ÌÈ»ºó¼ÓÈëÏß³Ì³Ø¡£
-µÚÒ»¸öFrameÏß³Ìframe\_filmedµ÷ÓÃµÄÊÇÀàframeµÄSetFilmedImagesDebug()º¯Êı£¬µÚ¶ş¸öÏß³Ìframe\_unfilmed
-µ÷ÓÃµÄÔòÊÇSetUnfilmedImagesDebug()º¯Êı;Á½¸öº¯ÊıµÄ¹¦ÄÜÊÇÒ»ÑùµÄ£¬Çø±ğÔÚÓÚÒ»¸ö´¦Àí¸²Ä¤×éµÄÍ¼Æ¬£¬ÁíÒ»¸ö´¦Àí²»¸²Ä¤×éµÄÍ¼Æ¬¡£
+ÔÚDLL¹¤³ÌÀï±àĞ´¶ÔÍâ½Ó¿ÚÒ²ÊÇÍ¬ÑùµÄĞ´·¨£¬´´½¨Ïß³ÌÈ»ºó¼ÓÈëÏß³Ì³Ø¡£
 
+µÚÒ»¸öFrameÏß³Ìframe\_filmedµ÷ÓÃµÄÊÇÀàframeµÄSetFilmedImages() º¯Êı£¬µÚ¶ş¸öÏß³Ìframe\_unfilmed
+µ÷ÓÃµÄÔòÊÇSetUnfilmedImages()º¯Êı¡£
+~\clearpage
+Á½¸öº¯ÊıµÄ¹¦ÄÜÊÇÒ»ÑùµÄ£¬Çø±ğÔÚÓÚÒ»¸ö´¦Àí¸²Ä¤×éµÄÍ¼Æ¬£¬ÁíÒ»¸ö´¦Àí²»¸²Ä¤×éµÄÍ¼Æ¬¡£
 \begin{figure}[H]
 \centering
-\includegraphics[width=1\linewidth]{img/MainCode.jpg}
+\includegraphics[width=0.8\linewidth]{img/MainCode.jpg}
 \caption{Ö÷Ïß³Ìº¯ÊıÖ´ĞĞ¹ı³Ì}
-\label{FrameCode}
+\label{MainCode}
 \end{figure}
 
-º¯ÊıSetFilmedImagesDebug()ÖĞµÄimg\_filmed\_selfºÍimg\_filmed\_ext²ÎÊı£¬¶¼ÊÇMatÀàĞÍµÄ±äÁ¿£¬ÔÚ¡°¶ÁÈ¡Í¼Ïñ¡±²½ÖèÖĞÓÃÀ´´æ´¢
-¸²Ä¤×éµÄÍâ¹âÔ´Ìõ¼şÏÂµÄÍ¼ÏñºÍ×Ô·¢¹âÌõ¼şÏÂµÄÍ¼Ïñ¡£Í¬ÑùµÄ£¬ÔÚSetUnfilmedImagesDebug()º¯ÊıÖĞµÄimg\_unfilmed\_selfºÍimg\_unfilmed\_ext
+º¯ÊıSetFilmedImages()ÖĞµÄfilmed\_selfºÍfilmed\_ext²ÎÊı£¬¶¼ÊÇMatÀàĞÍµÄ±äÁ¿£¬ÔÚ¡°¶ÁÈ¡Í¼Ïñ¡±²½ÖèÖĞÓÃÀ´´æ´¢
+¸²Ä¤×éµÄÍâ¹âÔ´Ìõ¼şÏÂµÄÍ¼ÏñºÍ×Ô·¢¹âÌõ¼şÏÂµÄÍ¼Ïñ¡£Í¬ÑùµÄ£¬ÔÚSetUnfilmedImagesDebug()º¯ÊıÖĞµÄunfilmed\_selfºÍunfilmed\_ext
 ²ÎÊı·Ö±ğ´æ´¢²»¸²Ä¤×éµÄÍ¼Ïñ¡£
 Ïß³ÌÆô¶¯ºó£¬½øÈëÏàÓ¦µÄº¯ÊıÄÚ²¿£¬ÔÙÆô¶¯Á½¸öInspectÏß³Ì´¦Àí·Ö±ğ´¦Àí·ÖÀëºóµÄµ¥±ßÍ¼Ïñ¡£
 
 \subsubsection{FrameÏß³ÌµÄÖ´ĞĞ¹ı³ÌºÍInspectorÏß³Ì·ÖÅä}
-\clearpage
-\begin{lstlisting}[ language=C,numbers=left]
+ÔÚ½øÈëFrameµÄÏß³Ìº¯ÊıÖ®ºó£¬ÕâÀïÒÔSetFilmedImages()ÎªÀı£¬°ÑÊäÈëµÄ¸²Ä¤×éÍ¼Ïñ½øĞĞ·ÖÀë°Ñ×ó¡¢ÓÒ
+Á½¸ö´ı¼ì²âÊÖ»úÆÁÄ»µÄÍ¼Ïñ·Ö±ğ´æ·Åµ½Ò»¸öMatÀàĞÍµÄ±äÁ¿ÖĞ£¬¶ÔÓ¦ÒÔÏÂ´úÂëÖĞµÄimg\_filmed\_self\_left²ÎÊı
+ºÍimg\_filmed\_self\_right²ÎÊı¡£ÕâÁ½¸öÍ¼ÏñÔ­±¾ÊÇ×Ô·¢¹âÏÂÅÄÉãµÄÍ¼Ïñ£¬Ò²¾ÍÊÇÖ÷Ïß³ÌÖĞµÄimg\_filmed\_self²ÎÊı£¬
+ÑÏ¸ñÀ´½²»¹ĞèÒªÔÙ¿ªÆôÁ½¸öInspectÏß³Ì¼ì²âÍâ¹âÔ´Çé¿öÏÂµÄÍ¼Ïñ¡£ÒòÎªÕâÀïÔ­¶¨µÄ¼ì²â·½°¸ÒªÔÚÁ½ÖÖ·¢¹âÇé¿öÏÂ¶¼½øĞĞ¼ì²âÍê±Ïºó£¬ÔÙµ÷ÓÃ
+Ò»¸ö±È¶ÔËã·¨¶ÔÁ½ÖÖ·¢¹âÇé¿ö½øĞĞ·ÖÎö£»µ«ÊÇÕâ¸öÑĞ·¢¹¤×÷»¹Î´Íê³É£¬ÕâÀï¾ÍÖ»²ÉÓÃ×Ô·¢¹âÇé¿öÏÂµÄÍ¼Ïñ½øĞĞ¼ì²â¡£
+%~\\
+%\clearpage
+Í¼Ïñ·ÖÀëÍê±Ïºó£¬ÔÙÌáÈ¡×ó¡¢ÓÒÁ½ÕÅÍ¼ÏñµÄÓĞĞ§ÇøÓòÑÚÄ£°æ£¨Ò²¾ÍÊÇÊÖ»úÆÁÄ»ÔÚÍ¼ÖĞËùÔÚµÄ¾ØĞÎÇøÓò£©£¬ÑÚÄ£°æ¶ÔÓ¦µÄ²ÎÊıÎª
+mask\_filmed\_leftºÍmask\_filmed\_right¡£ÖÁÓÚ×îºóÁ½¸ö²ÎÊı£¬µÚÒ»¸ö±íÊ¾¸Ã×éÍ¼ÏñµÄ¸²Ä¤Çé¿ö£¬¡±1¡°±íÊ¾¸²Ä¤£¬¡±0¡°±íÊ¾²»¸²Ä¤£»
+µÚ¶ş¸ö²ÎÊıÎª¡±1¡°±íÊ¾´¦ÀíµÄµ¥±ßÍ¼ÏñÔÚ×ó£¬Îª¡±0¡°±íÊ¾ÔÚÓÒ¡£
+
+%\clearpage
+\begin{lstlisting}[basicstyle=\footnotesize]
 int SetFilmedImages()
 {
 /*'·ÖÀëÍ¼Ïñ'*/
 /*'ÌáÈ¡ÓĞĞ§ÇøÓòÑÚÄ£°æ'*/
+string str1 = dir + img_file_name + "_filmed_self_left";
+string str2 = dir + img_file_name + "_filmed_self_right";
 thread inspect_left(bind(&CBGBFrame::InspectSingleBGB, this,
     ref(img_filmed_self_left),ref(img_ext_empty),
     ref(mask_filmed_left),str1, ref(rect_left_result),1,1));
@@ -667,28 +731,90 @@ thread inspect_right(bind(&CBGBFrame::InspectSingleBGB, this,
     ref(mask_filmed_right),str2,ref(rect_right_result),1,0));
 inspect_left.join();
 inspect_right.join();
+/*'±È¶ÔËã·¨'*/
 }
 \end{lstlisting}
 
-%ÕâÀïÓÃÒ»ÕÅÍ¼ËµÃ÷£º\\
-\clearpage
+´ËÍâ£¬»¹ÓĞÁ½¸östringÀàĞÍµÄ×Ö·û´®±äÁ¿¡±str1¡°ºÍ¡±str2¡°£¬ÕâÁ½¸ö×Ö·û´®¸ù¾İµ±Ç°µÄÊ±¼ä£¨°üº¬ÄêÔÂÈÕÊ±·ÖÃë£©ºÍ
+µ±Ç°´¦ÀíÍ¼ÏñµÄ¸²Ä¤Çé¿ö¡¢·¢¹âÇé¿öºÍ·ÅÖÃÎ»ÖÃÀ´Éú³É£¬²¢ÇÒ°üº¬ÁËÎÄ¼şÂ·¾¶¡±result\_dir¡°¡£str1 ºÍstr2µÄ×÷ÓÃÊÇÔÚ¼ì²âÈ±Ïİ
+½áÊø¡¢±£´æ½á¹ûÍ¼ÏñÊ±×÷ÎªÍ¼ÏñµÄÎÄ¼şÃûÇ°×º¡£ÀıÈç½á¹ûÍ¼ÏñÎÄ¼şÃûÎª¡±20170602\_150615\_filmed\_self\_left.jpg¡°±íÊ¾µ±Ç°
+Í¼ÏñÊôÓÚ×Ô·¢¹â¸²Ä¤×é£¬ÊÖ»úÆÁÄ»Î»ÓÚ×ó±ß£¬´¦ÀíÊ±¼äÊÇ2017Äê6ÔÂ2ÈÕ15Ê±6 ·Ö15Ãë¡£Õâ¸ö×Ö·û´®±íÊ¾Ê±¼äµÄ²¿·Ö¡±20170602\_150615¡°
+Ò²¿ÉÒÔÓÃÀ´Éú³ÉÈÕÖ¾ÎÄ¼şÃûÇ°×º¡£
+
+ÕâÀïµÄ¡±·ÖÀëÍ¼Ïñ¡°ºÍ¡±ÌáÈ¡ÓĞĞ§ÇøÓòÑÚÄ£°æ¡°¹ı³Ì£¬¾ÍÊÇÔÚ2.3½ÚÌáµ½µÄFrame Ïß³Ì¸ºÔğµÄÒ»²¿·ÖÔ¤´¦Àí¹¤×÷¡£
+ÔÚÔ¤ÏÈ¹¤×÷Íê³Éºó£¬ÔÙÕë¶Ô×óÍ¼ºÍÓĞÍ¼·Ö±ğ¿ªÆôÁ½¸öÏß³Ìinspect\_leftºÍinspect\_rightÖ´ĞĞ¼ì²â£¬³ÌĞò
+µÄ´¦ÀíÁ÷³ÌÈçÍ¼~\ref{FrameCode}ËùÊ¾¡£
+
+ÆäÖĞ£¬Ïß³Ìº¯Êıµ÷ÓÃµÄÊÇCBGBFrameÀàµÄInspectSingleBGB()º¯Êı¡£Õâ¸öº¯Êı°üº¬ÁËºËĞÄµÄÈ±Ïİ¼ì²âÁ÷³Ì£¬ÊÇÕû
+¸ö³ÌĞòÔËĞĞºÄÊ±Õ¼±È×î´óµÄ²¿·Ö£¬Ò²ÊÇĞÔÄÜÆ¿¾±ËùÔÚ¡£
+%\clearpage
 \begin{figure}[H]
 \centering
-\includegraphics[width=1\linewidth]{img/framecode.jpg}
+\includegraphics[width=0.8\linewidth]{img/framecode.jpg}
 \caption{FrameÏß³Ìº¯ÊıÖ´ĞĞ¹ı³Ì}
 \label{FrameCode}
 \end{figure}
+Ïß³ÌÄÚµÄInspectSingleBGB()º¯ÊıµÄÖ´ĞĞ¹ı³ÌÈçÍ¼~\ref{InspectCode}£º
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\linewidth]{img/InspectCode.jpg}
+\caption{InspectÏß³Ìº¯ÊıÖ´ĞĞ¹ı³Ì}
+\label{InspectCode}
+\end{figure}
+ÊµÀı»¯Ò»¸ö¼ì²âÀàInspectorÖ®ºó£¬Ê¹ÓÃ£º
+\begin{lstlisting}[basicstyle=\footnotesize]
+inspector->SetlogPrifix();
+\end{lstlisting}
+À´µ÷ÓÃÍ¼~\ref{InspectCode}Ëù±íÊ¾Á÷³ÌµÄÏà¹Øº¯Êı¡£¼ì²â¹ı³ÌÖĞÈÕÖ¾ÎÄ¼şµÄ×÷ÓÃÊÇ¼ÇÂ¼Ã¿Ò»²½µÄ²Ù×÷£¬ÒÔ±ãÔÚµ÷ÊÔ³ö´í
+Ê±ÄÜÍ¨¹ıÈÕÖ¾À´¿ìËÙ¶¨Î»·¢Éú´íÎóµÄ´úÂëÎ»ÖÃ¡£ÉèÖÃ²ÎÊı¼´ÊÇ°ÑframeÀàÒÑ¶ÁÈ¡µÄ²ÎÊı½øÒ»²½¸³¸øInspectÀàµÄ¡£¿ÉÊÓ»¯¼ì²â½á¹û¼´Éú³É
+Èç2.1½ÚËùÊ¾µÄ½á¹ûÍ¼Ïñ£¬½«È±ÏİËùÔÚµÄ¾ØĞÎ¿ò»æÖÆ³öÀ´¡£
 
 
-\subsection{GPU¼ÓËÙµÄÓÅ»¯ÊµÏÖ}
+\subsubsection{Ó¦ÓÃOpenMPµÄ¶àÏß³Ì²¢ĞĞ}
+OpenMPÔ¤±àÒëÖ¸Áî´¦ÀíÑ­»·Óï¾ä¼ò»¯ÁË²¢ĞĞ»¯µÄ±à³Ì£¬ÔÚVisual StudioÖĞC++ µÄÓ¦ÓÃ·½·¨ÈçÏÂ´úÂëËùÊ¾\cite{OpenMP}£º
+%\clearpage
+\begin{lstlisting}[basicstyle=\footnotesize]
+#pragma omp parallel for
+for (int i = 0; i < contours.size(); i++)
+{
+    drawContours(bw_dst,contours,i,Scalar(255),CV_FILLED,8);
+}
+\end{lstlisting}
+
+drawContours()ÊÇÒ»¸öÊµÏÖ»­ÂÖÀªµÄº¯Êı¡£ÆäÖĞ²ÎÊıbw\_dstÊÇ±£´æ¼ì²â½á¹ûÍ¼ÏñµÄMat±äÁ¿£¬²ÎÊıcontours
+ÊÇ±£´æÈ±ÏİµÄMatÏòÁ¿¼¯ºÏ¡£Í¨¹ıÒ»¸öforÑ­»·½«contoursÉÏµÄÂÖÀª»­ÔÚbw\_dst¡£ÔÚforÑ­»·Ö®Ç°¼ÓÉÏOpenMPµÄ
+Ô¤±àÒëÖ¸Áî¡°\#pragma~omp~parallel~for¡±¾ÍÄÜÊµÏÖÕâ¸ö»­Í¼²Ù×÷µÄ²¢ĞĞÖ´ĞĞ¡£
+
+OpenMPÈÔÈ»´æÔÚ×ÅÖî¶àÏŞÖÆ¡£
+OpenMP´Ó¶àÖ¸Áî²¢·¢À´ÊµÏÖÑ­»·Óï¾äµÄ²¢ĞĞÖ´ĞĞ£¬Òò´ËÃ¿¸öÑ­»·²Ù×÷Ö®¼äÒª±£³ÖµÍñîºÏ²Å»áÊÊÓÃ£»ÈçÉÏ´úÂëËùÊ¾£¬Ã¿¸öÑ­»·
+µÄ²Ù×÷¶¼²»ÒÀÀµÓÚÆäËüÑ­»·µÄÔËĞĞ½á¹û£¬Òò´Ë¿ÉÒÔË³ÀûÖ´ĞĞ²¢·¢¡£Ñ­»·Ö®¼äµÄñîºÏºÍÒÀÀµ³Ì¶ÈÔ½¸ß£¬×Ô¶¯²¢·¢µÄ¹ı³Ì¾ÍÔ½ÈİÒ×³ö´í¡£
+
+ÔÚÑ­»·ÄÚ²¿ĞŞ¸ÄÑ­»·¼ÆÊıÒ²ÊÇOpenMP²»ÔÊĞíµÄ²Ù×÷¡£ÒòÎªOpenMPµÄÃ¿¸öÑ­»·¼ÆÊıºÍÏß³ÌÖ®¼äÊÇÒ»¶ÔÒ»µÄ¹ØÏµ£»Èç¹ûÒÔÉÏ´úÂëÈôÔÚÑ­»·ÄÚ´æÔÚ¡°i--¡±²Ù×÷£¬ÄÇÃ´¾Í»á´æÔÚÍ¬Ò»¸öÑ­»·¼ÆÊı¶ÔÓ¦¶à¸öÏß³ÌµÄÇé¿ö£¬¾Í±ä³ÉÁËÒ»¶Ô¶àµÄ¹ØÏµ¡£
+
+²¢ÇÒOpenMPµÄÑ­»·¼ÆÊı²»Ö§³Öunsigned£¨ÎŞ·ûºÅÕûĞÍ£©ÀàĞÍµÄ±äÁ¿£»Òò´Ë²»ÄÜÊ¹ÓÃsize\_tÀàĞÍÀ´×÷ÎªÑ­»·¼ÆÊı¡£
+
+%\clearpage
+\begin{lstlisting}[basicstyle=\footnotesize]
+//#pragma omp parallel for
+for (size_t i = 0; i < hist_sz; i++)
+{
+    /*'Ñ­»·²Ù×÷'*/
+}
+\end{lstlisting}
+
+size\_tÊÇÒ»¸öºÍÌØ¶¨ÏµÍ³Ïà¹ØµÄÎŞ·ûºÅÕûĞÍÊı£¬±ÈÈçÔÚ32Î»ÏµÍ³ºÍ64Î»ÏµÍ³ÖĞ£¬size\_tÕ¼ÓĞµÄ×Ö½Ú³¤¶È»á¸÷ÓĞ²»Í¬\cite{cppref-url}¡£
+¶ø²¿·Ö³ÌĞò´úÂëÖĞÊ¹ÓÃsize\_tÀàĞÍµÄ±äÁ¿À´´úÌæint ÀàĞÍ£¨ÈçÉÏ´úÂëËùÊ¾£©£¬ÊÇ³öÓÚ¿çÆ½Ì¨µÄ¿¼ÂÇ,Ò²¾Í²»ÄÜÊ¹ÓÃOpenMP½øĞĞ²¢ĞĞ´¦Àí¡£
+
+
+\subsection{»ùÓÚOpenCVºÍCUDAµÄ¼ì²âËã·¨ÓÅ»¯}
 \subsubsection{´úÂëÒÆÖ²µÄ³ÌĞò¿ò¼ÜÉè¼Æ}
 Ô­´úÂë°üº¬ÁËÁ½¸öÀà£º¿ò¼ÜÀà£¨CBGBFrame£©ºÍ¼ì²âÀà£¨CBGBInspector£©¡£¿ò¼ÜÀà°üº¬ÁËÒ»²¿·ÖÍ¼Æ¬Ô¤´¦Àí
 Á÷³Ì£¬Ö÷ÒªÓĞ£º¼ÓÈ¨Æ½¾ù½µÔë¡¢Í¼Æ¬·ÖÀëºÍÓĞĞ§ÇøÓòÌáÈ¡¡£¼ì²âÀà°üº¬ÁË
 Ô¤´¦Àí¡¢ºó´¦Àí£¨¼ÇÂ¼È±ÏİĞÎ³É¿ÉÊÓ»¯µÄ¼ì²â½á¹ûÍ¼£©ºÍºËĞÄµÄÈ±Ïİ¼ì²â·½·¨Inspect()¡£¶ø¿ò¼ÜÀàÔÚÍ¼
 Ïñ¼ì²â²¿·Ö£¬Í¨¹ıÊµÀı»¯Ò»¸ö¼ì²âÀàÀ´½øĞĞ¼ì²â¡£
 
-ÎªÁË·½±ã´úÂëµÄÒÆÖ²ºÍ²âÊÔ£¬ÕâÀïÊ¹ÓÃÒ»¸ö¼ì²âÀàµÄ×ÓÀàÀ´Ò»Ğ©×Óº¯ÊıµÄGPU ÊµÏÖ¡£Íê³ÉÒ»¸öGPUº¯ÊıµÄ±àĞ´
-ºó£¬¿ÉÖ±½ÓÔÚ×ÓÀàÖĞµ÷ÓÃ£¬È¡´úÔ­ÓĞµÄº¯Êı£¬¶øÆäËüÃ»ÓĞ±ä¸üµÄº¯ÊıÔòÑØÓÃ¸¸ÀàµÄ·½·¨¡£
+ÎªÁË·½±ã´úÂëµÄÒÆÖ²ºÍ²âÊÔ£¬ÕâÀïÊ¹ÓÃÒ»¸ö¼ì²âÀàµÄ×ÓÀàÀ´Ò»Ğ©×Óº¯ÊıµÄGPU ÊµÏÖ¡£Íê³ÉÒ»¸öGPU º¯ÊıµÄ±àĞ´
+ºó£¬¿ÉÖ±½ÓÔÚ×ÓÀàÖĞµ÷ÓÃ£¬È¡´úÔ­ÓĞµÄº¯ÊıÊµÏÖ£¬¶øÆäËüÃ»ÓĞ±ä¸üµÄº¯ÊıÔò¼Ì³Ğ¸¸ÀàµÄ·½·¨¡£
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.6\linewidth]{img/class.jpg}
@@ -705,10 +831,10 @@ CBGBInspectorºÍInspectorBPUµÄÊµÀı»¯½øĞĞ¿ØÖÆ¡£
 \end{figure}
 ¹¤³§ÀàInspectorSetµÄ×÷ÓÃÊÇÉú²ú¼ì²âÀà£¬ÔÚ´úÂëÖĞ¶¨ÒåÈçÏÂµÄº¯ÊıÀ´ÊµÏÖ
 Õâ¸ö¹¦ÄÜ¡£º¯ÊıµÄ·µ»ØÀàĞÍÊÇCBGBInspectorµÄÖ¸Õë¶ÔÏó£¬¶ø·µ»ØµÄÀàĞÍÊÇCBGBInspectorºÍInspectorGPUÁ½ÖÖ¡£ÈçÍ¼~\ref{class}¿ÉÖªÁ½ÕßÊÇ¼Ì³Ğ
-¹ØÏµ£¬ËùÒÔÒ»ÏÂ´úÂëµÚ¾ÅĞĞÊÇÓÃ¸¸ÀàÀ´ÊµÀı»¯×ÓÀà£¬ÔÚC++ÖĞÖ»ÄÜÒÔ¡°new¡±¹Ø¼ü×ÖÀ´ÊµÏÖ£¬¶ø¡°new¡±¹Ø¼ü×ÖÔÚ¶ÔÏóÊµÀı»¯ÖĞ×÷ÓÃµÄÖ»ÄÜÊÇÖ¸Õë¶ÔÏó£¬Òò´Ë
+¹ØÏµ£¬ËùÒÔÒ»ÏÂ´úÂëµÚ¾ÅĞĞÊÇÓÃ¸¸ÀàÀ´ÊµÀı»¯×ÓÀà£¬ÔÚC++ÖĞÖ»ÄÜÒÔ¡°new¡±¹Ø¼ü×ÖÀ´ÊµÏÖ£¬¶ø¡°new¡± ¹Ø¼ü×ÖÔÚ¶ÔÏóÊµÀı»¯ÖĞ×÷ÓÃµÄÖ»ÄÜÊÇÖ¸Õë¶ÔÏó£¬Òò´Ë
 ±ØĞëÊ¹ÓÃ¸¸ÀàµÄ¶ÔÏóÖ¸Õë×÷Îª·µ»ØÖµ¡£ÆäÖĞCPU\_MODE ºÍGPU\_MODEÊÇÔÚÍ·ÎÄ¼şÖĞ½øĞĞµÄºê¶¨Òå£¬ÔÚº¯Êıµ÷ÓÃÊ±×÷ÎªÌõ¼şÅĞ¶ÏÒÀ¾İ¡£
-\clearpage
-\begin{lstlisting}[ language=C,numbers=left]
+%\clearpage
+\begin{lstlisting}[basicstyle=\footnotesize]
 #define CPU_MODE 0
 #define GPU_MODE 1
 CBGBInspector* InspectorSet::CreateInspector(int mode)
@@ -724,56 +850,199 @@ CBGBInspector* InspectorSet::CreateInspector(int mode)
 }
 \end{lstlisting}
 
-ÒÔÏÂ´úÂëÊÇÔÚInspectÏß³ÌÖĞÀûÓÃÉÏÊö¶¨ÒåµÄ¹¤³§ÀàµÄCreateInspector()·½·¨À´Éú²úÒ»¸öÆôÓÃGPUµÄ¼ì²âÀà¡£
+ÒÔÏÂ´úÂëÊÇÔÚInspectÏß³ÌÖĞÀûÓÃÉÏÊö¶¨ÒåµÄ¹¤³§ÀàµÄCreateInspector()·½·¨À´Éú²úÒ»¸öÆôÓÃGPU µÄ¼ì²âÀà¡£
 ĞèÒªµ÷ÓÃ¼ì²âÀàµÄº¯ÊıÊ±£¬ÏÈ¶¨ÒåÒ»¸ö¼ì²âÀà¸¸ÀàµÄÖ¸Õë£¬ÊµÀı»¯Ò»¸ö¹¤³§ÀàInspectorSetµÄ¶ÔÏó£¬ÔÙµ÷ÓÃCreateInspector()·µ»ØÒ»¸öĞèÒªµÄ¼ì²âÀà¡£
 %\clearpage
-\begin{lstlisting}[ language=C,numbers=left]
+\begin{lstlisting}[basicstyle=\footnotesize]
 int CBGBFrame::InspectSingleBGB()
 {
 //InspectorGPU inspector;//'Ô­À´µÄ¶ÔÏóÊµÀı»¯·½Ê½'
 //inspector.inspect();
 InspectorSet set;
 CBGBInspector *inspector = set.CreateInspector(GPU_MODE);
-inspector->Inspect();
 /*'ºóĞø²Ù×÷'*/
 delete inspector;
 }
 \end{lstlisting}
 
-Ô­À´ÊÇÓÃ±äÁ¿¶¨ÒåµÄ·½Ê½À´¶Ô¼ì²âÀà½øĞĞÊµÀı»¯£¬ÕâÖÖ·½Ê½ÊµÀı»¯Ê¹ÓÃµÄÊÇÕ»Çø£¬ÓÉÏµÍ³×Ô¶¯·ÖÅäºÍÊÍ·Å£»
+Ô­À´ÊÇÓÃ±äÁ¿¶¨ÒåµÄ·½Ê½À´¶Ô¼ì²âÀà½øĞĞÊµÀı»¯£¬ÈçÉÏÊöµÄ×¢ÊÍ¶Î´úÂë¡£ÕâÖÖ·½Ê½ÊµÀı»¯Ê¹ÓÃµÄÄÚ´æ¿Õ¼äÊÇÕ»Çø£¬ÓÉÏµÍ³×Ô¶¯·ÖÅäºÍÊÍ·Å£»
 ¶øÊ¹ÓÃ¡°new¡±À´½øĞĞÊµÀı»¯Ê¹ÓÃµÄÊÇ¶ÑÇø£¬»¹ÒªÔÚ×îºóÓÃ¡°delete¡±Ö÷¶¯ÊÍ·Å£¬±ÜÃâÔÚ²âÊÔÖĞ¿ÉÄÜ»á³öÏÖµÄÄÚ´æĞ¹Â©¡£
 
 ´ËÍâ£¬ÎªÁËÄÜÈÃ¼ì²âÆ÷¶ÔÏó³É¹¦µ÷ÓÃ×ÓÀàInspectorGPUµÄInspect()·½·¨£¬±ØĞë°Ñ¸¸ÀàCBGBInspectorµÄ
-Í¬Ãû·½·¨¶¨Òå³ÉĞéº¯Êı¡£¶øInspect()ÄÚ²¿»áÓÃµ½µÄÆäËü¹¤¾ßº¯Êı²»ĞèÒªÏÔÊ¾µ÷ÓÃ£¬Òò´ËÃ»ÓĞ±ØÒª¶¨Òå³ÉĞéº¯ÊıÒ²ÄÜ
+Í¬Ãû·½·¨¶¨Òå³ÉĞéº¯Êı¡£
+\begin{lstlisting}[basicstyle=\footnotesize]
+public:
+virtual int Inspect(Mat& im_original, Mat& mask_original);
+}
+\end{lstlisting}
+
+
+¶øInspect()ÄÚ²¿»áÓÃµ½µÄÆäËü¹¤¾ßº¯Êı²»ĞèÒªÏÔÊ¾µ÷ÓÃ£¬Òò´Ë²»¶¨Òå³ÉĞéº¯ÊıÒ²ÄÜ
 Õı³£µ÷ÓÃ¡£
-\subsubsection{CUDAÉè±¸³õÊ¼»¯µÄ´¦Àí}
+
 \subsubsection{¼ì²âËã·¨ÖĞµÄÖØÒª¹¤¾ßº¯Êı}
+
+ÔÚÉÏÒ»½ÚÌáµ½µÄ¼ì²âº¯ÊıInspect()Ö´ĞĞµÄĞ§ÂÊÓ°Ïìµ½ÁËÕû¸ö³ÌĞò£»ÓÉVisual StudioµÄĞÔÄÜÆÀ¹À¹¤¾ß
+¿ÉµÃµ½¸Ãº¯ÊıÔÚµ¥Ïß³ÌÏÂµÄÔËĞĞºÄÊ±Õ¼±È´ïµ½ÁË27.37\%¡£Í¼~\ref{analyze} ÊÇĞÔÄÜ·ÖÎö±¨¸æµÄÒ»²¿·Ö
+½á¹û¡£
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\linewidth]{img/analyze.jpg}
+\caption{Inspect()º¯ÊıµÄºÄÊ±Õ¼±È}
+\label{analyze}
+\end{figure}
+
+Inspect()ÄÚµÄÖ÷Òª´¦Àíº¯ÊıÓĞÔ¤´¦ÀíPreProcess() ºÍÈ±Ïİ¼ì²âAnalyzeCenter()¡£
+Á½¸ö¹ı³ÌÖĞÉæ¼°µ½µÄÖ÷Òª¹¤¾ßº¯ÊıÓĞ£º
+%\clearpage
+\begin{lstlisting}[basicstyle=\footnotesize]
+public:
+int FitRectLines()                      //'ÄâºÏ¾ØĞÎInspect'
+void PiecewiseSmooth()                  //'·Ö¶ÎÆ½»¬ÂË²¨'
+void Get4MarginRect()                   //'»ñÈ¡ËÄ¸ö±ßÔµÍ¼Ïñ'
+void ProcessCentralRegionBasedOnCanny()  //'±ßÔµ¼ì²âµÄ·½·¨¼ì²âÈ±Ïİ'
+bool ProcessCentralRegionBasedOnFilter() //'Æ½»¬ÂË²¨µÄ·½·¨¼ì²âÈ±Ïİ'
+void MeanFilter()                       //'¾ùÖµÂË²¨º¯Êı'
+\end{lstlisting}
+
+±ÊÕßÖ÷ÒªÕë¶ÔÕâĞ©º¯Êı£¬Ê¹ÓÃOpenCVµÄCUDAÄ£¿éÀ´½øĞĞ´úÂëÒÆÖ²£¬´ïµ½ÓÃGPU À´ÓÅ»¯¼ÓËÙµÄÄ¿µÄ¡£
+
 \subsubsection{¹Ø¼üº¯Êı´úÂëÒÆÖ²Ê¾Àı}
 
-Õâ²¿·ÖÄÚÈİĞèÒª°Ñ²åÈëµÄ´úÂë×öÒ»ÏÂ¼ò»¯¡£¡£¡£
-
-ÕâÀïÓÃ·Ö¶ÎÆ½»¬ÂË²¨º¯ÊıµÄGPUÊµÏÖPiecewiseSmooth\_GPU()À´ËµÃ÷Ëã·¨ÒÆÖ²µÄ¹Ø¼ü²½Öè¡£
+ÕâÀïÓÃ·Ö¶ÎÆ½»¬ÂË²¨º¯ÊıµÄGPUÊµÏÖPiecewiseSmooth\_GPU()À´ËµÃ÷Ëã·¨ÒÆÖ²µÄ¹Ø¼ü²½Öè¡£ÒÔÏÂµÄ´úÂëËµÃ÷¼ò»¯ÁËÔ´´úÂë
+²»Ò×ÓÚÔÄ¶ÁµÄ´úÂë¡£
 
 Ê×ÏÈ°ÑĞèÒªµÄMatÀàĞÍµÄ±äÁ¿ÉÏ´«ÖÁÏÔ´æ£¨ÕâÀïÓÃ¹¹Ôìº¯ÊıÀ´½øĞĞÒşÊ½µÄÉÏ´«£©£¬±£´æÔÚGpuMatÀàĞÍµÄ±äÁ¿ÖĞ£º
-
+\begin{lstlisting}[basicstyle=\footnotesize]
+cuda::GpuMat g_dst;  //'ÓÃÓÚ±£´æ´¦Àí½á¹û'
+cuda::GpuMat g_imCrop(imCrop);//'´ı´¦ÀíÍ¼Ïñ'
+cuda::GpuMat g_maskCrop(maskCrop);//'ÑÚÄ£°æ'
+\end{lstlisting}
 ¶¨Òåcuda¸ßË¹ÂË²¨Æ÷ºÍĞèÒªµÄÖĞ¼ä±äÁ¿£º
-
+\begin{lstlisting}[basicstyle=\footnotesize]
+Ptr<cuda::Filter> GaussianFilter;
+cuda::GpuMat g_tempIm, g_tempMask;
+\end{lstlisting}
+\clearpage
 ·ÖÉÏ¡¢ÖĞ¡¢ÏÂÈı¶Î¶ÔÍ¼Æ¬ºÍÑÚÄ£°æ½øĞĞ¸ßË¹ÂË²¨£¬Ã¿Ò»´ÎÑ­»·½áÊøÍê³Éºó°Ñ¸Ã¶ÎµÄÂË²¨½á¹û¼Óµ½ÖĞ¼ä±äÁ¿g\_tempImºÍg\_tempMask¡£
+%\clearpage
+\begin{lstlisting}[basicstyle=\footnotesize]
+for (size_t i = 0; i < 3; i++)
+{
+...
+GaussianFilter = cuda::createGaussianFilter();
+GaussianFilter->apply(g_imCrop.rowRange(), g_tempIm);
+GaussianFilter = cuda::createGaussianFilter();
+GaussianFilter->apply(g_maskCrop.rowRange(), g_tempMask);
+cuda::add(g_fIm.rowRange(),g_tempIm.rowRange(),
+			g_fIm.rowRange());
+cuda::add(g_fMask.rowRange(),g_tempMask.rowRange(),
+			g_fMask.rowRange());
+}
+\end{lstlisting}
 
+¸ÃÑ­»·×ÜÌåµÄ¹ı³ÌÈçÍ¼~\ref{smooth}£º
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\linewidth]{img/smooth.jpg}
+\caption{·Ö¶ÎÂË²¨Ñ­»·µÄÁ÷³Ì}
+\label{smooth}
+\end{figure}
+
+Í¼Æ¬µÄ·Ö¶Î²»ÊÇ¾ù·ÖµÄ£¬ÆäÖĞ´æÔÚÖØµşµÄ²¿·Ö£¬ĞÂÒ»ÂÖµÄÂË²¨½á¹ûÔÚÏà¼ÓµÄ¹ı³ÌÖĞ»áÖ±½Ó¸²¸ÇÉÏÒ»´ÎÂË²¨½á¹ûºÍ
+±¾´ÎµÄÖØµş²¿·Ö¡£
+\clearpage
 °ÑÂË²¨ºóµÄÍ¼Æ¬ÓëÂË²¨ºóµÄÑÚÄ£°æÏà³ıµÃµ½×îÖÕµÄÂË²¨½á¹û£¬²¢´ÓÏÔ´æÏÂÔØÖÁCPU¡£ÕâÀïÓÃdownload()·½·¨ÏÔÊ½½øĞĞÁËÏÂÔØ¡£
+\begin{lstlisting}[basicstyle=\footnotesize]
+cuda::add(g_fMask, 1e-6, g_fMask);
+cuda::divide(g_fIm, g_fMask, g_dst);
+cuda::GpuMat convertedIm;
+g_dst.convertTo(convertedIm, CV_8U);
+convertedIm.download(dst);
+\end{lstlisting}
 
-¶Ô´úÂëÔËĞĞËÙ¶ÈÓ°Ïì±È½Ï´óµÄ£¬³ıÁËÂË²¨º¯ÊıÒÔÍâ£¬Éæ¼°µÄÍ¼Ïñ´¦Àí·½·¨»¹ÓĞCanny±ßÔµÌáÈ¡Ëã·¨£¬¸÷ÖÖĞÎÌ¬Ñ§´¦Àí
-£¨¿ªÔËËã¡¢±ÕÔËËã£¬¸¯Ê´µÈ£©¡£ÒÆÖ²¹ı³ÌÖĞ×îÖØÒªµÄÊÇ×ĞÏ¸²éÔÄOpenCVÌá¹©µÄ²Î¿¼¼¼ÊõÎÄµµ£¬ÊìÏ¤ºÍÁË½âÏà¹ØµÄÓ¦ÓÃº¯Êı½Ó¿Ú¡£
+ÆäÖĞÔÚ½øĞĞ³ı²Ù×÷Ö®Ç°£¬ÏÈ¸ø±»³ıµÄ¡±g\_mask¡°¼ÓÉÏÒ»¸ö¼«Ğ¡Êı¡±1e-6¡°¡£ÔÚÏÂÔØÖ®Ç°»¹ÓĞÒ»¸öÀàĞÍ×ª»»µÄ²Ù×÷convertTo()£»
+Ò»°ãOpenCVµÄMatÀàĞÍ×ª»»¿ÉÒÔÖ±½ÓĞ´£º
+\begin{lstlisting}[basicstyle=\footnotesize]
+dst.convertTo(convertedIm, CV_8U);
+\end{lstlisting}
 
+ÕâÀïÊ¹ÓÃÁËÒ»¸öGpuMatÀàĞÍµÄÖĞ¼ä±äÁ¿convertedImÀ´Íê³É×ª»»µÄ²Ù×÷£¬ÒòÎªcuda°æ±¾µÄconvertTo Êä³ö²ÎÊı²»ÄÜÎªÔ­¶ÔÏó¡£
 
+¶Ô´úÂëÔËĞĞËÙ¶ÈÓ°Ïì±È½Ï´óµÄ£¬³ıÁËÂË²¨º¯ÊıÒÔÍâ£¬Éæ¼°µÄÍ¼Ïñ´¦Àí·½·¨»¹ÓĞ¸÷ÖÖĞÎÌ¬Ñ§´¦Àí£¨¿ªÔËËã¡¢±ÕÔËËãºÍ¸¯Ê´µÈ£©
+¡¢Canny±ßÔµÌáÈ¡Ëã·¨¡£
+\begin{lstlisting}[basicstyle=\footnotesize]
+Ptr<cuda::Filter> morph = cuda::createMorphologyFilter();
+morph->apply();
+Ptr<cuda::CannyEdgeDetector> canny =
+    cuda::createCannyEdgeDetector();
+canny->detect();
+\end{lstlisting}
 
+ĞÎÌ¬Ñ§²Ù×÷ÔÚCUDAÄ£¿éÖĞÈÔÈ»ÒÔÂË²¨Æ÷FilterÎª»ùÀàÊµÏÖ£¬¿ÉÔÚ¹¹ÔìÄ£°åÖ¸ÕëµÄ¹ı³ÌÖĞÖ¸¶¨ÔËËãÀàĞÍ£¨¿ªÔËËã¡¢±ÕÔËËãºÍ¸¯Ê´µÈ£©¡£
+¶øCanny±ßÔµÌáÈ¡Ëã·¨ÔÚCUDAÄ£¿éÖĞÊÇÒ»¸ö¶ÀÁ¢µÄÀàCannyEdgeDetector£¬Ê¹ÓÃdetect½Ó¿ÚÀ´Ó¦ÓÃËã·¨¡£
+ÒÆÖ²¹ı³ÌÖĞ×îÖØÒªµÄÊÇ×ĞÏ¸²éÔÄOpenCVÌá¹©µÄ²Î¿¼¼¼ÊõÎÄµµ£¬ÊìÏ¤ºÍÁË½âÏà¹ØµÄÓ¦ÓÃº¯Êı½Ó¿Ú\cite{Opencv3}¡£
+
+\subsubsection{CUDAÉè±¸³õÊ¼»¯µÄ´¦Àí}
+ÔÚ2.2.2½ÚÖĞÌáµ½ÁËCUDAÉè±¸µÄ³õÊ¼»¯ÎÊÌâ¡£³õÊ¼»¯Ïà¶ÔÓÚÕû¸ö³ÌĞòÀ´ËµÊÇÒ»¸öºÜºÄÊ±µÄ¹ı³Ì£¬¶øÕâ¸ö³õÊ¼»¯ÆäÊµÖ»ÒªÔÚ³ÌĞò¿ªÊ¼ÔËĞĞ
+Ê±½øĞĞÒ»´Î¾Í¿ÉÒÔ¡£Òò´Ë¶ÔÓÚÒ»Ğ©¹ı³Ì¼òµ¥¶øÇÒ²»ĞèÒª³¤ÆÚ¹¤×÷µÄÍ¼Ïñ´¦Àí³ÌĞòÀ´Ëµ£¬Ê¹ÓÃCUDA»áÊ¹³õÊ¼»¯µÄÊ±¼ä¿ªÏú³ÉÎªĞÔÄÜÆ¿¾±¡£
+¶øÔÚÊÖ»úÆÁÄ»È±Ïİ¼ì²âµÄÏîÄ¿ÖĞ£¬³ÌĞòÒªÔÚÉú²úÏßÉÏ³¤ÆÚÔËĞĞ£¬Òò´ËCUDAµÄ³õÊ¼»¯¿ÉÒÔ·ÅÔÚ³ÌĞòÆô¶¯ÖĞÍê³É£¬²»»á¶ÔÕı³£µÄÉú²ú¹ı³ÌÔì³É
+¸ÉÈÅ¡£
+
+ÕâÀïÊ¹ÓÃÒ»¸öÀà¡±CudaApi¡°À´¶ÔÆäËüÆ½Ì¨Ìá¹©CUDAµÄÏà¹Øº¯Êı²Ù×÷¡£
+\begin{lstlisting}[basicstyle=\footnotesize]
+class CudaApi
+{
+public:
+int getDeviceCount();//'»ñÈ¡Ö§³ÖcudaµÄGPUÉè±¸ÊıÁ¿'
+bool initCuda();     //'³õÊ¼»¯cudaÉè±¸'
+};
+\end{lstlisting}
+
+initCuda()º¯ÊıÓÃÀ´ÊÖ¶¯³õÊ¼»¯CUDA£¬³õÊ¼»¯³É¹¦Ôò·µ»Øtrue¡£
+%\clearpage
+\begin{lstlisting}[basicstyle=\footnotesize]
+bool CudaApi::initCuda()
+{
+	if (getDeviceCount() > 0)
+	{
+		cuda::setDevice(0);
+		return true;	
+	}		
+	else return false;
+}
+\end{lstlisting}
+
+getDeviceCount()º¯ÊıÓÃÓÚ»ñÈ¡¿ÉÓÃµÄCUDAÉè±¸£¬³É¹¦Ê±´ó²¿·ÖÇé¿öÏÂµÄ·µ»ØÖµÊÇ1£¬¼´µ±Ç°»úÆ÷µÄGPUÊıÁ¿¡£
+³õÊ¼»¯Ö®Ç°ÒªÖ´ĞĞÕâ¸öº¯ÊıÒÔÈ·¶¨µ±Ç°µÄ»·¾³¿ÉÒÔÕı³£ÆôÓÃCUDA¡£
+%\clearpage
+\begin{lstlisting}[basicstyle=\footnotesize]
+int CudaApi::getDeviceCount()
+{
+	return cuda::getCudaEnabledDeviceCount();
+}
+\end{lstlisting}
+
+ÒòÎª¸ÃÏîÄ¿µÄ¹¤³ÌÊ¦ÔÚÇ°Ì¨Ê¹ÓÃC\#Éè¼Æ½çÃæ£¬ÕâÀïÔÚDLL¹¤³ÌÖĞÌá¹©¶ÔC\#µÄ½Ó¿Ú£º
+\begin{lstlisting}[basicstyle=\footnotesize]
+extern "C" __declspec(dllexport) bool CudaInitialize();
+bool CudaInitialize()
+{
+    CudaApi api;
+    return api.initCuda();
+}
+\end{lstlisting}
+
+ÕâÑùÇ°Ì¨µÄ¹¤³ÌÊ¦¾Í¿ÉÒÔÔÚ³ÌĞòÆô¶¯Ê±µ÷ÓÃÕâ¸ö½Ó¿ÚÀ´ÊÖ¶¯³õÊ¼»¯CUDA£¬±ÜÃâCUDAµÄ³õÊ¼»¯¿ªÏúÓ°Ïìµ½Í¼Ïñ¼ì²âµÄĞ§ÂÊ¡£
 \subsection{±¾ÕÂĞ¡½á}
-blank
+±¾ÕÂÖ÷ÒªÕë¶ÔµÚ¶şÕÂµÄÉè¼Æ·½°¸£¬½éÉÜÁËCPU¶àÏß³ÌÓÅ»¯ÕûÌå³ÌĞòÔÚ¸÷¸ö»·½ÚµÄ¾ßÌåÊµÏÖ£¬ÒÔ¼°±ÊÕßÈçºÎÉè¼Æ³ÌĞò¿ò¼Ü
+À´¶ÔÔ­³ÌĞò½øĞĞGPUµÄÒÆÖ²£¬ÔÚÒÆÖ²¹ı³ÌÖĞÆÊÎöÁË¼ì²âËã·¨µÄ´¦ÀíÁ÷³Ì£¬ÒÔ´ËÀ´Õ¹ÏÖ´úÂëÒÆÖ²µÄÏ¸½Ú´¦Àí¡£±ÊÕß°ÑÏû³ıCUDAÉè±¸
+³õÊ¼»¯¶ÔĞÔÄÜµÄÓ°Ïì£¬½éÉÜÁËCUDAº¯Êı¶ÔÍâ½Ó¿ÚµÄÉè¼ÆºÍÊµÏÖ¡£
 
 \clearpage
 
 \section{²¢ĞĞ»¯Éè¼ÆµÄÉè±¸»·¾³ºÍÕûÌå²âÊÔ}
-
+±¾ÕÂ½éÉÜÁË¿ª·¢»·¾³µÄ´î½¨£¬°üÀ¨OpenCVºÍCUDA¼ÆËãÆ½Ì¨£¬²¢Õë¶ÔµÚÈıÕÂÉè¼ÆÊµÏÖµÄ½á¹û½øĞĞÁËĞÔÄÜ²âÊÔºÍ·ÖÎö¡£
 \subsection{OpenCVºÍCUDA»·¾³´î½¨}
 
 \subsubsection{ÈíÓ²¼ş»·¾³}
@@ -795,11 +1064,11 @@ blank
 2£©±àÒë¹¤¾ßÑ¡ÔñVisual Studio 2013 win64£»\\
 3£©µã»÷Configure£¬ÔÙ¹´Ñ¡WITH\_CUDA£»\\
 4£©ÔÙ´ÎConfigure£¬µã»÷GenerateÉú³ÉOpenCVµÄ¹¤³Ì£»\\
-5£©½øÈëµÚÒ»²½Ñ¡¶¨µÄOpenCV¹¤³ÌµÄÉú³ÉÂ·¾¶£¬´ò¿ªOpenCV.sln£¬Ò²¾ÍÊÇ´ò¿ªCmake Éú³ÉµÄOpenCV¹¤³Ì£¬ÔÚVisual StudioÏÂ¶Ô¹¤³Ì½øĞĞ±àÒë£»ÔÚdebugÄ£Ê½ºÍrelease Ä£Ê½ÏÂ·Ö±ğ±àÒëÒ»´Î£¬´ó¸ÅĞèÒª2-3 ¸öĞ¡Ê±µÄÊ±¼ä£»\\
+5£©½øÈëµÚÒ»²½Ñ¡¶¨µÄOpenCV¹¤³ÌµÄÉú³ÉÂ·¾¶£¬´ò¿ªOpenCV.sln£¬Ò²¾ÍÊÇ´ò¿ªCmake Éú³ÉµÄOpenCV ¹¤³Ì£¬ÔÚVisual StudioÏÂ¶Ô¹¤³Ì½øĞĞ±àÒë£»ÔÚdebugÄ£Ê½ºÍrelease Ä£Ê½ÏÂ·Ö±ğ±àÒëÒ»´Î£¬´ó¸ÅĞèÒª2-3 ¸öĞ¡Ê±µÄÊ±¼ä£»\\
 
-6£©ÔÚ¹¤³ÌµÄCMake TargetsÏÂ£¬Ñ¡ÔñINSTALLÄ£¿éÓÒ¼üµã»÷Build Only InstallÉú³ÉOpenCV¿â£»\\
+6£©ÔÚ¹¤³ÌµÄCMake TargetsÏÂ£¬Ñ¡ÔñINSTALLÄ£¿éÓÒ¼üµã»÷Build Only Install Éú³ÉOpenCV¿â£»\\
 
-7£©½øÈëOpenCVµÄ¹¤³ÌÉú³ÉÄ¿Â¼£¬½«installÕû¸öÎÄ¼ş¼Ğ¿½±´ÖÁopencv °²×°Ä¿Â¼ÏÂ£¬½«ÏÖÓĞµÄbuildÎÄ¼ş¼Ğ¸ÄÎªbuild.old£¬½«installÎÄ¼ş¼Ğ¸ÄÎªbuild£¬ÕâÑù¾Í¿ÉÒÔ°ÑÔ­À´µÄ¿âÌæ´úÎª±àÒëºÃµÄ´øÓĞCUDAÄ£¿éµÄOpenCV ¿â¡£\\
+7£©½øÈëOpenCVµÄ¹¤³ÌÉú³ÉÄ¿Â¼£¬½«installÕû¸öÎÄ¼ş¼Ğ¿½±´ÖÁopencv °²×°Ä¿Â¼ÏÂ£¬½«ÏÖÓĞµÄbuild ÎÄ¼ş¼Ğ¸ÄÎªbuild.old£¬½«installÎÄ¼ş¼Ğ¸ÄÎªbuild£¬ÕâÑù¾Í¿ÉÒÔ°ÑÔ­À´µÄ¿âÌæ´úÎª±àÒëºÃµÄ´øÓĞCUDAÄ£¿éµÄOpenCV ¿â¡£\\
 \subsubsection{Visual Studio 2013ÏÂ¶ÔÏîÄ¿µÄÅäÖÃ·½·¨}
 
 ÎªÁËÕı³£Ê¹ÓÃOpenCV¼°±àÒëºÃµÄCUDAÄ£¿é£¬ĞèÒªÔÚ¹¤³ÌµÄÅäÖÃ¹ÜÀíÆ÷£¨Property Manager£©½øĞĞÅäÖÃ£¬ÅäÖÃ²½ÖèÈçÏÂ£¨²»·ÖÏÈºó£©£º
@@ -812,21 +1081,28 @@ blank
 2£©ÔÚ¿âÄ¿Â¼(Library Directories)ÌîÈë£º\\
 \indent F:/Program Files/opencv/build/x64/vc12/lib
 
-3£©ÔÚÁ´½ÓÆ÷£¨Linker£©Ñ¡ÏîÏÂÑ¡ÔñÊäÈë£¨input£©£¬ÔÚ¸½¼ÓÒÀÀµÏî£¨Additional Dependencies£©ÌîÈëÈç¸½Â¼1
+3£©ÔÚÁ´½ÓÆ÷£¨Linker£©Ñ¡ÏîÏÂÑ¡ÔñÊäÈë£¨input£©£¬ÔÚ¸½¼ÓÒÀÀµÏî£¨Additional Dependencies£©ÌîÈëÈç¸½Â¼2
 ËùÊ¾µÄ¿âÎÄ¼şÃû¡£
 
-ÒÔÉÏÊÇÔÚdebugÏÂ±àÒëµÄÅäÖÃ·½·¨£¬Èç¹ûÒªÔÚreleaseÏÂ±àÒë£¬ÔòÔÚreleaseÅäÖÃÎÄ¼şÖĞÖØ¸´ÒÔÉÏ1¡¢2²½£»
-Ö´ĞĞµÚ3²½Ê±°ÑÒÔÉÏËùÓĞ¿âÎÄ¼şÃû¸´ÖÆÒ»´Î£¬ÔÙÈ¥µôºó×º¡°d¡± Ö®ºó¼´release ÏÂ±àÒëµÄ¿âÎÄ¼şÃû¡£
+4£©ÒÔÉÏÊÇÔÚdebugÏÂ±àÒëµÄÅäÖÃ·½·¨£¬Èç¹ûÒªÔÚreleaseÏÂ±àÒë£¬ÔòÔÚrelease ÅäÖÃÎÄ¼şÖĞÖØ¸´ÒÔÉÏ1¡¢2²½£»
+Ö´ĞĞµÚ3²½Ê±°Ñ¸½Â¼2ËùÊ¾µÄ¿âÎÄ¼şÃû¸´ÖÆÒ»´Î£¬ÔÙÈ¥µôºó×º¡°d¡± Ö®ºó¼´release ÏÂ±àÒëµÄ¿âÎÄ¼şÃû¡£
+
+5£©±à³ÌÊ±ĞèÒª°üº¬µÄÍ·ÎÄ¼ş\\
+\indent OpenCVÖ÷ÒªµÄ¿âÎÄ¼ş£º\\
+\indent opencv2/opencv.hpp¡¢opencv2/imgproc/imgproc.hpp£» \\
+\indent Opencv3µÄCUDAÄ£¿é¸ù¾İĞèÇó¿É·Ö±ğÌí¼ÓÏàÓ¦Í·ÎÄ¼ş£¬Èç£º\\
+\indent cudaarithm.hpp£ºÌá¹©GpuMat¶ÔÏóµÄÂß¼­ÔËËã²Ù×÷£»\\
+\indent cudafilters.hpp£ºÌá¹©ºËĞÄµÄÂË²¨¹¦ÄÜ¡£
 
 ´ËÍâ£¬ÎªÁË±ÜÃâ²âÊÔ¹ı³ÌÖĞ²Ù×÷ÏµÍ³²»±ØÒªµÄ¸ÉÔ¤£¬Ó¦¹Ø±ÕÎ¢ÈíÍ¼ĞÎÇı¶¯³ÌĞòµÄ³¬Ê±¼ì²âÓë»Ö¸´Timeout Detection and Recovery (TDR) £¬
 ·ÀÖ¹GPUº¯ÊıÔËĞĞÊ±±»ÏµÍ³ÖÕÖ¹²¢Ç¿ÖÆÖØÆôÏÔ¿¨Çı¶¯¡£¾ßÌå²Ù×÷ÊÇÍ¨¹ıÓ¢Î°´ïµÄNsight Monitor¹¤¾ß£¬ÕÒµ½TDRÑ¡Ïî£¬ÉèÖÃÎªfalse\cite{CUDA-gpu}¡£
 
-\subsection{¶àÏß³ÌÓÅ»¯µÄĞÔÄÜ²âÊÔ}
+\subsection{CPU¶àÏß³ÌÓÅ»¯µÄĞÔÄÜ²âÊÔ}
 ±¾´Î²âÊÔÖĞ£¬FrameÏß³ÌºÍInspectÏß³ÌÊıÁ¿×î´óÍ¬Ê±Îª2¸ö¡£Ê×ÏÈ°ÑFrameÏß³ÌÊı¹Ì¶¨Îª1´¦Àí²»¸²Ä¤×éµÄÍ¼Æ¬,Í¬±í~\label{Mthread}ÖĞFrame
 Ïß³ÌÊıÎª1µÄÇé¿ö£»ÔÚInspectÏß³Ì¸÷Îª1 µÄÇé¿ö£¬µÈ¼ÛÓÚÔÚ´®ĞĞÌõ¼şÏÂ´¦ÀíÒ»ÕÅ¾­¹ı×óÓÒ·ÖÀëµÄµ¥±ßÍ¼Ïñ£¬¸÷µ÷ÓÃÁËÒ»´Î¿ò¼ÜÀàµÄÔ¤´¦ÀíºÍ¼ì²âÀàµÄ¼ì²âËã·¨¡£ÔÚInspect Ïß³ÌÎª2µÄÇé¿ö£¬¼´ÊÇ´¦Àí¾­·ÖÀëºóµÄÁ½¸öµ¥±ßÍ¼Ïñ£¬Ò»¹²µ÷ÓÃÁËÒ»´Î¿ò¼ÜÀàµÄÔ¤´¦Àí
 ºÍÁ½´Î¼ì²âËã·¨¡£
 
-È»ºóÔÙ¶à¿ªÆôÒ»¸öFrameÏß³ÌÍ¬Ê±´¦Àí¸²Ä¤×éºÍ²»¸²Ä¤×é£¬Í¬±í~\label{Mthread}ÖĞFrameÏß³ÌÊıÎª2µÄÇé¿ö¡£InspectÏß³ÌÎª2µÄÇé¿ö¼´ÊÇ´¦Àí
+È»ºóÔÙ¶à¿ªÆôÒ»¸öFrameÏß³ÌÍ¬Ê±´¦Àí¸²Ä¤×éºÍ²»¸²Ä¤×é£¬Í¬±í~\label{Mthread}ÖĞFrameÏß³ÌÊıÎª2 µÄÇé¿ö¡£InspectÏß³ÌÎª2µÄÇé¿ö¼´ÊÇ´¦Àí
 Á½×éÍ¼Æ¬¾­¹ı·ÖÀëºóµÄµ¥±ßÍ¼Ïñ£¬¸÷µ÷ÓÃÁ½´Î¿ò¼ÜÀàµÄÔ¤´¦ÀíºÍ¼ì²âÀàµÄ¼ì²âËã·¨¡£InspectÏß³ÌÊıÎª4µÄÇé¿ö¼´ÊÇ¶ÔÁ½×éÊäÈë
 Í¼Ïñ°üÀ¨ËùÓĞµ¥±ßÍ¼Ïñ½øĞĞÍêÕûµÄ´¦Àí£¬µ÷ÓÃÁËÁ½´Î¿ò¼ÜÀàµÄÔ¤´¦ÀíºÍËÄ´Î¼ì²âÀàµÄ¼ì²âËã·¨£¨¼´¶ÔÊäÈëµÄÁ½×éÍ¼Ïñ½øĞĞ×óÓÒ·ÖÀëºó£¬
 ÔÙ·Ö±ğ¶Ô×óÓÒÁ½ÕÅÍ¼Ïñ½øĞĞ´¦Àí£©¡£
@@ -839,7 +1115,7 @@ blank
 
 \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}cccc}  % ÉèÖÃÈıÏß±í¸ñÓëÎÄ±¾Í¬¿í
 \toprule
-Ïß³ÌÊı(Frame)&Ïß³ÌÊı(Inspect)&cpuÆ½¾ùÊ±¼ä/ms& \tabincell{c}{inspect()º¯Êı\\ Æ½¾ùÊ±¼ä/ms} \\
+Ïß³ÌÊı(Frame)&Ïß³ÌÊı(Inspect)&cpuÆ½¾ùÊ±¼ä/ms& \tabincell{c}{inspect() º¯Êı\\ Æ½¾ùÊ±¼ä/ms} \\
 \midrule
 1&1&4861&2063\\
 1&2&5588&2450\\
@@ -850,7 +1126,7 @@ blank
 \end{tabular*}
 \end{table}
 
-´ÓµÚ¶şºÍµÚÈıĞĞ¿ÉÖª£¬Ôö¼ÓÒ»¸öFrameÏß³ÌÊ¹¿ªÏúÖ»Ôö¼ÓÁË257ºÁÃë¡£ÒòÎªFrameÏß³Ì°üº¬µÄ´¦Àí¹ı³Ì
+´ÓµÚ¶şºÍµÚÈıĞĞ¿ÉÖª£¬Ôö¼ÓÒ»¸öFrameÏß³ÌÊ¹¿ªÏúÖ»Ôö¼ÓÁË257ºÁÃë¡£ÒòÎªFrame Ïß³Ì°üº¬µÄ´¦Àí¹ı³Ì
 ÔÚÕû¸ö³ÌĞòÖĞµÄºÄÊ±±È²¢²»´ó£»¶øInspectÏß³Ì°üº¬µÄ¼ì²âº¯ÊıµÄ¿ªÏúÆ½¾ù¸ß´ï3500ºÁÃë£¬ÊÇ³ÌĞòÖĞºÄÊ±±È×î´óµÄ²¿·Ö¡£
 
 ÀíÏëÖĞ²ÉÓÃ¶àÏß³Ì²¢ĞĞ¸úµ¥Ïß³Ì´®ĞĞ¶Ô±È£¬Ğ§ÂÊÓ¦¸ÃÊÇ³É±¶Ôö³¤£»Ò²¾ÍÊÇËµ£¬´®ĞĞÌõ¼şÏÂÃ¿Ôö¼ÓÒ»¸ö´¦ÀíÁ÷³Ì£¬×ÜÊ±¼ä
@@ -870,7 +1146,7 @@ blank
 Ïß³ÌÊı(Frame)&Ïß³ÌÊı(Inspect)&\tabincell{c}{inspect()º¯Êı\\ Æ½¾ùÊ±¼ä/ms}& \tabincell{c}{GPUÏÂinspect()º¯Êı\\ Æ½¾ùÊ±¼ä/ms} \\
 \midrule
 1&1&2063&1656\\
-1&2&2450&2250\\
+1&2&2450&2152\\
 2&2&2420&2047\\
 2&4&3550&3047\\
 \bottomrule
@@ -878,9 +1154,8 @@ blank
 \end{tabular*}
 \end{table}
 
-·ÖÎö£º¡£¡£¡£
-
-
+inspect()º¯ÊıÔÚGPU¼ÆËãµÄ¸¨ÖúÏÂ£¬µ¥Ïß³ÌÌõ¼şÏÂ±ÈÔ­À´µÄ³ÌĞò¿ìÁË400ºÁÃë£¬ÔÚËÄ¸öÏß³ÌÈ«¿ªµÄÇé¿öÏÂ¿ìÁËÔ¼500ºÁÃë£»
+¶àÏß³ÌÏÂÒòÎª²¢·¢µÄ¹ØÏµ£¬²¢²»»áµ¥Ïß³ÌÊ±µÄ²î¾à½øÒ»²½À­¿ª¡£
 
 \subsection{OpenCVÖĞµÄCUDAÄ£¿é´æÔÚµÄÎÊÌâ}
 CUDAÄ£¿éµÄCUDAº¯ÊıÔÚÌØ¶¨Çé¿öÏÂ´æÔÚĞÔÄÜµÍÏÂµÄÎÊÌâ¡£±ÈÈçÔÚ¼ì²âËã·¨ÖĞ£¬»áÓÃµ½Ò»¸ö¹¤¾ßº¯Êı
@@ -909,7 +1184,7 @@ kernel\_size & \tabincell{c}{MeanFilter()\\ Æ½¾ùÊ±¼ä/ms } & \tabincell{c}{MeanFi
 
 ¿ÉÒÔÓÃÈçÏÂµÄ´úÂë½â¾öÉÏÊöÎÊÌâ£º
 
-\begin{lstlisting}[ language=C,numbers=left]
+\begin{lstlisting}[basicstyle=\footnotesize]
 MeanFilter(im_filter, im_Big, wBig.height);
 MeanFilter_GPU(im_filter, im_Small, wSmall.height);
 \end{lstlisting}
@@ -925,7 +1200,7 @@ GPUÉÏ½øĞĞ¼ÆËã£¬¼ÆËã½á¹ûÔÙ´ÓGPU·´À¡µ½CPU¡£ÒòÎªÔÚCPU-GPUÒì¹¹Æ½Ì¨ÉÏÔËĞĞ£¬³ÌĞòµÄÎÈ¶¨
 ±í~\ref{Mthread-gpu}·ÂÕÕCPU¶àÏß³Ì²¢·¢µÄÏß³Ì¶Ô±ÈÉèÖÃ£¬ÔÚÓ¦ÓÃGPUµÄÄ£Ê½ÏÂ½øĞĞÁË²âÊÔ£¬²¢ÒÔ±í~\ref{Mthread}
 µÄ¡°CPUÆ½¾ùÊ±¼ä¡±Ò»ÏîÎª»ù×¼¼ÆËã¼ÓËÙ±È¡£
 \begin{table}[htbp]
-\centering
+\centering\wuhao
 \caption{¶àÏß³ÌÏÂÓ¦ÓÃGPUµÄ¼ì²âËã·¨ĞÔÄÜ²âÊÔ}
 \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}cccc}  % ÉèÖÃÈıÏß±í¸ñÓëÎÄ±¾Í¬¿í
 \toprule
@@ -939,99 +1214,322 @@ GPUÉÏ½øĞĞ¼ÆËã£¬¼ÆËã½á¹ûÔÙ´ÓGPU·´À¡µ½CPU¡£ÒòÎªÔÚCPU-GPUÒì¹¹Æ½Ì¨ÉÏÔËĞĞ£¬³ÌĞòµÄÎÈ¶¨
 \label{Mthread-gpu}
 \end{tabular*}
 \end{table}
-
+Ó¦ÓÃGPU¼ÆËãÊ¹µÃ×ÜÌåµÄĞÔÄÜÌá¸ßÁËÔ¼9\%¡£ÒòÎª±¾´ÎÊÇ½èÖúOpenCVµÄCUDAÄ£¿éÀ´Íê³É£¬Ö÷ÒªÕë¶ÔÒ»Ğ©Í¨ÓÃµÄËã·¨½øĞĞÓÅ»¯£¬
+¶øÇÒÓÉÓÚCUDAÄ£¿é²¢Î´Ê®·Ö³ÉÊì£¬ÔÚÒÆÖ²¹ı³ÌÖĞ»áÓöµ½²¿·ÖCUDAº¯Êı³öÏÖÑÏÖØÑÓ³Ù£¬Òò´Ë²»ÄÜÈ«²¿Ê¹ÓÃGPUÀ´´¦Àí¡£
+Èç¹û½«¸ü¶àËã·¨½èÖúCUDA½øĞĞÒÆÖ²£¬ÔÚCPU-GPUÒì¹¹Æ½Ì¨ÉÏ£¬³ÌĞòĞÔÄÜÌáÉıµÄ¿Õ¼äÒÀÈ»ºÜ´ó¡£
 
 \subsection{±¾ÕÂĞ¡½á}
+ÕâÒ»ÕÂ½éÉÜÁË±¾´Î±ÏÉè¹¤×÷µÄÆ½Ì¨»·¾³µÄ²¿Êğ¹ı³Ì£¬ÒÔ¼°²âÊÔ¹ı³ÌÖĞËùÊ¹ÓÃµÄÓ²¼şÌõ¼ş¡£²âÊÔÁË³ÌĞòÔÚCPU¶àÏß³Ì
+¿ò¼ÜÏÂµÄÔËĞĞ¿ªÏú£¬Óëµ¥Ïß³ÌµÄÇé¿ö½øĞĞÁË¼òÒªµÄ¶Ô±È£¬¿ÉÖªÊ¹ÓÃ¶àÏß³ÌÊ¹³ÌĞòĞÔÄÜµÃµ½ÏÔÖøÌáÉı¡£Õë¶Ôinspect()
+º¯ÊıµÄ²¿·Ö¹¤¾ßº¯Êı½øĞĞGPU¼ÓËÙÓÅ»¯ºóµÄ½øÒ»²½²âÊÔ½á¹û±íÃ÷£¬GPU¼ÆËãÊ¹µÃÍ¼Ïñ¼ì²âµÄÕûÌåĞÔÄÜÓĞÁËÂÔÎ¢µÄÌáÉı£»
+¶øÇÒÊ¹ÓÃGPUÀ´½øĞĞ¼ÓËÙÈÔÈ»ÓĞ×ÅºÜ´óµÄĞÔÄÜ¸ÄÁ¼Ç±Á¦¡£
 
 \clearpage
 
 \section{×Ü½áÓëÕ¹Íû}
+
 \subsection{ÂÛÎÄ¹¤×÷×Ü½á}
+±¾ÎÄ´ÓÊµ¼ÊµÄĞèÇó³ö·¢£¬Ç¿µ÷ÁË¹¤Òµ×Ô¶¯»¯ÖÆÔì¹ı³ÌÖĞÊµÊ±ĞÔµÄÖØÒªĞÔ¡£±ÊÕß»ùÓÚÊÖ»úÆÁÄ»È±Ïİ×Ô¶¯»¯¼ì²âµÄÏîÄ¿£¬µ÷ÑĞºÍÑ§Ï°ÁË
+ÈçºÎ¼Ó¿ìÍ¼Ïñ¼ì²âËÙ¶ÈµÄ·½·¨¡£
+
+±¾ÎÄÍ¨¹ı¶ÔÊÖ»úÈ±Ïİ¼ì²â¹¤×÷Á÷³ÌµÄ½éÉÜ£¬¸ù¾İÊµ¼ÊÉú²úµÄĞèÒª·ÖÎöÁË³ÌĞòÓÅ»¯µÄ¿ÉĞĞ·½°¸£¬²¢Éè¼ÆÁË¾ßÌå
+µÄ¶àÏß³Ì´¦ÀíÁ÷³Ì¡£Ì½Ë÷ÁË½èÖúGPU¼ÆËãÓÅ»¯Í¼Ïñ´¦ÀíËã·¨µÄ·½°¸£¬È·¶¨ÁËÊ¹ÓÃOpenCVµÄCUDAÄ£¿éÀ´ÒÆÖ²º¯Êı¡£
+
+½ÓÏÂÀ´½éÉÜÁË±ÊÕß¶ÔÒÑÓĞ·½°¸µÄ¾ßÌåÊµÏÖ£¬°üÀ¨ÁËÔÚÍ¼Ïñ¼ì²â³ÌĞòÖĞ¾ßÌåÊµÊ©µÄÏß³Ì·ÖÅä£¬GPUÒÆÖ²Ëã·¨µÄ³ÌĞò¿ò¼ÜºÍÀàµÄÉè¼Æ£¬ÒÔ¼°¾ßÌåµÄ±à³ÌÊµÏÖ·½·¨¡£
+
+ÔÚ²âÊÔ¹ı³ÌÖĞÒÔÏß³ÌÀàĞÍºÍÊıÁ¿×÷Îª±äÁ¿½øĞĞÁËÏêÏ¸µÄĞÔÄÜ²âÊÔºÍ¶Ô±È·ÖÎö£¬Õ¹Ê¾ÁË¹¤×÷µÄ³É¹û£»Í¬Ê±Ö¸³öÁËOpenCVµÄCUDAÄ£¿éµÄ²»×ã£¬´Ó²âÊÔÖĞÒ²
+µÃ³öÁË±¾´Î¹¤×÷²¢Ã»ÓĞÀûÓÃGPU¼ÆËãÀ´´ïµ½ÏÔÖøµÄĞÔÄÜÌáÉı£¬µ«ÊÇ¶ÔÓÚGPU¼ÆËãµÄÓ¦ÓÃÔÚ½ñºó¹¤×÷ÖĞÈÔÈ»ÊÇÖØµã¡£
+
 \subsection{ÏÂÒ»²½ÑĞ¾¿ÄÚÈİ}
-\subsection{±¾ÕÂĞ¡½á}
+OpenCVµÄCUDAÄ£¿éÈÔÈ»²»³ÉÊì£¬Ê¹ÓÃCUDA´úÂëÀ´¿ª·¢¸üÓÅµÄ´úÂëÊÇÒÔºóÓÅ»¯Í¼Ïñ´¦ÀíËÙ¶ÈµÄÇ÷ÊÆ£¬ÒòÎªÕâ²¿·ÖµÄĞÔÄÜÆ¿¾±Ö»ÄÜÍ¨¹ı¸üÓÅµÄGPU¼ÆËãÆ½Ì¨À´Í»ÆÆ£»¶øGPUÆ½Ì¨ÉÏÍ¨ÓÃËã·¨µÄ¿ª·¢ÈÔÈ»ĞèÒª³¤ÆÚµÄ·¢Õ¹À´ÍêÉÆ¡£
+
+±¾´Î¹¤×÷Ö»½Ó´¥ÁËCUDA¼Ü¹¹£¬ºóĞø»¹¿ÉÒÔ½áºÏOpenCL£¬OpenACCµÈÆ½Ì¨À´ÊµÏÖÍ¼Ïñ´¦ÀíµÄGPU¼ÓËÙ£¬²¢±È½Ï¸÷Æ½Ì¨µÄÓÅÁÓ¡£
+
+
+
 
 \clearpage % »»Ò³
 
 \addcontentsline{toc}{section}{²Î¿¼ÎÄÏ×}
-\begin{thebibliography}{\centering}
+\begin{thebibliography}{99}{\centering}
 \bibitem{chinamake2025-url}¹úÎñÔºÓ¡·¢.ÖĞ¹úÖÆÔì2025[EB/OL].http://news.xinhuanet.com/politics/2015-05/19/c\_1115331338.html.
 \bibitem{yi}Ò×ËÉËÉ. »ùÓÚ»úÆ÷ÊÓ¾õµÄÊÖ»úÃæ°åÈ±Ïİ¼ì²â·½·¨ÑĞ¾¿[D].¹ş¶û±õ¹¤Òµ´óÑ§, 2016.
 \bibitem{lv}ÂÀÏòÑô. »ùÓÚCPU+GPUµÄÍ¼Ïñ´¦ÀíÒì¹¹²¢ĞĞ¼ÆËãÑĞ¾¿[D].ÄÏ²ı´óÑ§, 2014.
 \bibitem{wang}Íõ·æ,¶ÅÔÆ·É,³Â¾ê. GPGPUĞÔÄÜÄ£ĞÍÑĞ¾¿[J]. ¼ÆËã»ú¹¤³ÌÓë¿ÆÑ§,2013,35(12):1-7.
 \bibitem{liu}ÁõöÎ,½ª³¬,·ë´æÓÀ.CUDAºÍOpenCVÍ¼Ïñ²¢ĞĞ´¦Àí·½·¨ÑĞ¾¿[J]. ²â»æ¿ÆÑ§,2012,37(4):123-125.
 \bibitem{opencv-url}OpenCV¹ÙÍøCUDAÖ÷Ò³Ãæ[EB/OL].http://opencv.org/platforms/cuda.html.
-\bibitem{cppref-url}±ê×¼C++¿â²Î¿¼ÎÄµµ[EB/OL].http://www.cplusplus.com/reference.
-\bibitem{CUDA-gpu}Shane Cook.CUDA Programming\_A Developer's Guide to Parallel Computing with GPUs[EB/OL].http://www.nvidia.com
-\bibitem{CUDA-guide}CUDA\_C\_Programming\_Guide[EB/OL].http://www.nvidia.com
-\bibitem{cuda-PARALLEL}G.J.Scott,G.A.Angelov,M.L.Reinig,E.C.Gaudiello and M.R.England.cv-Tile: Multilevel parallel geospatial data processing with OpenCV and CUDA[C].2015 IEEE International Geoscience and Remote Sensing Symposium (IGARSS),Milan,2015,pp.139-142
+\bibitem{cppref-url}±ê×¼C++¿â²Î¿¼ÎÄµµ[CP/OL].http://www.cplusplus.com/reference.
+\bibitem{CUDA-gpu}Shane Cook.CUDA Programming\_A Developer's Guide to Parallel Computing with GPUs[F/OL].http://www.nvidia.com.
+\bibitem{CUDA-guide}CUDA\_C\_Programming\_Guide[F/OL].http://www.nvidia.com.
+\bibitem{OpenMP}Microsoft Developer Network.OpenMP Directives[CP/OL].https://msdn.microsoft.com/en-us/library/0ca2w8dk(v=vs.80).aspx.
+\bibitem{Opencv3}OpenCV3.0²Î¿¼ÎÄµµ[CP/OL].http://opencv.org/documentation.html.
+%\bibitem{cuda-PARALLEL}G.J.Scott,G.A.Angelov,M.L.Reinig,E.C.Gaudiello and M.R.England.cv-Tile: Multilevel parallel geospatial data processing with OpenCV and CUDA[C].2015 IEEE International Geoscience and Remote Sensing Symposium (IGARSS),Milan,2015,pp.139-142
 \end{thebibliography}
 
 \clearpage
-\addcontentsline{toc}{section}{¸½Â¼}
-\fancyhead[C]{\wuhao{¸½\quad Â¼} }
-\begin{center}
-\sanhao
-¸½\quad Â¼
-\end{center}
+\newcommand{\xjtuappendix}{
+    \begin{appendix}
+    \renewcommand{\thesection}{¸½Â¼~\arabic{section}}
+    \sectionmark{¸½Â¼}
+}
+\newcommand{\xjtuendappendix}{\end{appendix}}
 
-¸½Â¼±àºÅÒÀ´Î±àÎª¸½Â¼1£¬¸½Â¼2¡£¸½Â¼±êÌâ¸÷Õ¼Ò»ĞĞ£¬°´Ò»¼¶±êÌâ±àÅÅ¡£Ã¿Ò»¸ö¸½Â¼Ò»°ãÓ¦ÁíÆğÒ»Ò³±àÅÅ£¬
-Èç¹ûÓĞ¶à¸ö½Ï¶ÌµÄ¸½Â¼£¬Ò²¿É½ÓÅÅ¡£¸½Â¼ÖĞµÄÍ¼±í¹«Ê½ÁíĞĞ±àÅÅĞòºÅ£¬ÓëÕıÎÄ·Ö¿ª£¬±àºÅÇ°¼Ó¡°¸½Â¼1-¡±×ÖÑù¡£
+\newcommand{\xjtuappendixesection}[1]{
+    \echapter*{\thesection\quad#1}
+    \addcontentsline{toe}{section}{\thesection\quad #1}
+}
+\newcommand{\xjtuappendixsubsection}[1]{
+    \stepcounter{subsection}
+    \subsection*{\thesection\quad#1}
+    \addcontentsline{toc}{subsection}{\thesubsection\quad #1}
+}
 
-\addcontentsline{toc}{subsection}{¸½Â¼1}
-\noindent
-\xiaosanhao
-¸½Â¼1\quad ÅäÖÃOpenCVËùĞèµÄ¿âÎÄ¼şÃû
-\xiaosihao
+\xjtuappendix
 
-\noindent   opencv\_calib3d320d.lib\\
-\noindent   opencv\_core320d.lib\\
-\noindent   opencv\_cudaarithm320d.lib\\
-\noindent   opencv\_cudabgsegm320d.lib\\
-\noindent   opencv\_cudacodec320d.lib\\
-\noindent   opencv\_cudafeatures2d320d.lib\\
-\noindent   opencv\_cudafilters320d.lib\\
-\noindent   opencv\_cudaimgproc320d.lib\\
-\noindent   opencv\_cudalegacy320d.lib\\
-\noindent   opencv\_cudaobjdetect320d.lib\\
-\noindent   opencv\_cudaoptflow320d.lib\\
-\noindent   opencv\_cudastereo320d.lib\\
-\noindent   opencv\_cudawarping320d.lib\\
-\noindent   opencv\_cudev320d.lib\\
+\section{ÖØÒªËã·¨²ÎÊıËµÃ÷}
+\begin{table}[htbp]
+\centering\wuhao
+\caption{ÖØÒªËã·¨²ÎÊıËµÃ÷}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}ccc}  % ÉèÖÃÈıÏß±í¸ñÓëÎÄ±¾Í¬¿í
+\toprule
+²ÎÊıÃû&ÀàĞÍ&º¬Òå  \\
+\midrule
+captured\_img\_width  & int  & Ïà»úÖ±½ÓÅÄÉãµÄÍ¼Ïñ¿í¶È  \\
+captured\_img\_height  &  int  & Ïà»úÖ±½ÓÅÄÉãµÄÍ¼Ïñ¸ß¶È \\
+\tabincell{c}{left\_BGB\_y0\\
+left\_BGB\_x0 \\
+left\_BGB\_width\\
+left\_BGB\_height} &  int  &  ×ó±ß±³¹â°åµÄÄ¬ÈÏÎ»ÖÃºÍ·¶Î§  \\
+\tabincell{c}{right\_BGB\_y0\\
+right\_BGB\_x0 \\
+right\_BGB\_width\\
+right\_BGB\_height} &  int  &  ÓÒ±ß±³¹â°åµÄÄ¬ÈÏÎ»ÖÃºÍ·¶Î§  \\
+BGB\_position\_tolerance & int & ±³¹â°åÎ»ÖÃµÄÎó²î\\
+BGB\_image\_margin\_width & int & ÕÒµ½±³¹â°åÇøÓòºó£¬ÏòÍâÀ©Õ¹µÄ¿í¶È\\
+Num\_img\_denoise & int & ÓÃÀ´×ö¶àÍ¼È¥ÔëµÄÍ¼Ïñ¸öÊı \\
+BGB\_segment\_thr & int & ÓÃÓÚ·Ö¸î±³¹â°åµÄãĞÖµ \\
+Resize\_ratio &double & ÓÃÓÚ¶ÔÍ¼ÏñĞĞ½øËõ·ÅµÄ±ÈÂÊ\\
 
-\noindent   opencv\_features2d320d.lib\\
-\noindent   opencv\_flann320d.lib\\
-\noindent   opencv\_highgui320d.lib\\
-\noindent   opencv\_imgcodecs320d.lib\\
-\noindent   opencv\_imgproc320d.lib\\
-\noindent   opencv\_ml320d.lib\\
-\noindent   opencv\_objdetect320d.lib\\
-\noindent   opencv\_photo320d.lib\\
-\noindent   opencv\_shape320d.lib\\
-\noindent   opencv\_stitching320d.lib\\
-\noindent   opencv\_superres320d.lib\\
-\noindent   opencv\_video320d.lib\\
-\noindent   opencv\_videoio320d.lib\\
-\noindent   opencv\_videostab320d.lib
-
-\clearpage
-
-\addcontentsline{toc}{subsection}{¸½Â¼2}
-\noindent
-\xiaosanhao
-¸½Â¼2\quad Ëã·¨²ÎÊıËµÃ÷
-\xiaosihao
-Ëã·¨²ÎÊıËµÃ÷£º
-
+\bottomrule
+\label{parameters}
+\end{tabular*}
+\end{table}
 
 \clearpage
 
+\section{ÅäÖÃOpenCV 3.2.0ËùĞèµÄ¿âÎÄ¼şÃû}
+
+\begin{lstlisting}[basicstyle=\footnotesize]
+opencv_calib3d320d.lib
+opencv_core320d.lib
+opencv_cudaarithm320d.lib
+opencv_cudabgsegm320d.lib
+opencv_cudacodec320d.lib
+opencv_cudafeatures2d320d.lib
+opencv_cudafilters320d.lib
+opencv_cudaimgproc320d.lib
+opencv_cudalegacy320d.lib
+opencv_cudaobjdetect320d.lib
+opencv_cudaoptflow320d.lib
+opencv_cudastereo320d.lib
+opencv_cudawarping320d.lib
+opencv_cudev320d.lib
+opencv_features2d320d.lib
+opencv_flann320d.lib
+opencv_highgui320d.lib
+opencv_imgcodecs320d.lib
+opencv_imgproc320d.lib
+opencv_ml320d.lib
+opencv_objdetect320d.lib
+opencv_photo320d.lib
+opencv_shape320d.lib
+opencv_stitching320d.lib
+opencv_superres320d.lib
+opencv_video320d.lib
+opencv_videoio320d.lib
+opencv_videostab320d.lib
+\end{lstlisting}
+
+
+\clearpage
+
+
+
+\section{ÎÄÏ×·­Òë}
+
+\subsection{Ô­ÎÄ}
+CUDA is an extension to the C language that allows GPU code to be written in regular C. The code
+is either targeted for the host processor (the CPU) or targeted at the device processor (the GPU). The
+host processor spawns multithread tasks (or kernels as they are known in CUDA) onto the GPU device.
+The GPU has its own internal scheduler that will then allocate the kernels to whatever GPU hardware is
+present. We¡¯ll cover scheduling in detail later. Provided there is enough parallelism in the task, as the
+number of SMs in the GPU grows, so should the speed of the program.
+
+However, herein hides a big problem. You have to ask what percentage of the code can be run in
+parallel. The maximum speedup possible is limited by the amount of serial code. If you have an infinite
+amount of processing power and could do the parallel tasks in zero time, you would still be left with the
+time from the serial code part. Therefore, we have to consider at the outset if we can indeed parallelize
+a significant amount of the workload.
+
+NVIDIA is committed to providing support to CUDA. Considerable information, examples, and
+tools to help with development are available fromits website at http://www.nvidia.com under CudaZone.
+CUDA, unlike its predecessors, has now actually started to gain momentum and for the first time it
+looks like there will be a programming language that will emerge as the one of choice for GPU
+programming. Given that the number of CUDA-enabled GPUs now number in the millions, there is
+a huge market out there waiting for CUDA-enabled applications.
+
+There are currently manyCUDA-enabled applications and the list growsmonthly.NVIDIA showcases
+many of these on its community website at http://www.nvidia.com/object/cuda\_apps\\\_flash\_new.html.
+In areas where programs have to do a lot of computational work,for example, making a DVD
+from your home movies (video transcoding),we see most mainstream video packages now supporting
+CUDA. The average speedup is 5 to 10 times in this domain.\\
+
+ALTERNATIVES TO CUDA:\\
+1)OpenCL\\
+So what of the other GPU manufacturers, ATI (now AMD) being the prime example.AMD¡¯s product
+range is as impressive as the NVIDIA range in terms of raw computer power. However, AMD brought
+its stream computing technology to the marketplace a long time after NVIDIA brought out CUDA. As
+a consequence, NVIDA has far more applications available for CUDA than AMD/ATI does for its
+competing stream technology.
+
+OpenCL and Direct compute is not something we¡¯ll cover in this book, but they deserve a mention
+in terms of alternatives to CUDA. CUDA is currently only officially executable on NVIDIA hardware.
+While NVIDIA has a sizeable chunk of the GPU market, its competitors also hold a sizeable chunk. As
+developers, we want to develop products for as large a market as possible, especially if we¡¯re talking
+about the consumer market. As such, people should be aware there are alternatives to CUDA, which
+support both NVIDIA¡¯s and others¡¯ hardware.
+
+OpenCL is an open and royalty-free standard supported by NVIDIA, AMD, and others. The
+OpenCL trademark is owned by Apple. It sets out an open standard that allows the use of compute
+devices. A compute device can be a GPU, CPU, or other specialist device for which an OpenCL driver
+exists. As of 2012, OpenCL supports all major brands of GPU devices, including CPUs with at least
+SSE3 support.
+
+Anyone who is familiar with CUDA can pick up OpenCL relatively easily, as the fundamental
+concepts are quite similar. However, OpenCL is somewhatmore complex to use thanCUDA, in thatmuch
+of thework theCUDAruntime API does for the programmer needs to be explicitly performed in OpenCL.
+You can read more about OpenCL at http://www.khronos.\\org/opencl/.There are also now a number
+of books written on OpenCL. I¡¯d personally recommend learning CUDA prior to OpenCL as CUDA is
+somewhat of a higher-level language extension than OpenCL.
+
+2)DirectCompute\\
+DirectCompute is Microsoft¡¯s alternative to CUDA and OpenCL. It is a proprietary product linked to
+the Windows operating system, and in particular, the DirectX 11 API. The DirectX API was a huge
+leap forward for any of those who remember programming video cards before it. It meant the
+developers had to learn only one library API to program all graphics cards, rather than write or license
+drivers for each major video card manufacturer.
+
+DirectX 11 is the latest standard and supported under Windows 7. With Microsoft¡¯s name behind
+the standard, you might expect to see some quite rapid adoption among the developer community. This
+is especially the case with developers already familiar with DirectX APIs. If you are familiar with
+CUDA and DirectCompute, then it is quite an easy task to port a CUDA application over to Direct-
+Compute. According to Microsoft, this is something you can typically do in an afternoon¡¯s work if you
+are familiar with both systems. However, being Windows centric, we¡¯ll exclude DirectCompute from
+many high-end systems where the various flavors of UNIX dominate.
+
+Microsoft are also set to launch Ctt AMP, an additional set of standard template libraries (STLs),
+which may appeal more to programmers already familiar with Ctt-style STLs.\\
+
+
+CPU ALTERNATIVES:\\
+The main parallel processing languages extensions are MPI, OpenMP, and pthreads if you are
+developing for Linux. For Windows there is the Windows threading model and OpenMP. MPI and
+pthreads are supported as various ports from the Unix world.
+
+1)MPI (Message Passing Interface) is perhaps the most widely known messaging interface. It is
+process-based and generally found in large computing labs. It requires an administrator to
+configure the installation correctly and is best suited to controlled environments. Parallelism is
+expressed by spawning hundreds of processes over a cluster of nodes and explicitly exchanging
+messages, typically over high-speed network-based communication links (Ethernet or
+InfiniBand). MPI is widely used and taught. It¡¯s a good solution within a controlled cluster
+environment.
+
+2)OpenMP (Open Multi-Processing) is a system designed for parallelism within a node or
+computer system. It works entirely differently, in that the programmer specifies various
+parallel directives through compiler pragmas. The compiler then attempts to automatically
+split the problem into N parts, according to the number of available processor cores. OpenMP
+support is built into many compilers, including the NVCC compiler used for CUDA. OpenMP
+tends to hit problems with scaling due to the underlying CPU architecture. Often the memory
+bandwidth in the CPU is just not large enough for all the cores continuously streaming data to
+or from memory.
+
+3)Pthreads is a library that is used significantly for multithread applications on Linux. As with
+OpenMP, pthreads uses threads and not processes as it is designed for parallelism within
+a single node. However, unlike OpenMP, the programmer is responsible for thread management
+and synchronization. This provides more flexibility and consequently better performance for
+well-written programs.
+
+4)ZeroMQ (0MQ) is also something that deserves a mention. This is a simple library that you link to,
+and we will use it later in the book for developing a multinode, multi-GPU example. ZeroMQ
+supports thread-, process-, and network-based communications models with a single crossplatform
+API. It is also available on both Linux and Windows platforms. It¡¯s designed for
+distributed computing, so the connections are dynamic and nodes fail gracefully.
+
+5)Hadoop is also something that you may consider. Hadoop is an open-source version of Google¡¯s
+MapReduce framework. It¡¯s aimed primarily at the Linux platform. The concept is that you take
+a huge dataset and break (or map) it into a number of chunks. However, instead of sending the
+data to the node, the dataset is already split over hundreds or thousands of nodes using a parallel
+file system. Thus, the program, the reduce step, is instead sent to the node that contains the data.
+The output is written to the local node and remains there. Subsequent MapReduce programs take
+the previous output and again transform it in some way. As data is in fact mirrored to multiple
+nodes, this allows for a highly fault-tolerant as well as high-throughput system.
+
+\subsection{ÒëÎÄ}
+CUDAÊÇCÓïÑÔµÄÀ©Õ¹£¬ÔÊĞíGPU´úÂëÒÔ³£¹æCÓïÑÔ±àĞ´¡£´úÂëÊÇÕë¶ÔÖĞÑë´¦ÀíÆ÷£¨CPU£©»òÕë¶ÔÍ¼ĞÎ´¦ÀíÆ÷£¨GPU£©µÄ¡£¸ÃÖ÷»ú´¦ÀíÆ÷ÔÚGPUÉè±¸ÉÏ²úÉú¶àÏß³ÌÈÎÎñ£¨»òCUDAÖĞÒÑÖªµÄÄÚºË£©¡£GPU¾ßÓĞ×Ô¼ºµÄÄÚ²¿µ÷¶ÈÆ÷£¬È»ºó½«ÄÚºË·ÖÅä¸øµ±ÏÂµÄÈÎºÎGPUÓ²¼ş¡£ ÉÔºó½«ÏêÏ¸½éÉÜµ÷¶È¡£ Èç¹ûÔÚÈÎÎñÖĞÓĞ×ã¹»µÄ²¢ĞĞĞÔ£¬³ÌĞòµÄËÙ¶ÈÒ²Ó¦¸ÃÈçGPUÖĞµÄSM£¨Á÷´¦ÀíÆ÷£©µÄÊıÁ¿Ôö³¤¡£
+
+µ«ÊÇ£¬ÕâÀïÒş²Ø×ÅÒ»¸ö´óÎÊÌâ¡£ Äã±ØĞëÁË½â³ÌĞòÖĞ¿ÉÒÔ²¢·¢ÔËĞĞµÄ´úÂëµÄ°Ù·Ö±È¡£ ×î´óµÄ¼ÓËÙ¿ÉÄÜÊÜµ½´®ĞĞ´úÂëÊıÁ¿µÄÏŞÖÆ¡£ Èç¹ûÄãÓĞÎŞÏŞ¼ÆËã´¦ÀíÄÜÁ¦£¬¿ÉÒÔÔÚË²¼äÍê³É²¢ĞĞÈÎÎñ£¬ÄúÈÔÈ»ÒªÁôÏÂÒ»Ğ©Ê±¼äÀ´ÔËĞĞ´®ĞĞ²¿·ÖµÄ´úÂë¡£ Òò´Ë£¬Èç¹ûÎÒÃÇÈ·Êµ¿ÉÒÔ²¢ĞĞ»¯£¬ÎÒÃÇ±ØĞëÊ×ÏÈ¿¼ÂÇ´óÁ¿µÄ¼ÆËãÁ¿¡£
+
+NVIDIAÖÂÁ¦ÓÚÎªCUDAÌá¹©Ö§³Ö¡£ÖµµÃ²Î¿¼µÄĞÅÏ¢¡¢Àı×ÓºÍ°ïÖú¿ª·¢µÄ¹¤¾ß¿É´ÓÍøÕ¾http://www.nvidia.comµÄCudaZoneÄ£¿éÖĞÏÂÔØ¡£CUDAÓëÆäÇ°Éí²»Í¬£¬ÏÖÔÚÊµ¼ÊÉÏÒÑ¾­¿ªÊ¼»ñµÃÊÆÍ·£¬ÕâÊÇµÚÒ»´Î¿´ÆğÀ´»áÓĞÒ»ÖÖ±à³ÌÓïÑÔ½«³ÉÎªGPU±à³ÌµÄÊ×Ñ¡¡£ ¼øÓÚÖ§³ÖCUDAµÄGPUµÄÊıÁ¿ÏÖÔÚ´ïµ½Êı°ÙÍò£¬ËùÒÔÓĞÒ»¸ö¾Ş´óµÄÊĞ³¡ÔÚÄÇÀïµÈ´ıÖ§³ÖCUDAµÄÓ¦ÓÃ³ÌĞò¡£
+
+Ä¿Ç°ÓĞĞí¶àÖ§³ÖCUDA¹¦ÄÜµÄÓ¦ÓÃ³ÌĞò£¬²¢ÇÒÕâ¸öÊıÁ¿ÈÕÒæÔö³¤¡£NVIDIAÔÚÉçÇøÍøÕ¾http://www.nvidia.com/object/cuda\_apps\_flash\_new.htmlÉÏÕ¹Ê¾ÁËĞí¶àÕâĞ©Ó¦ÓÃ³ÌĞò¡£ÔÚ³ÌĞò±ØĞë×öºÜ¶à¼ÆËã¹¤×÷µÄÁìÓò£¬ÀıÈç´ÓÄãµÄ¼ÒÍ¥µçÓ°ÖÆ×÷DVD£¨ÊÓÆµ×ªÂë£©£¬ÎÒÃÇÏÖÔÚ¿´µ½µÄĞí¶àÖ÷Á÷ÊÓÆµ°ü¶¼Ö§³ÖCUDA¡£CUDAÔÚÕâĞ©ÁìÓòµÄÆ½¾ù¼ÓËÙÊ±¼äÊÇ5µ½10±¶¡£\\
+
+CUDAµÄÌæ´úÆ·£º\\
+1£©OpenCL
+ÄÇÃ´ÆäËûµÄGPUÖÆÔìÉÌÄØ£¬ATI£¨ÏÖÔÚµÄAMD£©¾ÍÊÇ×îºÃµÄÀı×Ó¡£ AMDµÄ²úÆ··¶Î§ÓëNVIDIAµÄÔ­Ê¼¼ÆËã»ú¹¦ÂÊÒ»ÑùÁîÈËÓ¡ÏóÉî¿Ì¡£²»¹ıAMDÍÆ³öÁËËüµÄÁ÷¼ÆËã¼¼Êõµ½ÊĞ³¡ÉÏ£¬ÊÇÔÚNVIDIAÍÆ³öCUDAºÜ³¤Ò»¶ÎÊ±¼äµÄÖ®ºó¡£½á¹û£¬Ïà½ÏÓÚAMD / ATIÁ÷¼ÆËã¼¼Êõ£¬NVIDAÓĞ¸ü¶àµÄ¿ÉÓÃÓÚCUDAµÄÓ¦ÓÃ³ÌĞò¡£
+
+OpenCLºÍDirect¼ÆËã²»ÊÇÎÒÃÇÔÚ±¾ÊéÖĞËùÌÖÂÛµÄ£¬µ«ÊÇÖµµÃÒ»ÌáÔÚCUDAµÄÌæ´úÆ··½Ãæ¡£ CUDAÄ¿Ç°½öÔÚNVIDIAÓ²¼şÉÏÕıÊ½¿ÉÖ´ĞĞ¡£ËäÈ»NVIDIAÔÚGPUÊĞ³¡ÖĞÕ¼ÓĞÏàµ±´óµÄÒ»²¿·Ö£¬µ«Æä¾ºÕù¶ÔÊÖÒ²ÓµÓĞÏàµ±´óµÄÒ»´ó²¿·Ö¡£×÷Îª¿ª·¢ÉÌ£¬ÎÒÃÇÏ£Íû¿ª·¢¾¡¿ÉÄÜ´óµÄÊĞ³¡µÄ²úÆ·£¬ÌØ±ğÊÇµ±ÎÒÃÇÔÚÌ¸ÂÛÏû·ÑÊĞ³¡µÄ»°Ìâ¡£ Òò´Ë£¬ÈËÃÇÓ¦¸ÃÒâÊ¶µ½ÓĞCUDAµÄÌæ´úÆ·»áÍ¬Ê±Ö§³ÖNVIDIAºÍÆäËûÓ²¼ş¡£
+
+OpenCLÊÇNVIDIA£¬AMDºÍÆäËû¹«Ë¾Ö§³ÖºÍ¿ª·ÅµÄÃâ°æË°±ê×¼¡£¸ÃOpenCLÉÌ±êÓÉÆ»¹ûÓµÓĞ¡£ Ëü¹æ¶¨ÁËÔÊĞíÊ¹ÓÃ¼ÆËãµÄ¿ª·Å±ê×¼Éè±¸¡£ ¼ÆËãÉè±¸¿ÉÒÔÊÇOpenGLÇı¶¯³ÌĞòµÄGPU£¬CPU»òÆäËû×¨ÓÃÉè±¸¡£ ½ØÖÁ2012Äê£¬OpenCLÖ§³ÖÁËËùÓĞÖ÷ÒªÆ·ÅÆµÄGPUÉè±¸£¬°üÀ¨ÁËÖÁÉÙÓĞCPUSSE3Ö§³ÖµÄGPU¡£
+
+ÊìÏ¤CUDAµÄÈË¿ÉÒÔ±È½ÏÈİÒ×µØÕÆÎÕOpenCL£¬ËüÃÇÔÚ»ù´¡¸ÅÄîÉÏ·Ç³£ÏàËÆ¡£È»¶ø£¬OpenCLÔÚÊ¹ÓÃÉÏ±ÈCUDAÒª¸´ÔÓµÃ¶à£¬³ÌĞòÔ±ĞèÒªÔÚOpenCLÖĞÏÔÊ½Ö´ĞĞCUDAruntime APIËù×öµÄ¹¤×÷¡£
+Äã¿ÉÒÔÔÚhttp://www.khronos.org/opencl/ÉÏÔÄ¶Á¸ü¶à¹ØÓÚOpenCLµÄĞÅÏ¢¡£ÏÖÔÚ»¹ÓĞ´óÁ¿ÓĞ¹ØOpenCLµÄÊé¼®¡£ÔÚCUDAÖ®Ç°£¬ÎÒ¸öÈËÍÆ¼öÔÚOpenCLÖ®Ç°Ñ§Ï°CUDA£¬ÒòÎªCUDA¶ÔÓÚOpenCLÀ´ËµÊÇ¸ü¸ß¼¶±ğµÄÓïÑÔÀ©Õ¹¡£
+
+
+2£©DirectCompute
+DirectComputeÊÇÎ¢ÈíÌæ´úCUDAºÍOpenCLµÄÆ½Ì¨¡£ ËüÊÇÒ»¸öÓëWindows²Ù×÷ÏµÍ³¹ØÁªµÄ×¨ÓĞµÄ²úÆ·£¬ÌØ±ğÊÇDirectX 11 API¡£¶ÔÓÚÈÎºÎÖ®Ç°±àĞ´¹ıÊÓÆµ¿¨µÄÈËÀ´Ëµ£¬DirectX APIÊÇÒ»¸ö¾Ş´óµÄ·ÉÔ¾¡£ ÕâÒâÎ¶×Å¿ª·¢ÈËÔ±±ØĞëÖ»Ñ§Ï°Ò»¸öAPI¿âÀ´±àĞ´ËùÓĞÏÔ¿¨£¬¶ø²»ÊÇ¸øÃ¿¸öÖ÷ÒªÊÓÆµ¿¨ÖÆÔìÉÌµÄÇı¶¯³ÌĞò±àĞ´³ÌĞò»ò·¢²¼Ğí¿É¡£
+
+DirectX 11ÊÇ×îĞÂµÄ±ê×¼£¬²¢Ö§³ÖWindows 7¡£ÔÚÕâ¸ö±ê×¼ÀïÓĞMicrosoftµÄÃûÍ·£¬Äã¿ÉÒÔÔÚ¿ª·¢ÈËÔ±ÉçÇøÖĞ¿´µ½Ò»Ğ©Ïàµ±Ñ¸ËÙµÄÒâ¼û²ÉÓÃ£¬ÌØ±ğÊÇÕâ¸ö¿ª·¢ÕßÒÑ¾­ÊìÏ¤DirectX APIµÄÇé¿ö¡£ Èç¹ûÄãÊìÏ¤CUDAºÍDirectCompute£¬ÄÇÃ´½«CUDAÓ¦ÓÃ³ÌĞòÒÆÖ²µ½DirectComputeÊÇºÜ¼òµ¥µÄ¡£ ¸ù¾İÎ¢ÈíµÄËµ·¨£¬Èç¹ûÄãÕâÑù×ö£¬ÄãÍ¨³£¿ÉÒÔÔÚÒ»¸öÏÂÎçÍ¨¹ıÒ»Ğ©¹¦¿ÎÀ´ÊìÏ¤Á½¸öÏµÍ³¡£ È»¶ø£¬ÒÔWindowsÎªÖĞĞÄ£¬ÎÒÃÇ½«´ÓUNIXÖ÷µ¼µÄĞí¶à¸ß¶ËÏµÍ³ÅÅ³ıDirectCompute¡£Î¢Èí»¹½«ÍÆ³öÒ»Ì×¶îÍâµÄ±ê×¼Ä£°å¿â£¨STL£©Ctt AMP£¬Õâ¿ÉÄÜÎüÒı¸ü¶àÊìÏ¤Ctt·ç¸ñSTLµÄ³ÌĞòÔ±¡£\\
+
+CPU£¨½â¾ö·½°¸£©µÄÑ¡Ôñ£º\\
+Ö÷ÒªµÄ²¢ĞĞ´¦ÀíÓïÑÔÀ©Õ¹ÊÇMPIºÍOpenMP£¬Èç¹ûÄãÊÇLinux¿ª·¢ÕßÔò»áÓÃµ½pthreads ¶ÔÓÚWindows£¬ÓĞWindowsÏß³ÌÄ£ĞÍºÍOpenMP¡£ MPIºÍpthreadsÔÚUnix¿ÉÎª¸÷ÖÖ¶Ë¿ÚÌá¹©Ö§³Ö¡£
+
+1£©MPI£¨ÏûÏ¢´«µİ½Ó¿Ú£©¿ÉÄÜÊÇ×î¹ãÎªÈËÖªµÄÏûÏ¢½Ó¿Ú¡£ ËüÊÇ»ùÓÚ¹ı³ÌµÄ£¬²¢ÇÒÔÚ´óĞÍ¼ÆËãÊµÑéÊÒÖĞÆÕ±éÓ¦ÓÃ¡£ ËüĞèÒªÒ»¸ö¹ÜÀíÔ±ÕıÈ·ÅäÖÃ°²×°£¬×îÊÊºÏÊÜ¿Ø»·¾³¡£ ²¢ĞĞ¶ÈÊÇÍ¨¹ıÔÚÒ»×é½ÚµãÉÏ²úÉúÊı°Ù¸ö½ø³Ì²¢Ã÷È·µÄ½øĞĞÏûÏ¢½»»»£¬Í¨³£Í¨¹ı¸ßËÙµÄ»ùÓÚÍøÂçµÄÍ¨ĞÅÁ´Â·£¨ÒÔÌ«Íø»ò
+ÎŞÏŞ´ø¿í¼¼Êõ£©¡£ MPI±»¹ã·ºÊ¹ÓÃºÍ´«ÊÚ¡£ ÕâÊÇÒ»¸ö¼¯ÈºÊÜ¿Ø»·¾³ÖĞµÄºÜºÃµÄ½â¾ö·½°¸¡£
+
+2£©OpenMP£¨¿ª·Å¶àÏß³Ì£©ÊÇÒ»ÖÖÉè¼ÆÓÃÓÚÔÚÒ»¸ö½ÚµãÄÚ²¢ĞĞµÄÏµÍ³µçÄÔÏµÍ³¡£ ËüµÄ¹¤×÷·½Ê½ÍêÈ«²»Í¬£¬³ÌĞòÔ±Ö¸¶¨ÁË¸÷ÖÖ¸÷ÑùµÄ²¢ĞĞÖ¸ÁîÍ¨¹ı±àÒëÆ÷±àÒëÖ¸Ê¾¡£È»ºó£¬±àÒëÆ÷»á×Ô¶¯³¢ÊÔ¸ù¾İ¿ÉÓÃµÄ´¦ÀíÆ÷ºËĞÄÊıÁ¿½«ÎÊÌâ·Ö½â³ÉN¸ö²¿·Ö¡£Ğí¶à±àÒëÆ÷¶¼Ö§³ÖOpenMP£¬°üÀ¨ÓÃÓÚCUDAµÄNVCC±àÒëÆ÷¡£OpenMP µÄÓÉÓÚµ×²ãCPUÌåÏµ½á¹¹£¬ÈİÒ×Ôì³ÉËõ·ÅÎÊÌâ¡£ÒòÎªCPUÖĞµÄ´ø¿í²»×ãÒÔÈÃËùÓĞµÄÄÚºË²»¶ÏµØ½«Êı¾İÁ÷´«Êä¡£
+
+3£©PthreadsÊÇÒ»¸öÔÚLinuxÉÏÓÃÓÚ¶àÏß³ÌÓ¦ÓÃ³ÌĞòµÄ¿â¡£ºÍOpenMPÒ»Ñù£¬pthreadsÊ¹ÓÃÏß³Ì¶ø²»ÊÇ½ø³Ì£¬ÒòÎªËü±»Éè¼ÆÓÃÓÚ²¢ĞĞ»¯µ¥¸ö½Úµã¡£È»¶øÓëOpenMP ²»Í¬£¬³ÌĞòÔ±¸ºÔğÏß³Ì¹ÜÀíºÍÍ¬²½¡£ÕâÌá¹©ÁË¸ü¶àµÄÁé»îĞÔ£¬Òò´ËÄÜÒÔ¸üºÃµÄĞÔÄÜÔËĞĞ¾«ĞÄ±àĞ´µÄ³ÌĞò¡£
+
+4£©ZeroMQ£¨0MQ£©Ò²ÖµµÃÒ»Ìá¡£ÕâÊÇÒ»¸öÄã¿ÉÒÔÁ´½Óµ½µÄ¼òµ¥¿â£¬ÎÒÃÇ½«ÔÚ±¾ÊéµÄºóÃæÊ¹ÓÃËüÀ´¿ª·¢Ò»¸ö¶à½Úµã£¬¶àGPUµÄÀı×Ó¡£ZeroMQÖ§³ÖÊ¹ÓÃ»ùÓÚÏß³ÌµÄµ¥¸ö½»²æÆ½Ì¨£¬¹ı³Ì»ùÓÚÍøÂçµÄÍ¨ĞÅÄ£ĞÍAPI¡£ËüÒ²¿ÉÔÚLinuxºÍWindows Æ½Ì¨ÉÏÊ¹ÓÃ¡£ËüÊÇÎª·Ö²¼Ê½¼ÆËãÉè¼ÆµÄ£¬Òò´ËÁ¬½ÓÊÇ¶¯Ì¬µÄ£¬»á³öÏÖ½ÚµãÊ§°Ü¡£
+
+5£©HadoopÒ²ÊÇÄã¿ÉÒÔ¿¼ÂÇµÄ¡£HadoopÊÇGoogleµÄ¿ªÔ´°æ±¾MapReduce¿ò¼Ü¡£ËüÖ÷ÒªÕë¶ÔLinuxÆ½Ì¨¡£Õâ¸ö¿ò¼ÜµÄ¸ÅÄîÊÇ°Ñ²É¼¯µ½µÄÒ»¸ö¾Ş´óµÄÊı¾İ¼¯£¬½«Æä·Ö³É£¨»òÓ³Éä£©³É¶à¸ö¿é¡£Êı¾İ¼¯Ê¹ÓÃ²¢ĞĞ»®·Ö³ÉÊı°Ù¸ö»òÊıÇ§¸ö½ÚµãÎÄ¼şÏµÍ³£¬¶ø²»ÊÇµ¥´¿µÄ·¢ËÍÊı¾İµ½½Úµã¡£È¡¶ø´úÖ®µÄÊÇ½«°üº¬Êı¾İµÄ³ÌĞò·¢ËÍµ½½Úµã¡£Êä³ö½«Ğ´Èë±¾µØ½Úµã²¢±£ÁôÔÚ¸Ã½Úµã¡£ËæºóµÄMapReduce³ÌĞòÒÔÇ°µÄÊä³ö£¬²¢ÒÔÄ³ÖÖ·½Ê½ÔÙ´Î×ª»»¡£ÓÉÓÚÊı¾İÊµ¼ÊÉÏÊÇ¶à¸ö½ÚµãµÄ¾µÏñ£¬ÕâÔÊĞí¸ß¶ÈÈİ´íÒÔ¼°¸ßÍÌÍÂÁ¿ÏµÍ³¡£
+
+\clearpage
+\xjtuendappendix
+
+
+\clearpage
+\fancyhead[CO]{\wuhao \ ÖÂ\quad Ğ»}
+\sectionmark{ÖÂ\quad Ğ»}
 \addcontentsline{toc}{section}{ÖÂĞ»}
 \begin{center}
 \sanhao
 ÖÂ\quad Ğ»
 \end{center}
-ÖÂĞ»£º¶ÔÓÚ±ÏÒµÉè¼Æ£¨ÂÛÎÄ£©µÄÖ¸µ¼½ÌÊ¦£¬¶Ô±ÏÒµÉè¼Æ£¨ÂÛÎÄ£©Ìá¹ıÓĞÒæµÄ½¨Òé»ò¸øÓè¹ı°ïÖúµÄÍ¬Ñ§¡¢Í¬ÊÂÓë¼¯Ìå£¬
-¶¼Ó¦ÔÚÂÛÎÄµÄ½áÎ²²¿·ÖÊéÃæÖÂĞ»£¬ÑÔ´ÇÓ¦¿ÒÇĞ¡¢ÊµÊÂÇóÊÇ¡£Ó¦×¢Ã÷ÊÜºÎÖÖ»ù½ğÖ§³Ö£¨Ã»ÓĞ¿É²»Ğ´£©¡£
 
-\end{CJK*}     % ½áÊøÖĞÎÄ»·¾³
+¸ĞĞ»µ¼Ê¦ÎâÜçæÂÀÏÊ¦ÔÚ±ÏÉè¹¤×÷ÖĞµÄ¶½´Ù¡¢¹ØĞÄºÍ¶à·½ÃæµÄ½¨ÒéºÍÖ¸µ¼£¬ºÜÈÙĞÒÄÜÓë±³¹â°åÏîÄ¿×éµÄ
+¸÷Î»ÀÏÊ¦¡¢Ç°±²Ò»Æğ¹¤×÷£¬Í¬Ê±Ò²¸ĞĞ»ËùÓĞÈËÔÚÕâ´Î¹¤×÷ÖĞÌá¹©µÄ°ïÖúºÍ½Ì»å¡£
+
+
+%\end{CJK*}     % ½áÊøÖĞÎÄ»·¾³
 \end{document} % ½áÊøÕıÎÄ
